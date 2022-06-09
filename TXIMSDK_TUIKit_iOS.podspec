@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
 
   s.name         = "TXIMSDK_TUIKit_iOS"
 
-  s.version      = "0.0.1"
+  s.version      = "0.0.11"
 
   s.summary      = "iOS TUIKit TUIKit"
 
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "10.0"
 
-  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.11" }
 
   s.requires_arc = true
 
@@ -50,6 +50,8 @@ core.dependency 'YYWebImage'
 core.dependency 'YYCache'
 core.dependency 'KJBannerView'
 core.dependency 'MMLayout','~> 0.2.0'
+core.dependency 'LeeTagView'
+
 
   end
 
