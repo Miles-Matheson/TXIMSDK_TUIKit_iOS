@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
 
   s.name         = "TXIMSDK_TUIKit_iOS"
 
-  s.version      = "0.0.12"
+  s.version      = "0.0.13"
 
   s.summary      = "iOS TUIKit TUIKit"
 
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "10.0"
 
-  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.12" }
+  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.13" }
 
   s.requires_arc = true
 
@@ -34,7 +34,6 @@ Pod::Spec.new do |s|
 core.dependency 'ReactiveObjC','~> 3.1.1.0'
 core.dependency 'SDWebImage','~> 5.9.0.0'
 core.dependency 'Masonry'
-core.dependency 'SVProgressHUD'
 core.dependency 'AFNetworking'
 core.dependency 'FMDB'
 core.dependency 'IQKeyboardManager'
@@ -50,7 +49,6 @@ core.dependency 'YYWebImage'
 core.dependency 'YYCache'
 core.dependency 'KJBannerView'
 core.dependency 'MMLayout','~> 0.2.0'
-
 
   end
 
