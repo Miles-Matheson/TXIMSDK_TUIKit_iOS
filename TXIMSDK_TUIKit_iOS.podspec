@@ -20,6 +20,8 @@ Pod::Spec.new do |s|
   s.author       = { "John" => "liyida188@163.com" }
 
   s.platform     = :ios, "10.0"
+  
+  s.static_framework = true
 
   s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.13" }
 
