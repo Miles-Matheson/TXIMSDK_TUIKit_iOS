@@ -22,7 +22,8 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "10.0"
   
   s.static_framework = true
-  s.libraries = "libc++"
+
+  s.libraries = 'libc++'
 
   s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.13" }
 
