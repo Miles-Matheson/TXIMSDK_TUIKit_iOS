@@ -585,21 +585,98 @@
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = NO;
 }
-- (UIImageView *)bgImageView
-{
+
+- (UIImage *)getLaunchImage{
+    NSString *UILaunchStoryboardName = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"UILaunchStoryboardName"];
+    if(UILaunchStoryboardName == nil){
+//        XHLaunchAdLog(@"从 LaunchScreen 中获取启动图失败!");
+        return nil;
+    }
+    UIViewController *LaunchScreenSb = [[UIStoryboard storyboardWithName:UILaunchStoryboardName bundle:nil] instantiateInitialViewController];
+    if(LaunchScreenSb){
+        UIView * view = LaunchScreenSb.view;
+        // 加入到UIWindow后，LaunchScreenSb.view的safeAreaInsets在刘海屏机型才正常。
+        UIWindow *containerWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        view.frame = containerWindow.bounds;
+        [containerWindow addSubview:view];
+        [containerWindow layoutIfNeeded];
+        UIImage *image = [self imageFromView:view];
+        containerWindow = nil;
+        return image;
+    }
+    return nil;
+}
+-(UIImage*)imageFromView:(UIView*)view{
+    if (CGRectIsEmpty(view.frame)) {
+        return nil;
+    }
+    CGSize size = view.bounds.size;
+    //参数1:表示区域大小 参数2:如果需要显示半透明效果,需要传NO,否则传YES 参数3:屏幕密度
+    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
+    if ([view respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)]) {
+        [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+    }else{
+        [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    }
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+
+/// 系统启动图缓存路径
+-(NSString *)launchImageCacheDirectory {
+
+    NSString *bundleID = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
+    NSFileManager *fm = [NSFileManager defaultManager];
+
+    // iOS13之前
+    NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *snapshotsPath = [[cachesDirectory stringByAppendingPathComponent:@"Snapshots"] stringByAppendingPathComponent:bundleID];
+    if ([fm fileExistsAtPath:snapshotsPath]) {
+        return snapshotsPath;
+    }
+    
+    // iOS13
+    NSString *libraryDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
+    snapshotsPath = [NSString stringWithFormat:@"%@/SplashBoard/Snapshots/%@ - {DEFAULT GROUP}", libraryDirectory, bundleID];
+    if ([fm fileExistsAtPath:snapshotsPath]) {
+        return snapshotsPath;
+    }
+    return nil;
+}
+
+- (UIImageView *)bgImageView{
     if (!_bgImageView) {
         _bgImageView = [[UIImageView alloc]init];
-        _bgImageView.image = [UIImage imageNamed:TUIKitResource(@"n_root_lab")];
+        NSString *cacheDir = [self launchImageCacheDirectory];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        
+        NSString *lastName = nil;
+        for (NSString *name in [fm contentsOfDirectoryAtPath:cacheDir error:nil]) {
+            if ([name hasSuffix:@".ktx"] || [name hasSuffix:@".png"]) {
+                lastName = name;
+            }
+        }
+        if (lastName) {
+            NSString *filePath = [cacheDir stringByAppendingPathComponent:lastName];
+            NSData *data = [NSData dataWithContentsOfFile:filePath];
+            UIImage *image = [UIImage imageWithData:data];
+            _bgImageView.image = image;
+        }else{
+            _bgImageView.image = [self getLaunchImage];
+        }
     }
     return _bgImageView;
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = RGB(31, 31, 31);
     [self.view addSubview:self.bgImageView];
     [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.mas_equalTo(self.view);
+        make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
 }
 - (void)viewDidAppear:(BOOL)animated
@@ -20546,6 +20623,18 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
         UIGraphicsEndImageContext();
     [myTabBar setShadowImage:img];
     [myTabBar setBackgroundImage:[[UIImage alloc]init]];
+    
+    if (@available(iOS 13.0, *)) {
+        UITabBarAppearance *standardAppearance = [myTabBar standardAppearance];
+        UITabBarItemAppearance *inlineLayoutAppearance = [[UITabBarItemAppearance alloc]init];
+        standardAppearance.stackedLayoutAppearance = inlineLayoutAppearance;
+        
+        standardAppearance.backgroundImage = [UIImage new];
+        standardAppearance.shadowImage = [UIImage new];
+        standardAppearance.shadowColor = UIColor.clearColor;
+        [standardAppearance configureWithTransparentBackground];
+        myTabBar.standardAppearance = standardAppearance;
+    }
     [self setValue:myTabBar forKey:@"tabBar"];
 }
 - (void)SetupETRAddChildVC:(UIViewController *)childVc imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName
