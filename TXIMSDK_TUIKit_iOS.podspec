@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
 
   s.name         = "TXIMSDK_TUIKit_iOS"
 
-  s.version      = "0.0.13"
+  s.version      = "0.0.2"
 
   s.summary      = "iOS TUIKit TUIKit"
 
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
   s.libraries = 'libc++'
 
-  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.13" }
+  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.2" }
 
   s.requires_arc = true
 
