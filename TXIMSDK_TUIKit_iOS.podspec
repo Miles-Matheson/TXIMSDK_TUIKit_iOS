@@ -46,14 +46,13 @@ core.dependency 'TZImagePickerController'
 core.dependency 'IAPHelper'
 core.dependency 'MJRefresh'
 core.dependency 'SDCycleScrollView'
-core.dependency 'YBImageBrowser'
 core.dependency 'Toast','~> 4.0.0'
 core.dependency 'YYImage'
 core.dependency 'YYWebImage'
 core.dependency 'YYCache'
 core.dependency 'KJBannerView','~> 3.1.0'
 core.dependency 'MMLayout','~> 0.2.0'
-core.dependency 'SVProgressHUD'
+
 
 
   end
