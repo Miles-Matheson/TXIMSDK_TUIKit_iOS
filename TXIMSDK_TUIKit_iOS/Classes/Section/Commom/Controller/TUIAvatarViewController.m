@@ -4946,9 +4946,13 @@
 
 - (void)onNeighborsSimpleCuteLeftBackBtn:(UIButton *)btn
 {
-    NeighborsSimpleCuteSettingMainController *settingvc = [[NeighborsSimpleCuteSettingMainController alloc]init];
+//    NeighborsSimpleCuteSettingMainController *settingvc = [[NeighborsSimpleCuteSettingMainController alloc]init];
+//    settingvc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:settingvc animated:YES];
+    NeighborsSimpleCuteSettingOtherMainController *settingvc = [[NeighborsSimpleCuteSettingOtherMainController alloc]init];
     settingvc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:settingvc animated:YES];
+    
 }
 - (void)onNeighborsSimpleCuteRightBackBtn:(UIButton *)btn
 {
