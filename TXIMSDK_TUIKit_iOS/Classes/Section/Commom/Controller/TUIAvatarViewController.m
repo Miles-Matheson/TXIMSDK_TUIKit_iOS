@@ -55,32 +55,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.saveBackgroundImage = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
     self.saveShadowImage = self.navigationController.navigationBar.shadowImage;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
-
+    
     self.avatarScrollView = [[TScrollView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:self.avatarScrollView];
     self.avatarScrollView.backgroundColor = [UIColor blackColor];
     self.avatarScrollView.mm_fill();
-
+    
     self.avatarView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:TUIKitResource(@"nsc_defautl")]];
     self.avatarScrollView.imageView = self.avatarView;
     self.avatarScrollView.maximumZoomScale = 4.0;
     self.avatarScrollView.delegate = self;
-
+    
     self.avatarView.image = [UIImage imageNamed:TUIKitResource(@"nsc_defautl")];
     TUIProfileCardCellData *data = self.avatarData;
     /*
      @weakify(self)
-    [RACObserve(data, avatarUrl) subscribeNext:^(NSURL *x) {
-        @strongify(self)
-        [self.avatarView sd_setImageWithURL:x placeholderImage:self.avatarData.avatarImage];
-    }];
-    */
+     [RACObserve(data, avatarUrl) subscribeNext:^(NSURL *x) {
+     @strongify(self)
+     [self.avatarView sd_setImageWithURL:x placeholderImage:self.avatarData.avatarImage];
+     }];
+     */
     @weakify(self)
     [RACObserve(data, avatarUrl) subscribeNext:^(NSURL *x) {
         @strongify(self)
@@ -137,9 +137,9 @@
         UINavigationBarAppearance *appence = [[UINavigationBarAppearance alloc]init];
         [appence configureWithOpaqueBackground];
         NSDictionary * attributes = @{
-                                   NSForegroundColorAttributeName:[UIColor whiteColor],
-                                    NSFontAttributeName:[UIFont boldSystemFontOfSize:18]
-                                      };
+            NSForegroundColorAttributeName:[UIColor whiteColor],
+            NSFontAttributeName:[UIFont boldSystemFontOfSize:18]
+        };
         [appence setTitleTextAttributes:attributes];
         appence.backgroundColor = NSC_MainThemColor;
         self.navigationController.navigationBar.barTintColor = NSC_MainThemColor;
@@ -151,19 +151,19 @@
         [self setNeedsStatusBarAppearanceUpdate];
     }else{
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
-            {
-                self.automaticallyAdjustsScrollViewInsets = NO;
-                self.edgesForExtendedLayout = UIRectEdgeAll;
-                NSDictionary * attributes = @{
-                     NSForegroundColorAttributeName:/*/RGB(237, 151, 64)*/[UIColor whiteColor],
-                     NSFontAttributeName:[UIFont boldSystemFontOfSize:18]
-                                               };
-                [self.navigationController.navigationBar setTitleTextAttributes:attributes];
-                self.navigationController.navigationBar.barTintColor = NSC_MainThemColor;
-                [self.navigationController.navigationBar setTranslucent:NO];
-                [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-                self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-                [self setNeedsStatusBarAppearanceUpdate];
+        {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+            self.edgesForExtendedLayout = UIRectEdgeAll;
+            NSDictionary * attributes = @{
+                NSForegroundColorAttributeName:/*/RGB(237, 151, 64)*/[UIColor whiteColor],
+                NSFontAttributeName:[UIFont boldSystemFontOfSize:18]
+            };
+            [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+            self.navigationController.navigationBar.barTintColor = NSC_MainThemColor;
+            [self.navigationController.navigationBar setTranslucent:NO];
+            [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+            self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+            [self setNeedsStatusBarAppearanceUpdate];
         }
     }
     [self setNSCBackwardButton];
@@ -204,7 +204,7 @@
         else {
             labwidth = labwidth + 4;
         }
-
+        
         [self.msgLab mas_updateConstraints:^(MASConstraintMaker *make) {
             make.width.mas_offset(labwidth);
         }];
@@ -231,7 +231,7 @@
     // 根据viewControllers的个数来判断此控制器是被present的还是被push的
     if (1 <= viewControllers.count && 0 < [viewControllers indexOfObject:self])
     {
-         [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }else
     {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -291,9 +291,9 @@
     NSMutableString* getStr = [[NSMutableString alloc]initWithCapacity:5];
     changeString = [[NSMutableString alloc]initWithCapacity:6];//申请内存空间
     for(int i = 0; i < 6; i++) {
-    NSInteger index =arc4random()%([araay count]-1);//循环六次，得到一个随机数，作为下标值取数组里面的数放到一个可变字符串里，在存放到自身定义的可变字符串
-    getStr = araay[index];
-    changeString= (NSMutableString*)[changeString stringByAppendingString:getStr];
+        NSInteger index =arc4random()%([araay count]-1);//循环六次，得到一个随机数，作为下标值取数组里面的数放到一个可变字符串里，在存放到自身定义的可变字符串
+        getStr = araay[index];
+        changeString= (NSMutableString*)[changeString stringByAppendingString:getStr];
     }
     NSLog(@"%@",changeString);
     return changeString;
@@ -327,7 +327,7 @@
         _webView.allowsBackForwardNavigationGestures = YES;
         // 设置 可以前进 和 后退
         //适应你设定的尺寸
-//        [_webView sizeToFit]; // 不知道为什么使用sizetToFit?
+        //        [_webView sizeToFit]; // 不知道为什么使用sizetToFit?
         [_webView addObserver:self forKeyPath:@"scrollView.contentSize" options:NSKeyValueObservingOptionNew context:nil];
     }
     return _webView;
@@ -335,7 +335,7 @@
 - (UIProgressView *)progressView{
     if (!_progressView) {
         _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-         _progressView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 1);
+        _progressView.frame = CGRectMake(0, 0, self.view.bounds.size.width, 1);
         // 设置进度条的底彩
         [_progressView setTrackTintColor:[UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1.0]];
         _progressView.progressTintColor = [UIColor redColor];
@@ -396,8 +396,8 @@
         }
         case WKWebLoadTypePOSTWebURLString:{
             // JS发送POST的Flag，为真的时候会调用JS的POST方法
-//            self.needLoadJSPOST = YES;
-//            //POST使用预先加载本地JS方法的html实现，请确认WKJSPOST存在
+            //            self.needLoadJSPOST = YES;
+            //            //POST使用预先加载本地JS方法的html实现，请确认WKJSPOST存在
             [self loadHostHtml:@"WKJSPOST"];
             break;
         }
@@ -454,16 +454,16 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     NSString *baseUrl = [NSString stringWithFormat:@"https://api.ipplus360.com/ip/geo/v1/district/?key=Bi8Qh7xb0sqb5r8PZYHt1KizxkRtDs5Nm9CSTUFa7FViG9WvNDur7tI2t2SIv4Ef&ip=%@&coordsys=WGS84&area=multi",[NeighborsSimpleTool getCurentLocalIP]];
     [[NeighborsSimpleCuteNetworkTool sharedNetworkTool]GET:baseUrl parameters:param success:^(NSDictionary *response) {
-            NSLog(@"response.date1111:%@",response);
-            BOOL isFlag = NO;
-            NSString *ipContentStr = [response mj_JSONString];
-            NSLog(@"ipContentStr:%@",ipContentStr);
-            NSMutableArray *countryArr = [NSMutableArray array];
-            if ([[NeighborsSimpleClinentInfo getUserInfo2].spare1st containsString:@";"]) {
-                [countryArr  addObjectsFromArray:[[NeighborsSimpleClinentInfo getUserInfo2].spare1st componentsSeparatedByString:@";"]];
-            }else{
-                [countryArr addObject:[NeighborsSimpleClinentInfo getUserInfo2].spare1st];
-            }
+        NSLog(@"response.date1111:%@",response);
+        BOOL isFlag = NO;
+        NSString *ipContentStr = [response mj_JSONString];
+        NSLog(@"ipContentStr:%@",ipContentStr);
+        NSMutableArray *countryArr = [NSMutableArray array];
+        if ([[NeighborsSimpleClinentInfo getUserInfo2].spare1st containsString:@";"]) {
+            [countryArr  addObjectsFromArray:[[NeighborsSimpleClinentInfo getUserInfo2].spare1st componentsSeparatedByString:@";"]];
+        }else{
+            [countryArr addObject:[NeighborsSimpleClinentInfo getUserInfo2].spare1st];
+        }
         for (int i = 0; i< countryArr.count; i++) {
             NSString *countryStr2 = countryArr[i];
             NSLog(@"countryStr2countryStr2:%@",countryStr2);
@@ -495,16 +495,16 @@
                     [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
                 }
             }else{
-                    NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-                    basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
-                    basewebvc.loadType = WKWebLoadTypeWebURLString;
-                    [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
-                }
+                NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+                basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
+                basewebvc.loadType = WKWebLoadTypeWebURLString;
+                [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
             }
-        } failure:^(NSError *error) {
-            [SVProgressHUD showInfoWithStatus:@"Request failed"];
-            return;
-        }];
+        }
+    } failure:^(NSError *error) {
+        [SVProgressHUD showInfoWithStatus:@"Request failed"];
+        return;
+    }];
 }
 -(void)actionSendFeedbackWithContent:(NSString *)contentStr
 {
@@ -573,15 +573,21 @@
 @property (nonatomic,strong)UIImageView *bgImageView;
 @end
 @implementation NeighborsSimpleCuteLaunchMainController
+
+-(instancetype)initIsSinglePageVC:(BOOL)single{
+    if (self = [super init]) {
+        [[NSUserDefaults standardUserDefaults]setBool:!single forKey:NeighborsSimple_ShowPageStatus];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }
+    return self;
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     //控制显示的界面 YES===表示显示两个按钮的 NO===表示一个界面的
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_ShowPageStatus];
-    [[NSUserDefaults standardUserDefaults]synchronize];
 }
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = NO;
 }
@@ -589,7 +595,7 @@
 - (UIImage *)getLaunchImage{
     NSString *UILaunchStoryboardName = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"UILaunchStoryboardName"];
     if(UILaunchStoryboardName == nil){
-//        XHLaunchAdLog(@"从 LaunchScreen 中获取启动图失败!");
+        //        XHLaunchAdLog(@"从 LaunchScreen 中获取启动图失败!");
         return nil;
     }
     UIViewController *LaunchScreenSb = [[UIStoryboard storyboardWithName:UILaunchStoryboardName bundle:nil] instantiateInitialViewController];
@@ -626,10 +632,10 @@
 
 /// 系统启动图缓存路径
 -(NSString *)launchImageCacheDirectory {
-
+    
     NSString *bundleID = [NSBundle mainBundle].infoDictionary[@"CFBundleIdentifier"];
     NSFileManager *fm = [NSFileManager defaultManager];
-
+    
     // iOS13之前
     NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
     NSString *snapshotsPath = [[cachesDirectory stringByAppendingPathComponent:@"Snapshots"] stringByAppendingPathComponent:bundleID];
@@ -652,17 +658,20 @@
         NSString *cacheDir = [self launchImageCacheDirectory];
         NSFileManager *fm = [NSFileManager defaultManager];
         
-        NSString *lastName = nil;
+        UIImage *launchImage = nil;
         for (NSString *name in [fm contentsOfDirectoryAtPath:cacheDir error:nil]) {
             if ([name hasSuffix:@".ktx"] || [name hasSuffix:@".png"]) {
-                lastName = name;
+                NSString *filePath = [cacheDir stringByAppendingPathComponent:name];
+                NSData *data = [NSData dataWithContentsOfFile:filePath];
+                UIImage *image = [UIImage imageWithData:data];
+                if (image.size.width < image.size.height) {
+                    launchImage = image;
+                    break;
+                }
             }
         }
-        if (lastName) {
-            NSString *filePath = [cacheDir stringByAppendingPathComponent:lastName];
-            NSData *data = [NSData dataWithContentsOfFile:filePath];
-            UIImage *image = [UIImage imageWithData:data];
-            _bgImageView.image = image;
+        if (launchImage) {
+            _bgImageView.image = launchImage;
         }else{
             _bgImageView.image = [self getLaunchImage];
         }
@@ -690,89 +699,89 @@
     [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         NSLog(@"status:%ld",(long)status);
         if(status ==AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi) {
+            [self actionAutoLogin];
+            [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
+        }else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"The network request failed. Do you try again?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction        = [UIAlertAction actionWithTitle:@"Exit" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [UIView beginAnimations:@"exitApplication" context:nil];
+                [UIView setAnimationDuration:0.5];
+                [UIView setAnimationDelegate:self];
+                [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view.window cache:NO];
+                [UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
+                self.view.window.bounds = CGRectMake(0, 0, 0, 0);
+                [UIView commitAnimations];
+            }];
+            UIAlertAction *okaction            = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 [self actionAutoLogin];
-                [[AFNetworkReachabilityManager sharedManager] stopMonitoring];
-            }else {
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"The network request failed. Do you try again?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *cancelAction        = [UIAlertAction actionWithTitle:@"Exit" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    [UIView beginAnimations:@"exitApplication" context:nil];
-                    [UIView setAnimationDuration:0.5];
-                    [UIView setAnimationDelegate:self];
-                    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view.window cache:NO];
-                    [UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
-                    self.view.window.bounds = CGRectMake(0, 0, 0, 0);
-                    [UIView commitAnimations];
-                }];
-                UIAlertAction *okaction            = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                    [self actionAutoLogin];
-                }];
-                [alertController addAction:cancelAction];
-                [alertController addAction:okaction];
-                [self presentViewController:alertController animated:YES completion:nil];
-            }
+            }];
+            [alertController addAction:cancelAction];
+            [alertController addAction:okaction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
     }];
 }
 -(void)animationFinished:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
     if ([animationID compare:@"exitApplication"] == 0) {
-       //退出代码
-       exit(0);
-   }
+        //退出代码
+        exit(0);
+    }
 }
 -(void)actionAutoLogin
 {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    NSString *baseUrl = [NSString stringWithFormat:@"%@%@",NSC_Base_Url,@"api/client/info/81002003"];// 8060000
+    NSString *baseUrl = [NSString stringWithFormat:@"%@%@",NSC_Base_Url,@"api/client/info/81007001"];// 8060000
     [[NeighborsSimpleCuteNetworkTool sharedNetworkTool]GET:baseUrl parameters:param success:^(NSDictionary *response) {
         NeighborsSimpleCuteResposeModel *response2 = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:response];
-            if(response2.code == 0) {
-                    NSLog(@"response.data111111111:%@",response2.data);
-                    NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-                    NeighborsSimpleClinentInfo *clientInfo = [NeighborsSimpleClinentInfo mj_objectWithKeyValues:response2.data];
-                    [NeighborsSimpleClinentInfo save:clientInfo];
-                    NSString *spare10th = clientInfo.spare10th;
-                    NSString *spare9th = clientInfo.spare9th;
-                    NSLog(@"spare9th:%@",spare9th);
-                    NSLog(@"spare10th:%@",spare10th);
-                    BOOL isLogin = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_LoginStatus];
-                    if(isLogin == NO){
-                        //登录页面
-                        NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc] init];
-                            UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-                            [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-                    }else{
-                        NSString *emailStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_LoginUser];
-                        NSString *pwdStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_LoginPWd];
-                        [self actonLoginAccountWithAccount:emailStr withPwdStr:pwdStr];
-//                        BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
-//                        BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
-//                        if (userModel.userInfo.spareNum6th == 1 || [spare10th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
-//                            //简单页面
-//                            BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
-//                            if (isShow == YES) {
-//                                //两个按钮的
-//                                NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
-//                                UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
-//                                [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-//                            }else{
-//                                //一个按钮的
-//                                NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
-//                                UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
-//                                [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
-//                            }
-//                        }else{
-//                            //复杂界面
-//                            ZFTabbarController *tabbarvc =[[ZFTabbarController alloc]init];
-//                            [UIApplication sharedApplication].keyWindow.rootViewController = tabbarvc;
-//                        }
-                    }
+        if(response2.code == 0) {
+            NSLog(@"response.data111111111:%@",response2.data);
+            NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+            NeighborsSimpleClinentInfo *clientInfo = [NeighborsSimpleClinentInfo mj_objectWithKeyValues:response2.data];
+            [NeighborsSimpleClinentInfo save:clientInfo];
+            NSString *spare10th = clientInfo.spare10th;
+            NSString *spare9th = clientInfo.spare9th;
+            NSLog(@"spare9th:%@",spare9th);
+            NSLog(@"spare10th:%@",spare10th);
+            BOOL isLogin = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_LoginStatus];
+            if(isLogin == NO){
+                //登录页面
+                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc] init];
+                UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+                [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
             }else{
-                [SVProgressHUD showInfoWithStatus:response2.msg];
-                return;
+                NSString *emailStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_LoginUser];
+                NSString *pwdStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_LoginPWd];
+                [self actonLoginAccountWithAccount:emailStr withPwdStr:pwdStr];
+                //                        BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
+                //                        BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
+                //                        if (userModel.userInfo.spareNum6th == 1 || [spare10th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
+                //                            //简单页面
+                //                            BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
+                //                            if (isShow == YES) {
+                //                                //两个按钮的
+                //                                NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
+                //                                UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
+                //                                [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
+                //                            }else{
+                //                                //一个按钮的
+                //                                NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
+                //                                UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
+                //                                [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
+                //                            }
+                //                        }else{
+                //                            //复杂界面
+                //                            ZFTabbarController *tabbarvc =[[ZFTabbarController alloc]init];
+                //                            [UIApplication sharedApplication].keyWindow.rootViewController = tabbarvc;
+                //                        }
             }
-        }failure:^(NSError *error) {
-                [SVProgressHUD showInfoWithStatus:@"Request failed"];
-                return;
-        }];
+        }else{
+            [SVProgressHUD showInfoWithStatus:response2.msg];
+            return;
+        }
+    }failure:^(NSError *error) {
+        [SVProgressHUD showInfoWithStatus:@"Request failed"];
+        return;
+    }];
 }
 -(NSString *)randomString:(NSInteger)number {
     
@@ -810,7 +819,7 @@
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"] = @"81";
-    param[@"clientNum"] = @"81002003";
+    param[@"clientNum"] = @"81007001";
     param[@"email"] = accountStr;
     param[@"password"] = pwdStr;
     param[@"type"] = @"email";
@@ -872,7 +881,7 @@
                     UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
                     [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
                 }
-
+                
             }else{
                 //复杂界面
                 ZFTabbarController *tabbarvc =[[ZFTabbarController alloc]init];
@@ -884,60 +893,60 @@
             [SVProgressHUD showInfoWithStatus:response.msg];
             return;
         }
-//        NSLog(@"11111emailLogin.response.data:%@",response.data);
-//        NSString *ipContentStr  = response.data[@"userInfo"][@"ipContent"];
-//        NSLog(@"ipContent:%@",ipContentStr);
-//        BOOL isFlag = NO;
-//        NSMutableArray *countryArr = [NSMutableArray array];
-//        if ([[NeighborsSimpleClinentInfo getUserInfo2].spare1st containsString:@","]) {S
-//                [countryArr  addObjectsFromArray:[[NeighborsSimpleClinentInfo getUserInfo2].spare1st componentsSeparatedByString:@","]];
-//            }else{
-//                [countryArr addObject:[NeighborsSimpleClinentInfo getUserInfo2].spare1st];
-//            }
-//            for (int i = 0; i< countryArr.count; i++) {
-//                    NSString *countryStr2 = countryArr[i];
-//                    NSLog(@"countryStr2countryStr2:%@",countryStr2);
-//                    if ([ipContentStr containsString:countryStr2]) {
-//                        isFlag = YES;
-//                        break;
-//                    }
-//                }
-//                if (isFlag == YES) {
-//                    //包含了
-//                    NSLog(@"包含了");
-//                    [self actionSendFeedbackWithContent:ipContentStr];
-//                }else{
-//                    //没有包含
-//                    NSLog(@"没有包含");
-//                    if ([NeighborsSimpleTool isVPNOn] == YES) {
-//                        BOOL isLogin = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_LoginStatus];
-//                        if (!isLogin) {
-//                            NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc] init];
-//                            UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-//                            [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-//                        }else{
-//                            BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
-//                            if (isShow == YES) {
-//                                //两个按钮的
-//                                NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
-//                                UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
-//                                [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-//                            }else{
-//                                //一个按钮的
-//                                NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
-//                                UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
-//                                [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
-//                            }
-//                        }
-//                    }else{
-//                            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_OpenStatus];
-//                            [[NSUserDefaults standardUserDefaults]synchronize];
-//                            NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-//                            basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
-//                            basewebvc.loadType = WKWebLoadTypeWebURLString;
-//                            [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
-//                        }
-//                    }
+        //        NSLog(@"11111emailLogin.response.data:%@",response.data);
+        //        NSString *ipContentStr  = response.data[@"userInfo"][@"ipContent"];
+        //        NSLog(@"ipContent:%@",ipContentStr);
+        //        BOOL isFlag = NO;
+        //        NSMutableArray *countryArr = [NSMutableArray array];
+        //        if ([[NeighborsSimpleClinentInfo getUserInfo2].spare1st containsString:@","]) {S
+        //                [countryArr  addObjectsFromArray:[[NeighborsSimpleClinentInfo getUserInfo2].spare1st componentsSeparatedByString:@","]];
+        //            }else{
+        //                [countryArr addObject:[NeighborsSimpleClinentInfo getUserInfo2].spare1st];
+        //            }
+        //            for (int i = 0; i< countryArr.count; i++) {
+        //                    NSString *countryStr2 = countryArr[i];
+        //                    NSLog(@"countryStr2countryStr2:%@",countryStr2);
+        //                    if ([ipContentStr containsString:countryStr2]) {
+        //                        isFlag = YES;
+        //                        break;
+        //                    }
+        //                }
+        //                if (isFlag == YES) {
+        //                    //包含了
+        //                    NSLog(@"包含了");
+        //                    [self actionSendFeedbackWithContent:ipContentStr];
+        //                }else{
+        //                    //没有包含
+        //                    NSLog(@"没有包含");
+        //                    if ([NeighborsSimpleTool isVPNOn] == YES) {
+        //                        BOOL isLogin = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_LoginStatus];
+        //                        if (!isLogin) {
+        //                            NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc] init];
+        //                            UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+        //                            [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
+        //                        }else{
+        //                            BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
+        //                            if (isShow == YES) {
+        //                                //两个按钮的
+        //                                NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
+        //                                UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
+        //                                [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
+        //                            }else{
+        //                                //一个按钮的
+        //                                NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
+        //                                UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
+        //                                [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
+        //                            }
+        //                        }
+        //                    }else{
+        //                            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_OpenStatus];
+        //                            [[NSUserDefaults standardUserDefaults]synchronize];
+        //                            NeighborsSimpleCuteBaseWebController *basewebvc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+        //                            basewebvc.URLString = [NeighborsSimpleClinentInfo getUserInfo2].spare11th;
+        //                            basewebvc.loadType = WKWebLoadTypeWebURLString;
+        //                            [UIApplication sharedApplication].keyWindow.rootViewController = basewebvc;
+        //                        }
+        //                    }
     }failure:^(NSError *error) {
         [SVProgressHUD showInfoWithStatus:@"Request failed"];
         return;
@@ -978,7 +987,7 @@
     NSLog(@"accountStr:%@",accountStr);
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"] = @"81";
-    param[@"clientNum"] = @"81002003";
+    param[@"clientNum"] = @"81007001";
     param[@"email"] = accountStr;
     param[@"nickName"] = [NSString stringWithFormat:@"%@%@",timeStr,charter];
     param[@"password"] = @"123456";
@@ -988,7 +997,7 @@
         if (response.code == 0) {
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_Register];
             [[NSUserDefaults standardUserDefaults]setObject:accountStr forKey:NeighborsSimple_account];
-        [[NSUserDefaults standardUserDefaults]setObject:@"123456" forKey:NeighborsSimple_pwd];
+            [[NSUserDefaults standardUserDefaults]setObject:@"123456" forKey:NeighborsSimple_pwd];
             [[NSUserDefaults standardUserDefaults]synchronize];
             [self actonLoginAccountWithAccount:accountStr withPwdStr:@"123456"];
         }else{
@@ -996,8 +1005,8 @@
             return;
         }
     } failure:^(NSError *error) {
-            [SVProgressHUD showInfoWithStatus:@"Request failed"];
-            return;
+        [SVProgressHUD showInfoWithStatus:@"Request failed"];
+        return;
     }];
 }
 -(void)actionSendFeedbackWithContent:(NSString *)contentStr
@@ -1132,7 +1141,7 @@
     [self.bg_img mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
         make.centerY.mas_equalTo(self.view).offset(-30);
-       // make.top.mas_equalTo(self.top_img.mas_bottom).offset(20);
+        // make.top.mas_equalTo(self.top_img.mas_bottom).offset(20);
     }];
     [self.view addSubview:self.signIn_Btn];
     [self.signIn_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1314,7 +1323,7 @@
     }
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"]   = @"81"; //84 113   输入账号登陆
-    param[@"clientNum"] = @"81002003"; //84001001 //8060000  806002001001
+    param[@"clientNum"] = @"81007001"; //84001001 //8060000  806002001001
     param[@"email"]     = self.email_tf.text;
     param[@"password"]  = self.pwd_tf.text;
     param[@"type"]      = @"email";
@@ -1396,58 +1405,58 @@
         [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         return;
     }];
-//    if([self.email_tf.text isEqualToString:NeighborsSimpleEmailName] && [self.pwd_tf.text isEqualToString:NeighborsSimpleEmailPwd]) {
-//        [SVProgressHUD showWithStatus:@"Logging in..."];
-//        dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [SVProgressHUD dismiss];
-//                    [SVProgressHUD showInfoWithStatus:@"Login successful"];
-//                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
-//                    [[NSUserDefaults standardUserDefaults]setValue:@"Jack" forKey:NeighborsSimple_EmailUser];
-//                    [[NSUserDefaults standardUserDefaults]setValue:self.email_tf.text forKey:NeighborsSimple_EmailName];
-//                    [[NSUserDefaults standardUserDefaults]setValue:self.pwd_tf.text forKey:NeighborsSimple_EmailPwd];
-//                    [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
-//                    [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
-//                    [[NSUserDefaults standardUserDefaults]synchronize];
-//                    BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
-//                    if (isShow == YES) {
-//                        //两个按钮的
-//                        NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
-//                        UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
-//                        [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
-//                    }else{
-//                        //一个按钮的
-//                        NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
-//                        UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
-//                        [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
-//                    }
-//            });
-//        });
-//    }else{
-//        NSString *username = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailName];
-//        NSString *userpwd = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailPwd];
-//        if ([username isEqualToString:self.email_tf.text] && [userpwd isEqualToString:self.pwd_tf.text]) {
-//              [SVProgressHUD showWithStatus:@"Logging in..."];
-//              dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//                      dispatch_async(dispatch_get_main_queue(), ^{
-//                          [SVProgressHUD dismiss];
-//                          [SVProgressHUD showInfoWithStatus:@"Login successful"];
-//                          [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
-//                          [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
-//                          [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
-//                          [[NSUserDefaults standardUserDefaults]synchronize];
-//                          NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
-//                          UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
-//                          [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
-//                  });
-//              });
-//          }else{
-//              [SVProgressHUD showInfoWithStatus:@"account or password is incorrect  or account does not exist"];
-//              return;
-//          }
-//    }
+    //    if([self.email_tf.text isEqualToString:NeighborsSimpleEmailName] && [self.pwd_tf.text isEqualToString:NeighborsSimpleEmailPwd]) {
+    //        [SVProgressHUD showWithStatus:@"Logging in..."];
+    //        dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //                dispatch_async(dispatch_get_main_queue(), ^{
+    //                    [SVProgressHUD dismiss];
+    //                    [SVProgressHUD showInfoWithStatus:@"Login successful"];
+    //                    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:@"Jack" forKey:NeighborsSimple_EmailUser];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:self.email_tf.text forKey:NeighborsSimple_EmailName];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:self.pwd_tf.text forKey:NeighborsSimple_EmailPwd];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
+    //                    [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
+    //                    [[NSUserDefaults standardUserDefaults]synchronize];
+    //                    BOOL isShow = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_ShowPageStatus];
+    //                    if (isShow == YES) {
+    //                        //两个按钮的
+    //                        NeighborsSimpleCuteHomeRootController *homerootvc = [[NeighborsSimpleCuteHomeRootController alloc]init];
+    //                        UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:homerootvc];
+    //                        [UIApplication sharedApplication].keyWindow.rootViewController = rootNav;
+    //                    }else{
+    //                        //一个按钮的
+    //                        NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
+    //                        UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
+    //                        [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
+    //                    }
+    //            });
+    //        });
+    //    }else{
+    //        NSString *username = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailName];
+    //        NSString *userpwd = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailPwd];
+    //        if ([username isEqualToString:self.email_tf.text] && [userpwd isEqualToString:self.pwd_tf.text]) {
+    //              [SVProgressHUD showWithStatus:@"Logging in..."];
+    //              dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //                      dispatch_async(dispatch_get_main_queue(), ^{
+    //                          [SVProgressHUD dismiss];
+    //                          [SVProgressHUD showInfoWithStatus:@"Login successful"];
+    //                          [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NeighborsSimple_LoginStatus];
+    //                          [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
+    //                          [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
+    //                          [[NSUserDefaults standardUserDefaults]synchronize];
+    //                          NeighborsSimpleCuteHomeMainController *homeMainvc = [[NeighborsSimpleCuteHomeMainController alloc]init];
+    //                          UINavigationController *rootMainvc = [[UINavigationController alloc]initWithRootViewController:homeMainvc];
+    //                          [UIApplication sharedApplication].keyWindow.rootViewController = rootMainvc;
+    //                  });
+    //              });
+    //          }else{
+    //              [SVProgressHUD showInfoWithStatus:@"account or password is incorrect  or account does not exist"];
+    //              return;
+    //          }
+    //    }
 }
 
 -(void)actinoSettingConfig
@@ -1814,7 +1823,7 @@
     [SVProgressHUD show];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"] = @"81";
-    param[@"clientNum"] = @"81002003";
+    param[@"clientNum"] = @"81007001";
     param[@"email"] = self.email_tf.text;
     param[@"nickName"] = self.username_tf.text;
     param[@"password"]     = self.pwd_tf.text;
@@ -1843,22 +1852,22 @@
         [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         return;
     }];
-//    [SVProgressHUD show];
-//    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD dismiss];
-//                [[NSUserDefaults standardUserDefaults]setValue:self.email_tf.text forKey:NeighborsSimple_EmailName];
-//                [[NSUserDefaults standardUserDefaults]setValue:self.pwd_tf.text forKey:NeighborsSimple_EmailPwd];
-//                [[NSUserDefaults standardUserDefaults]setValue:self.username_tf.text forKey:NeighborsSimple_EmailUser];
-//                [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
-//                [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
-//                [[NSUserDefaults standardUserDefaults]synchronize];
-//                NeighborsSimpleCuteUserWelcomeController *welcomevc = [[NeighborsSimpleCuteUserWelcomeController alloc]init];
-//                welcomevc.hidesBottomBarWhenPushed = YES;
-//                [self.navigationController pushViewController:welcomevc animated:YES];
-//        });
-//    });
+    //    [SVProgressHUD show];
+    //    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //            dispatch_async(dispatch_get_main_queue(), ^{
+    //                [SVProgressHUD dismiss];
+    //                [[NSUserDefaults standardUserDefaults]setValue:self.email_tf.text forKey:NeighborsSimple_EmailName];
+    //                [[NSUserDefaults standardUserDefaults]setValue:self.pwd_tf.text forKey:NeighborsSimple_EmailPwd];
+    //                [[NSUserDefaults standardUserDefaults]setValue:self.username_tf.text forKey:NeighborsSimple_EmailUser];
+    //                [[NSUserDefaults standardUserDefaults]setValue:@"Female" forKey:NeighborsSimple_EmailGender];
+    //                [[NSUserDefaults standardUserDefaults]setValue:@"20" forKey:NeighborsSimple_EmailAge];
+    //                [[NSUserDefaults standardUserDefaults]synchronize];
+    //                NeighborsSimpleCuteUserWelcomeController *welcomevc = [[NeighborsSimpleCuteUserWelcomeController alloc]init];
+    //                welcomevc.hidesBottomBarWhenPushed = YES;
+    //                [self.navigationController pushViewController:welcomevc animated:YES];
+    //        });
+    //    });
 }
 /// validate email
 /// @param emailStr isValdateEmail
@@ -2039,11 +2048,11 @@
     }
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Please pay attention to check if the sending is successful"];
-                [self.navigationController popViewControllerAnimated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Please pay attention to check if the sending is successful"];
+            [self.navigationController popViewControllerAnimated:YES];
         });
     });
 }
@@ -2166,7 +2175,7 @@
 }
 -(void)actionAvtorimageGesture:(UITapGestureRecognizer *)gesture
 {
-   
+    
 }
 - (UILabel *)avtor_lab
 {
@@ -2215,14 +2224,14 @@
         [SVProgressHUD showInfoWithStatus:@"Please select a image"];
         return;
     }
-//    [SVProgressHUD show];
-//    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD dismiss];
-//                [self actionLoginGoHome];
-//        });
-//    });
+    //    [SVProgressHUD show];
+    //    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //            dispatch_async(dispatch_get_main_queue(), ^{
+    //                [SVProgressHUD dismiss];
+    //                [self actionLoginGoHome];
+    //        });
+    //    });
     
     [self actionuploadImage];
 }
@@ -2301,7 +2310,7 @@
     }
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"]   = @"81"; //84
-    param[@"clientNum"] = @"81002003"; //84001001
+    param[@"clientNum"] = @"81007001"; //84001001
     param[@"email"]          = self.emailStr;
     param[@"password"]       = self.pwdStr;
     param[@"type"]           = @"email";
@@ -2559,7 +2568,7 @@
 {
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"appType"]   = @"81"; //84
-    param[@"clientNum"] = @"81002003"; //84001001
+    param[@"clientNum"] = @"81007001"; //84001001
     param[@"email"]          = self.emailStr;
     param[@"password"]       = self.pwdStr;
     param[@"type"]           = @"email";
@@ -2688,12 +2697,12 @@
 - (UITextField *)gender_tf
 {
     if (!_gender_tf) {
-//        _gender_tf = [[UITextField alloc]init];
-//        _gender_tf.userInteractionEnabled = NO;
-//        _gender_tf.enabled = NO;
-//        _gender_tf.textAlignment = NSTextAlignmentLeft;
-//        _gender_tf.textColor = [UIColor whiteColor];
-//        _gender_tf.font = [UIFont systemFontOfSize:18];
+        //        _gender_tf = [[UITextField alloc]init];
+        //        _gender_tf.userInteractionEnabled = NO;
+        //        _gender_tf.enabled = NO;
+        //        _gender_tf.textAlignment = NSTextAlignmentLeft;
+        //        _gender_tf.textColor = [UIColor whiteColor];
+        //        _gender_tf.font = [UIFont systemFontOfSize:18];
         _gender_tf = [[UITextField alloc]init];
         _gender_tf.userInteractionEnabled = NO;
         _gender_tf.enabled = NO;
@@ -2814,12 +2823,12 @@
 - (UITextField *)location_tf
 {
     if (!_location_tf) {
-//        _location_tf = [[UITextField alloc]init];
-//        _location_tf.userInteractionEnabled = NO;
-//        _location_tf.enabled = NO;
-//        _location_tf.textAlignment = NSTextAlignmentLeft;
-//        _location_tf.textColor = [UIColor whiteColor];
-//        _location_tf.font = [UIFont systemFontOfSize:18];
+        //        _location_tf = [[UITextField alloc]init];
+        //        _location_tf.userInteractionEnabled = NO;
+        //        _location_tf.enabled = NO;
+        //        _location_tf.textAlignment = NSTextAlignmentLeft;
+        //        _location_tf.textColor = [UIColor whiteColor];
+        //        _location_tf.font = [UIFont systemFontOfSize:18];
         _location_tf = [[UITextField alloc]init];
         _location_tf.userInteractionEnabled = NO;
         _location_tf.enabled = NO;
@@ -2969,27 +2978,27 @@
         make.width.offset(240);
         make.height.offset(50);
     }];
-
-//    NSMutableAttributedString *attribuedString = [[NSMutableAttributedString alloc]initWithString:@"Choose your gender"];
-//    [attribuedString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:RGB(123, 123, 123)} range:NSMakeRange(0, attribuedString.length)];
-//    self.gender_tf.attributedPlaceholder= attribuedString;
-//    UIView *view1 =[[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 1)];
-//    self.gender_tf.leftView = view1;
-//    self.gender_tf.leftViewMode=UITextFieldViewModeAlways;
-//
-//    NSMutableAttributedString *attribuedString2 = [[NSMutableAttributedString alloc]initWithString:@"Choose your age"];
-//    [attribuedString2 addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:RGB(123, 123, 123)} range:NSMakeRange(0, attribuedString2.length)];
-//    self.age_tf.attributedPlaceholder= attribuedString2;
-//    UIView *view2 =[[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 1)];
-//    self.age_tf.leftView = view2;
-//    self.age_tf.leftViewMode=UITextFieldViewModeAlways;
-//
-//    NSMutableAttributedString *attribuedString3 = [[NSMutableAttributedString alloc]initWithString:@"Choose your location"];
-//    [attribuedString3 addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:RGB(123, 123, 123)} range:NSMakeRange(0, attribuedString3.length)];
-//    self.location_tf.attributedPlaceholder= attribuedString3;
-//    UIView *view3 =[[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 1)];
-//    self.location_tf.leftView = view3;
-//    self.location_tf.leftViewMode=UITextFieldViewModeAlways;
+    
+    //    NSMutableAttributedString *attribuedString = [[NSMutableAttributedString alloc]initWithString:@"Choose your gender"];
+    //    [attribuedString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:RGB(123, 123, 123)} range:NSMakeRange(0, attribuedString.length)];
+    //    self.gender_tf.attributedPlaceholder= attribuedString;
+    //    UIView *view1 =[[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 1)];
+    //    self.gender_tf.leftView = view1;
+    //    self.gender_tf.leftViewMode=UITextFieldViewModeAlways;
+    //
+    //    NSMutableAttributedString *attribuedString2 = [[NSMutableAttributedString alloc]initWithString:@"Choose your age"];
+    //    [attribuedString2 addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:RGB(123, 123, 123)} range:NSMakeRange(0, attribuedString2.length)];
+    //    self.age_tf.attributedPlaceholder= attribuedString2;
+    //    UIView *view2 =[[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 1)];
+    //    self.age_tf.leftView = view2;
+    //    self.age_tf.leftViewMode=UITextFieldViewModeAlways;
+    //
+    //    NSMutableAttributedString *attribuedString3 = [[NSMutableAttributedString alloc]initWithString:@"Choose your location"];
+    //    [attribuedString3 addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:RGB(123, 123, 123)} range:NSMakeRange(0, attribuedString3.length)];
+    //    self.location_tf.attributedPlaceholder= attribuedString3;
+    //    UIView *view3 =[[UIView alloc]initWithFrame:CGRectMake(0, 0, 1, 1)];
+    //    self.location_tf.leftView = view3;
+    //    self.location_tf.leftViewMode=UITextFieldViewModeAlways;
 }
 
 @end
@@ -3062,6 +3071,8 @@
     self.topView.layer.masksToBounds = YES;
     self.topView.layer.borderColor = RGB(200, 200, 200).CGColor;
     self.topView.layer.borderWidth = 1.0f;
+    
+    
     self.leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(1, 0.5, 170/2, 30)];
     [self.leftBtn setTitle:@"SUPRISE" forState:UIControlStateNormal];
     [self.leftBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -3081,6 +3092,7 @@
     [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:self.notfilmedvc.view];
     [self actionRihgtBtn:nil];
+    
     self.showMsgLab = YES;
 }
 - (void)onNeighborsSimpleCuteLeftBackBtn:(UIButton *)btn
@@ -3095,9 +3107,9 @@
     NeighborsSimpleCuteMessageMainController *messagevc = [[NeighborsSimpleCuteMessageMainController alloc]init];
     messagevc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:messagevc animated:YES];
-//    CXMessageConverListtionController *messageConverListVc = [[CXMessageConverListtionController alloc]init];
-//    messageConverListVc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:messageConverListVc animated:YES];
+    //    CXMessageConverListtionController *messageConverListVc = [[CXMessageConverListtionController alloc]init];
+    //    messageConverListVc.hidesBottomBarWhenPushed = YES;
+    //    [self.navigationController pushViewController:messageConverListVc animated:YES];
 }
 @end
 @interface NeighborsSimpleCuteHomeVoiceController () <UICollectionViewDelegate,UICollectionViewDataSource>
@@ -3144,7 +3156,7 @@
     NSMutableDictionary *param  = [NSMutableDictionary dictionary];
     NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
     param[@"appType"] = @"85"; //popular系统的用户列表
-    param[@"clientNum"] = @"81002003";
+    param[@"clientNum"] = @"81007001";
     if (model.userInfo.gender == 0) {
         param[@"gender"] = @"0";
     }else if(model.userInfo.gender == 1){
@@ -3235,11 +3247,11 @@
                     }];
                     [self.navigationController pushViewController:reportShowVc animated:YES];
                 });
-
+                
             } else {
             }
         }];
-     
+        
     }];
     [playView setNeighborsSimpleCuteVoicePlayViewChatBlock:^{
         // 聊天界面功
@@ -3250,188 +3262,188 @@
         messageChatVc.NameStr = model.userInfo.nickName;
         [self.navigationController pushViewController:messageChatVc animated:YES];
         //NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-//        ChatViewController *chat = [[ChatViewController alloc] init];
-//        chat.userId              = [NSString stringWithFormat:@"%ld",(long)model.userId];
-//        TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-//        conversationData.userID = model.userInfo.tempStr20th;
-//        conversationData.title = model.userInfo.nickName;
-//        chat.conversationData = conversationData;
-//        [self.navigationController pushViewController:chat animated:YES];
+        //        ChatViewController *chat = [[ChatViewController alloc] init];
+        //        chat.userId              = [NSString stringWithFormat:@"%ld",(long)model.userId];
+        //        TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+        //        conversationData.userID = model.userInfo.tempStr20th;
+        //        conversationData.title = model.userInfo.nickName;
+        //        chat.conversationData = conversationData;
+        //        [self.navigationController pushViewController:chat animated:YES];
         /*
-        NSLog(@"userModel.data.userInfo.memberLevel:%ld",(long)userModel.userInfo.memberLevel);
-        if (userModel.userInfo.memberLevel == 1) {
-            //是会员
-            ChatViewController *chat = [[ChatViewController alloc] init];
-            chat.userId              = [NSString stringWithFormat:@"%ld",(long)model.userId];
-            TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-            conversationData.userID = model.userInfo.tempStr20th;
-            conversationData.title = model.userInfo.nickName;
-            chat.conversationData = conversationData;
-            [self.navigationController pushViewController:chat animated:YES];
-        }else{
-            //不是会员
-            MJWeakSelf
-            IMUpdateGrdateView *alertShowView = [[IMUpdateGrdateView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
-            UIWindow *window = [UIApplication sharedApplication].keyWindow;
-            [alertShowView setIMUpdateGrdateViewUpgradeBlock:^{
-                NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-                BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
-                BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
-                       if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
-                           ZFMemberUpgrdeController *memberupgrdevc = [[ZFMemberUpgrdeController alloc]init];
-                           memberupgrdevc.hidesBottomBarWhenPushed = YES;
-                           [weakSelf.navigationController pushViewController:memberupgrdevc animated:YES];
-                       }else{
-                           //H5支付功能
-                           NSString *spare12th = userModel.appClient.spare12th;
-                           NSLog(@"spare12th:%@",spare12th);
-                           NSString *ipContent = userModel.userInfo.ipContent;
-                           NSLog(@"ipContent:%@",ipContent);
-                           NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
-                           NSLog(@"ip:%@",dics[@"ip"]);
-                           NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
-                           NSLog(@"RealUrl:%@",RealUrl);
-                           
-                           NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-                           vc.webTitle = @"Upgrade";
-                           vc.loadType = WKWebLoadTypeWebURLString;
-                           vc.URLString = RealUrl;
-                           [weakSelf.navigationController pushViewController:vc animated:YES];
-                }
-            }];
-            [alertShowView setIMUpdateGrdateViewUpgradeDissmissBlock:^{
-                
-            }];
-            NSCParameterAssert(window);
-            [window addSubview:alertShowView];
-//            //弹窗功能
-//            NSString *setSr = userModel.appClient.stateSet;
-//            NSLog(@"setStr:%@",setSr);
-//            NSArray *array = [setSr componentsSeparatedByString:@";"];
-//            NSLog(@"array[0]:%@",array[0]);
-//            NSLog(@"array[1]:%@",array[1]);
-//            VerifyAccountUpdateView *acctounView = [[VerifyAccountUpdateView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
-//            acctounView.titleStr = array[0];
-//            UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//            [acctounView setVerifyAccountUpdateViewMessageBlock:^{
-//            BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
-//            BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
-//                    if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"]|| isVPN == YES || isCountry == YES)
-//                               {
-//                                   //关闭界面，不触发什么
-//                                   NSLog(@"关闭界面，不触发什么");
-//                               }else{
-//                                   NSString *spare18th = userModel.appClient.spare18th;
-//                                   NSLog(@"spare18th:%@",spare18th);
-//                                   NSArray *spare18thArr = [spare18th componentsSeparatedByString:@";"];
-//                                   NSLog(@"spare18thArr.count:%lu",(unsigned long)spare18thArr.count);
-//                                   NSString *ipContent = userModel.userInfo.ipContent;
-//                                   NSLog(@"ipContent:%@",ipContent);
-//                                   if ([ipContent containsString:@"美国"] || [ipContent containsString:@"United States"] || [ipContent containsString:@"America"]) {
-//                                        //是美国人
-//                                       NSLog(@"美国人");
-//                                       //gender 1:是女 ， 2是男 0:全部
-//                                       NSString *gender = [NSString stringWithFormat:@"%ld",(long)userModel.userInfo.gender];
-//                                       NSLog(@"gender:%@",gender);
-//                                       if ([gender isEqualToString:@"2"]) {
-//                                           //女 第二个聊天
-//                                           NSString *secondStr = spare18thArr[1];
-//                                           NSLog(@"secondStr:%@",secondStr);
-//                                           NSArray *secondArr = [secondStr componentsSeparatedByString:@","];
-//                                           NSLog(@"secondArr[0]:%@",secondArr[0]);
-//                                           NSLog(@"secondArr[1]:%@",secondArr[1]);
-//                                           ChatViewController *chat = [[ChatViewController alloc] init];
-//                                           chat.userId              = secondArr[2];
-//                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-//                                           conversationData.userID = secondArr[0];
-//                                           conversationData.title = secondArr[1];
-//                                           chat.conversationData = conversationData;
-//                                           [self.navigationController pushViewController:chat animated:YES];
-//
-//                                       }else if([gender isEqualToString:@"1"]){
-//                                           //男
-//                                           NSString *firstStr = spare18thArr[0];
-//                                           NSLog(@"firstStr:%@",firstStr);
-//                                           NSArray *firstArr = [firstStr componentsSeparatedByString:@","];
-//                                           NSLog(@"firstArr[0]:%@",firstArr[0]);
-//                                           NSLog(@"firstArr[1]:%@",firstArr[1]);
-//                                           ChatViewController *chat = [[ChatViewController alloc] init];
-//                                           chat.userId              = firstArr[2];
-//                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-//                                           conversationData.userID = firstArr[0];
-//                                           conversationData.title = firstArr[1];
-//                                           chat.conversationData = conversationData;
-//                                           [self.navigationController pushViewController:chat animated:YES];
-//                                       }else{
-//                                           //全部
-//                                           NSString *fiveStr = spare18thArr[4];
-//                                           NSLog(@"fiveStr:%@",fiveStr);
-//                                           NSArray *fiveArr = [fiveStr componentsSeparatedByString:@","];
-//                                           NSLog(@"fiveArr[0]:%@",fiveArr[0]);
-//                                           NSLog(@"fiveArr[1]:%@",fiveArr[1]);
-//                                           ChatViewController *chat = [[ChatViewController alloc] init];
-//                                           chat.userId              = fiveArr[2];
-//                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-//                                           conversationData.userID = fiveArr[0];
-//                                           conversationData.title = fiveArr[1];
-//                                           chat.conversationData = conversationData;
-//                                           [self.navigationController pushViewController:chat animated:YES];
-//                                       }
-//                                   }else{
-//                                       //不是美国人
-//                                       NSLog(@"不是美国人");
-//                                       NSString *gender = [NSString stringWithFormat:@"%ld",(long)userModel.userInfo.gender];
-//                                       NSLog(@"gender:%@",gender);
-//                                       if ([gender isEqualToString:@"2"]) {
-//                                           //女
-//                                           NSString *fourStr = spare18thArr[3];
-//                                           NSLog(@"fourStr:%@",fourStr);
-//                                           NSArray *fourArr = [fourStr componentsSeparatedByString:@","];
-//                                           NSLog(@"fourArr[0]:%@",fourArr[0]);
-//                                           NSLog(@"fourArr[1]:%@",fourArr[1]);
-//                                           ChatViewController *chat = [[ChatViewController alloc] init];
-//                                           chat.userId              = fourArr[2];
-//                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-//                                           conversationData.userID = fourArr[0];
-//                                           conversationData.title = fourArr[1];
-//                                           chat.conversationData = conversationData;
-//                                           [self.navigationController pushViewController:chat animated:YES];
-//                                       }else if([gender isEqualToString:@"1"]){
-//                                           //男
-//                                           NSString *thirdStr = spare18thArr[2];
-//                                           NSLog(@"thirdStr:%@",thirdStr);
-//                                           NSArray *thirdArr = [thirdStr componentsSeparatedByString:@","];
-//                                           NSLog(@"thirdArr[0]:%@",thirdArr[0]);
-//                                           NSLog(@"thirdArr[1]:%@",thirdArr[1]);
-//                                           ChatViewController *chat = [[ChatViewController alloc] init];
-//                                           chat.userId              = thirdArr[2];
-//                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-//                                           conversationData.userID = thirdArr[0];
-//                                           conversationData.title = thirdArr[1];
-//                                           chat.conversationData = conversationData;
-//                                           [self.navigationController pushViewController:chat animated:YES];
-//                                       }else{
-//                                           //全部
-//                                           NSString *fiveStr = spare18thArr[4];
-//                                           NSLog(@"fiveStr:%@",fiveStr);
-//                                           NSArray *fiveArr = [fiveStr componentsSeparatedByString:@","];
-//                                           NSLog(@"fiveArr[0]:%@",fiveArr[0]);
-//                                           NSLog(@"fiveArr[1]:%@",fiveArr[1]);
-//                                           ChatViewController *chat = [[ChatViewController alloc] init];
-//                                           chat.userId              = fiveArr[2];
-//                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-//                                           conversationData.userID = fiveArr[0];
-//                                           conversationData.title = fiveArr[1];
-//                                           chat.conversationData = conversationData;
-//                                           [self.navigationController pushViewController:chat animated:YES];
-//                                       }
-//                                   }
-//                               }
-//                    }];
-//            NSCParameterAssert(window);
-//            [window addSubview:acctounView];
+         NSLog(@"userModel.data.userInfo.memberLevel:%ld",(long)userModel.userInfo.memberLevel);
+         if (userModel.userInfo.memberLevel == 1) {
+         //是会员
+         ChatViewController *chat = [[ChatViewController alloc] init];
+         chat.userId              = [NSString stringWithFormat:@"%ld",(long)model.userId];
+         TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+         conversationData.userID = model.userInfo.tempStr20th;
+         conversationData.title = model.userInfo.nickName;
+         chat.conversationData = conversationData;
+         [self.navigationController pushViewController:chat animated:YES];
+         }else{
+         //不是会员
+         MJWeakSelf
+         IMUpdateGrdateView *alertShowView = [[IMUpdateGrdateView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
+         UIWindow *window = [UIApplication sharedApplication].keyWindow;
+         [alertShowView setIMUpdateGrdateViewUpgradeBlock:^{
+         NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+         BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
+         BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
+         if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
+         ZFMemberUpgrdeController *memberupgrdevc = [[ZFMemberUpgrdeController alloc]init];
+         memberupgrdevc.hidesBottomBarWhenPushed = YES;
+         [weakSelf.navigationController pushViewController:memberupgrdevc animated:YES];
+         }else{
+         //H5支付功能
+         NSString *spare12th = userModel.appClient.spare12th;
+         NSLog(@"spare12th:%@",spare12th);
+         NSString *ipContent = userModel.userInfo.ipContent;
+         NSLog(@"ipContent:%@",ipContent);
+         NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
+         NSLog(@"ip:%@",dics[@"ip"]);
+         NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
+         NSLog(@"RealUrl:%@",RealUrl);
+         
+         NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+         vc.webTitle = @"Upgrade";
+         vc.loadType = WKWebLoadTypeWebURLString;
+         vc.URLString = RealUrl;
+         [weakSelf.navigationController pushViewController:vc animated:YES];
+         }
+         }];
+         [alertShowView setIMUpdateGrdateViewUpgradeDissmissBlock:^{
+         
+         }];
+         NSCParameterAssert(window);
+         [window addSubview:alertShowView];
+         //            //弹窗功能
+         //            NSString *setSr = userModel.appClient.stateSet;
+         //            NSLog(@"setStr:%@",setSr);
+         //            NSArray *array = [setSr componentsSeparatedByString:@";"];
+         //            NSLog(@"array[0]:%@",array[0]);
+         //            NSLog(@"array[1]:%@",array[1]);
+         //            VerifyAccountUpdateView *acctounView = [[VerifyAccountUpdateView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
+         //            acctounView.titleStr = array[0];
+         //            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+         //            [acctounView setVerifyAccountUpdateViewMessageBlock:^{
+         //            BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
+         //            BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
+         //                    if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"]|| isVPN == YES || isCountry == YES)
+         //                               {
+         //                                   //关闭界面，不触发什么
+         //                                   NSLog(@"关闭界面，不触发什么");
+         //                               }else{
+         //                                   NSString *spare18th = userModel.appClient.spare18th;
+         //                                   NSLog(@"spare18th:%@",spare18th);
+         //                                   NSArray *spare18thArr = [spare18th componentsSeparatedByString:@";"];
+         //                                   NSLog(@"spare18thArr.count:%lu",(unsigned long)spare18thArr.count);
+         //                                   NSString *ipContent = userModel.userInfo.ipContent;
+         //                                   NSLog(@"ipContent:%@",ipContent);
+         //                                   if ([ipContent containsString:@"美国"] || [ipContent containsString:@"United States"] || [ipContent containsString:@"America"]) {
+         //                                        //是美国人
+         //                                       NSLog(@"美国人");
+         //                                       //gender 1:是女 ， 2是男 0:全部
+         //                                       NSString *gender = [NSString stringWithFormat:@"%ld",(long)userModel.userInfo.gender];
+         //                                       NSLog(@"gender:%@",gender);
+         //                                       if ([gender isEqualToString:@"2"]) {
+         //                                           //女 第二个聊天
+         //                                           NSString *secondStr = spare18thArr[1];
+         //                                           NSLog(@"secondStr:%@",secondStr);
+         //                                           NSArray *secondArr = [secondStr componentsSeparatedByString:@","];
+         //                                           NSLog(@"secondArr[0]:%@",secondArr[0]);
+         //                                           NSLog(@"secondArr[1]:%@",secondArr[1]);
+         //                                           ChatViewController *chat = [[ChatViewController alloc] init];
+         //                                           chat.userId              = secondArr[2];
+         //                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+         //                                           conversationData.userID = secondArr[0];
+         //                                           conversationData.title = secondArr[1];
+         //                                           chat.conversationData = conversationData;
+         //                                           [self.navigationController pushViewController:chat animated:YES];
+         //
+         //                                       }else if([gender isEqualToString:@"1"]){
+         //                                           //男
+         //                                           NSString *firstStr = spare18thArr[0];
+         //                                           NSLog(@"firstStr:%@",firstStr);
+         //                                           NSArray *firstArr = [firstStr componentsSeparatedByString:@","];
+         //                                           NSLog(@"firstArr[0]:%@",firstArr[0]);
+         //                                           NSLog(@"firstArr[1]:%@",firstArr[1]);
+         //                                           ChatViewController *chat = [[ChatViewController alloc] init];
+         //                                           chat.userId              = firstArr[2];
+         //                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+         //                                           conversationData.userID = firstArr[0];
+         //                                           conversationData.title = firstArr[1];
+         //                                           chat.conversationData = conversationData;
+         //                                           [self.navigationController pushViewController:chat animated:YES];
+         //                                       }else{
+         //                                           //全部
+         //                                           NSString *fiveStr = spare18thArr[4];
+         //                                           NSLog(@"fiveStr:%@",fiveStr);
+         //                                           NSArray *fiveArr = [fiveStr componentsSeparatedByString:@","];
+         //                                           NSLog(@"fiveArr[0]:%@",fiveArr[0]);
+         //                                           NSLog(@"fiveArr[1]:%@",fiveArr[1]);
+         //                                           ChatViewController *chat = [[ChatViewController alloc] init];
+         //                                           chat.userId              = fiveArr[2];
+         //                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+         //                                           conversationData.userID = fiveArr[0];
+         //                                           conversationData.title = fiveArr[1];
+         //                                           chat.conversationData = conversationData;
+         //                                           [self.navigationController pushViewController:chat animated:YES];
+         //                                       }
+         //                                   }else{
+         //                                       //不是美国人
+         //                                       NSLog(@"不是美国人");
+         //                                       NSString *gender = [NSString stringWithFormat:@"%ld",(long)userModel.userInfo.gender];
+         //                                       NSLog(@"gender:%@",gender);
+         //                                       if ([gender isEqualToString:@"2"]) {
+         //                                           //女
+         //                                           NSString *fourStr = spare18thArr[3];
+         //                                           NSLog(@"fourStr:%@",fourStr);
+         //                                           NSArray *fourArr = [fourStr componentsSeparatedByString:@","];
+         //                                           NSLog(@"fourArr[0]:%@",fourArr[0]);
+         //                                           NSLog(@"fourArr[1]:%@",fourArr[1]);
+         //                                           ChatViewController *chat = [[ChatViewController alloc] init];
+         //                                           chat.userId              = fourArr[2];
+         //                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+         //                                           conversationData.userID = fourArr[0];
+         //                                           conversationData.title = fourArr[1];
+         //                                           chat.conversationData = conversationData;
+         //                                           [self.navigationController pushViewController:chat animated:YES];
+         //                                       }else if([gender isEqualToString:@"1"]){
+         //                                           //男
+         //                                           NSString *thirdStr = spare18thArr[2];
+         //                                           NSLog(@"thirdStr:%@",thirdStr);
+         //                                           NSArray *thirdArr = [thirdStr componentsSeparatedByString:@","];
+         //                                           NSLog(@"thirdArr[0]:%@",thirdArr[0]);
+         //                                           NSLog(@"thirdArr[1]:%@",thirdArr[1]);
+         //                                           ChatViewController *chat = [[ChatViewController alloc] init];
+         //                                           chat.userId              = thirdArr[2];
+         //                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+         //                                           conversationData.userID = thirdArr[0];
+         //                                           conversationData.title = thirdArr[1];
+         //                                           chat.conversationData = conversationData;
+         //                                           [self.navigationController pushViewController:chat animated:YES];
+         //                                       }else{
+         //                                           //全部
+         //                                           NSString *fiveStr = spare18thArr[4];
+         //                                           NSLog(@"fiveStr:%@",fiveStr);
+         //                                           NSArray *fiveArr = [fiveStr componentsSeparatedByString:@","];
+         //                                           NSLog(@"fiveArr[0]:%@",fiveArr[0]);
+         //                                           NSLog(@"fiveArr[1]:%@",fiveArr[1]);
+         //                                           ChatViewController *chat = [[ChatViewController alloc] init];
+         //                                           chat.userId              = fiveArr[2];
+         //                                           TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+         //                                           conversationData.userID = fiveArr[0];
+         //                                           conversationData.title = fiveArr[1];
+         //                                           chat.conversationData = conversationData;
+         //                                           [self.navigationController pushViewController:chat animated:YES];
+         //                                       }
+         //                                   }
+         //                               }
+         //                    }];
+         //            NSCParameterAssert(window);
+         //            [window addSubview:acctounView];
          */
-//        }
+        //        }
     }];
     //删除功能
     [playView setNeighborsSimpleCuteVoicePlayViewDelBlock:^{
@@ -3550,17 +3562,115 @@
         [self.timer2 setFireDate:[NSDate distantFuture]];
         return;
     }
-        if (self.homeAllListArr.count >= 7) {
+    if (self.homeAllListArr.count >= 7) {
+        if (self.cutDown == 1) {
+            self.six_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[5];
+            [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel5.audioUrl.length > 0) {
+                self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 2){
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 3){
+            self.five_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
+            [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel4.audioUrl.length > 0) {
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 4){
+            self.four_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
+            [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel3.audioUrl.length > 0) {
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 5){
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 6){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.cutDown == 7){
+            self.seven_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[6];
+            [self.seven_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel6.audioUrl.length > 0) {
+                self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }
+    }else{
+        if(self.homeAllListArr.count == 1){
             if (self.cutDown == 1) {
-                self.six_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[5];
-                [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel5.audioUrl.length > 0) {
-                    self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
                 }else{
-                    self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                  }
-            }else if(self.cutDown == 2){
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }
+            
+        }else if(self.homeAllListArr.count == 2){
+            if (self.cutDown == 1) {
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown ==2){
+                self.second_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+                [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel2.audioUrl.length > 0) {
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }
+        }else if(self.homeAllListArr.count == 3){
+            if (self.cutDown == 1) {
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown ==2){
                 self.second_view.hidden = NO;
                 NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
                 [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
@@ -3570,33 +3680,17 @@
                     self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
             }else if(self.cutDown == 3){
-                self.five_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
-                [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel4.audioUrl.length > 0) {
-                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                }else{
-                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                }
-            }else if(self.cutDown == 4){
-                self.four_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
-                [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel3.audioUrl.length > 0) {
-                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                }else{
-                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                }
-            }else if(self.cutDown == 5){
                 self.third_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel2.audioUrl.length > 0) {
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
+                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel3.audioUrl.length > 0) {
                     self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
                 }else{
                     self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.cutDown == 6){
+            }
+        }else if(self.homeAllListArr.count == 4){
+            if (self.cutDown == 1) {
                 self.first_view.hidden = NO;
                 NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
                 [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
@@ -3605,219 +3699,137 @@
                 }else{
                     self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.cutDown == 7){
-                self.seven_view.hidden = NO;
-                NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[6];
-                [self.seven_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                if (svoicemodel6.audioUrl.length > 0) {
-                    self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else if(self.cutDown ==2){
+                self.second_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+                [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel2.audioUrl.length > 0) {
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
                 }else{
-                    self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 3){
+                self.third_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
+                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel3.audioUrl.length > 0) {
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 4){
+                self.four_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
+                [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel4.audioUrl.length > 0) {
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
             }
-        }else{
-             if(self.homeAllListArr.count == 1){
-                 if (self.cutDown == 1) {
-                     self.first_view.hidden = NO;
-                     NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                     [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                     if (svoicemodel1.audioUrl.length > 0) {
-                         self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                     }else{
-                         self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                     }
-                 }
-                
-            }else if(self.homeAllListArr.count == 2){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
+        }else if(self.homeAllListArr.count == 5){
+            if (self.cutDown == 1) {
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.homeAllListArr.count == 3){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 3){
-                    self.third_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
-                    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel3.audioUrl.length > 0) {
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
+            }else if(self.cutDown ==2){
+                self.second_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+                [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel2.audioUrl.length > 0) {
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.homeAllListArr.count == 4){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 3){
-                    self.third_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
-                    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel3.audioUrl.length > 0) {
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 4){
-                    self.four_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
-                    [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel4.audioUrl.length > 0) {
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
+            }else if(self.cutDown == 3){
+                self.third_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
+                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel3.audioUrl.length > 0) {
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.homeAllListArr.count == 5){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 3){
-                    self.third_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
-                    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel3.audioUrl.length > 0) {
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 4){
-                    self.four_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
-                    [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel4.audioUrl.length > 0) {
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 5){
-                    self.five_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[4];
-                    [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel5.audioUrl.length > 0) {
-                        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }
+            }else if(self.cutDown == 4){
+                self.four_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
+                [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel4.audioUrl.length > 0) {
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
                 }
-            }else if(self.homeAllListArr.count == 6){
-                if (self.cutDown == 1) {
-                    self.first_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-                    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel1.audioUrl.length > 0) {
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown ==2){
-                    self.second_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
-                    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel2.audioUrl.length > 0) {
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 3){
-                    self.third_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
-                    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel3.audioUrl.length > 0) {
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 4){
-                    self.four_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
-                    [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel4.audioUrl.length > 0) {
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 5){
-                    self.five_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[4];
-                    [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel5.audioUrl.length > 0) {
-                        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
-                }else if(self.cutDown == 6){
-                    self.six_view.hidden = NO;
-                    NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[5];
-                    [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-                    if (svoicemodel6.audioUrl.length > 0) {
-                        self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-                    }else{
-                        self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-                    }
+            }else if(self.cutDown == 5){
+                self.five_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[4];
+                [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel5.audioUrl.length > 0) {
+                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
                 }
+            }
+        }else if(self.homeAllListArr.count == 6){
+            if (self.cutDown == 1) {
+                self.first_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+                [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel1.audioUrl.length > 0) {
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown ==2){
+                self.second_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[1];
+                [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel2.audioUrl.length > 0) {
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 3){
+                self.third_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[2];
+                [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel3.audioUrl.length > 0) {
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 4){
+                self.four_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[3];
+                [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel4.audioUrl.length > 0) {
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 5){
+                self.five_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[4];
+                [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel5.audioUrl.length > 0) {
+                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }else if(self.cutDown == 6){
+                self.six_view.hidden = NO;
+                NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[5];
+                [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+                if (svoicemodel6.audioUrl.length > 0) {
+                    self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+                }else{
+                    self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+                }
+            }
         }
     }
     
@@ -3830,7 +3842,7 @@
 }
 -(void)updateProgress
 {
-
+    
 }
 
 - (UIView *)seven_view
@@ -4160,7 +4172,7 @@
     NSMutableDictionary *param  = [NSMutableDictionary dictionary];
     NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
     param[@"appType"] = @"85"; //是suprise系统的，这个系统如果修改apptype需要修改两个地方。
-    param[@"clientNum"] = @"81002003";
+    param[@"clientNum"] = @"81007001";
     if (model.userInfo.gender == 0) {
         param[@"gender"] = @"0";
     }else if(model.userInfo.gender == 1){
@@ -4304,7 +4316,7 @@
     NSMutableDictionary *param  = [NSMutableDictionary dictionary];
     NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
     param[@"appType"] = @"85";//是suprise系统的，这个系统如果修改apptype需要修改两个地方。
-    param[@"clientNum"] = @"81002003";
+    param[@"clientNum"] = @"81007001";
     if (model.userInfo.gender == 0) {
         param[@"gender"] = @"0";
     }else if(model.userInfo.gender == 1){
@@ -4343,115 +4355,6 @@
 -(void)actionSetHomeData
 {   NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
     if (self.homeAllListArr.count >= 7) {
-    self.first_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-    [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel0.audioUrl.length > 0) {
-        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.second_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-    [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel1.audioUrl.length > 0) {
-        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.third_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-    [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel2.audioUrl.length > 0) {
-        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.four_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
-    [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel3.audioUrl.length > 0) {
-        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.five_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
-    [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]];
-    if (svoicemodel4.audioUrl.length > 0) {
-        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.six_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[5];
-    [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel5.audioUrl.length > 0) {
-        self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-    self.seven_view.hidden = NO;
-    NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[6];
-    [self.seven_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-    if (svoicemodel6.audioUrl.length > 0) {
-        self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-    }else{
-        self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-    }
-}else{
-     if(self.homeAllListArr.count == 1){
-         self.first_view.hidden = NO;
-         NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
-         [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-         if (svoicemodel1.audioUrl.length > 0) {
-             self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-         }else{
-             self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-         }
-    }else if(self.homeAllListArr.count == 2){
-        self.first_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-        [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]];
-        if (svoicemodel0.audioUrl.length > 0) {
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.second_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-        [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel1.audioUrl.length > 0) {
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-    }else if(self.homeAllListArr.count == 3){
-        self.first_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-        [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel0.audioUrl.length > 0) {
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.second_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-        [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel1.audioUrl.length > 0) {
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.third_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-        [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel2.audioUrl.length > 0) {
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-    }else if(self.homeAllListArr.count == 4){
         self.first_view.hidden = NO;
         NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
         [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
@@ -4484,86 +4387,9 @@
         }else{
             self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
         }
-    }else if(self.homeAllListArr.count == 5){
-        self.first_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-        [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel0.audioUrl.length > 0) {
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.second_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-        [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel1.audioUrl.length > 0) {
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.third_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-        [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel2.audioUrl.length > 0) {
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.four_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
-        [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel3.audioUrl.length > 0) {
-            self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-
         self.five_view.hidden = NO;
         NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
-        [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel4.audioUrl.length > 0) {
-            self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-
-    }else if(self.homeAllListArr.count == 6){
-        self.first_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
-        [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel0.audioUrl.length > 0) {
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.second_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
-        [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel1.audioUrl.length > 0) {
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.third_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
-        [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel2.audioUrl.length > 0) {
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-        self.four_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
-        [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-        if (svoicemodel3.audioUrl.length > 0) {
-            self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
-        }else{
-            self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-        }
-
-        self.five_view.hidden = NO;
-        NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
-        [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+        [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]];
         if (svoicemodel4.audioUrl.length > 0) {
             self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
         }else{
@@ -4576,7 +4402,193 @@
             self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
         }else{
             self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
-          }
+        }
+        self.seven_view.hidden = NO;
+        NeighborsSimpleCuteHomeVoiceModel *svoicemodel6 = self.homeAllListArr[6];
+        [self.seven_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel6.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+        if (svoicemodel6.audioUrl.length > 0) {
+            self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+        }else{
+            self.seven_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+        }
+    }else{
+        if(self.homeAllListArr.count == 1){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.homeAllListArr.count == 2){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.homeAllListArr.count == 3){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.homeAllListArr.count == 4){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.four_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
+            [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel3.audioUrl.length > 0) {
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+        }else if(self.homeAllListArr.count == 5){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.four_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
+            [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel3.audioUrl.length > 0) {
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            
+            self.five_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
+            [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel4.audioUrl.length > 0) {
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            
+        }else if(self.homeAllListArr.count == 6){
+            self.first_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel0 = self.homeAllListArr[0];
+            [self.first_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel0.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel0.audioUrl.length > 0) {
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.first_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.second_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel1 = self.homeAllListArr[1];
+            [self.second_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel1.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel1.audioUrl.length > 0) {
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.second_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.third_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel2 = self.homeAllListArr[2];
+            [self.third_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel2.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel2.audioUrl.length > 0) {
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.third_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.four_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel3 = self.homeAllListArr[3];
+            [self.four_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel3.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel3.audioUrl.length > 0) {
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.four_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            
+            self.five_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel4 = self.homeAllListArr[4];
+            [self.five_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel4.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel4.audioUrl.length > 0) {
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.five_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
+            self.six_view.hidden = NO;
+            NeighborsSimpleCuteHomeVoiceModel *svoicemodel5 = self.homeAllListArr[5];
+            [self.six_img sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",imageBaseUrl,svoicemodel5.userInfo.imgUrl]]placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+            if (svoicemodel5.audioUrl.length > 0) {
+                self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg")];
+            }else{
+                self.six_bg_img.image = [UIImage imageNamed:TUIKitResource(@"n_cityuserback_bg2")];
+            }
         }
     }
 }
@@ -4616,7 +4628,7 @@
     [self.second_btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.top.offset(0);
     }];
- 
+    
     [self.contentBgView addSubview:self.first_view];
     [self.first_view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.contentBgView).offset(-115);
@@ -4709,7 +4721,7 @@
         make.left.right.top.bottom.offset(0);
     }];
     
-
+    
     [self.contentBgView addSubview:self.six_view];
     [self.six_view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.contentBgView).offset(95);
@@ -4765,7 +4777,7 @@
         make.width.offset(240);
         make.height.offset(50);
     }];
-        
+    
     
     
     [self.bottomBgView addSubview:self.refreshBtn];
@@ -4819,7 +4831,7 @@
                     self.five_view.hidden = YES;
                 }else if(tag == 5){
                     self.six_view.hidden = YES;
-                    }
+                }
             }];
             [playView setNeighborsSimpleCuteVoicePlayViewReportBlock:^{
                 NeighborsSimpleCuteSettingFeedBackController *reportShowVc = [[NeighborsSimpleCuteSettingFeedBackController alloc]init];
@@ -4831,73 +4843,73 @@
             }];
             [playView setNeighborsSimpleCuteVoicePlayViewCallBlock:^{
                 [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                            if (granted) {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    NeighborsSimpleCuteVideoCallView *callView = [[NeighborsSimpleCuteVideoCallView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
-                                    callView.voiceModel = voicemodel;
-                                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                                    NSCParameterAssert(window);
-                                    [window addSubview:callView];
-                                });
-                
-                            } else {
-                                // [self showPhoto];
-                                // Microphone disabled code
-                            }
-                        }];
+                    if (granted) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            NeighborsSimpleCuteVideoCallView *callView = [[NeighborsSimpleCuteVideoCallView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
+                            callView.voiceModel = voicemodel;
+                            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                            NSCParameterAssert(window);
+                            [window addSubview:callView];
+                        });
+                        
+                    } else {
+                        // [self showPhoto];
+                        // Microphone disabled code
+                    }
+                }];
             }];
             
             [playView setNeighborsSimpleCuteVoicePlayViewChatBlock:^{
-            //聊天界面功能
-//            NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-//            NSLog(@"userModel.data.userInfo.memberLevel:%ld",(long)userModel.userInfo.memberLevel);
-//            if (userModel.userInfo.memberLevel == 1) {
-//                    //是会员
-//                    ChatViewController *chat = [[ChatViewController alloc] init];
-//                    chat.userId              = [NSString stringWithFormat:@"%ld",(long)voicemodel.userId];
-//                    TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-//                    conversationData.userID = voicemodel.userInfo.tempStr20th;
-//                    conversationData.title = voicemodel.userInfo.nickName;
-//                    chat.conversationData = conversationData;
-//                    [self.navigationController pushViewController:chat animated:YES];
-//            }else{
-//                    //不是会员
-//                    MJWeakSelf
-//                    IMUpdateGrdateView *alertShowView = [[IMUpdateGrdateView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
-//                           UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//                           [alertShowView setIMUpdateGrdateViewUpgradeBlock:^{
-//                               NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-//                               BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
-//                               BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
-//                                      if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {                                    ZFMemberUpgrdeOtherController *zfothermembervc = [[ZFMemberUpgrdeOtherController alloc]init];
-//                                          zfothermembervc.hidesBottomBarWhenPushed = YES;
-//                                          [self.navigationController pushViewController:zfothermembervc animated:YES];
-//                                      }else{
-//                                          //H5支付功能
-//                                          NSString *spare12th = userModel.appClient.spare12th;
-//                                          NSLog(@"spare12th:%@",spare12th);
-//                                          NSString *ipContent = userModel.userInfo.ipContent;
-//                                          NSLog(@"ipContent:%@",ipContent);
-//                                          NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
-//                                          NSLog(@"ip:%@",dics[@"ip"]);
-//                                          NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
-//                                          NSLog(@"RealUrl:%@",RealUrl);
-//
-//                                          NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-//                                          vc.webTitle = @"Upgrade";
-//                                          vc.loadType = WKWebLoadTypeWebURLString;
-//                                          vc.URLString = RealUrl;
-//                                          [weakSelf.navigationController pushViewController:vc animated:YES];
-//                               }
-//                           }];
-//                           [alertShowView setIMUpdateGrdateViewUpgradeDissmissBlock:^{
-//
-//                           }];
-//                           NSCParameterAssert(window);
-//                           [window addSubview:alertShowView];
-//
-//
-//            }
+                //聊天界面功能
+                //            NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+                //            NSLog(@"userModel.data.userInfo.memberLevel:%ld",(long)userModel.userInfo.memberLevel);
+                //            if (userModel.userInfo.memberLevel == 1) {
+                //                    //是会员
+                //                    ChatViewController *chat = [[ChatViewController alloc] init];
+                //                    chat.userId              = [NSString stringWithFormat:@"%ld",(long)voicemodel.userId];
+                //                    TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+                //                    conversationData.userID = voicemodel.userInfo.tempStr20th;
+                //                    conversationData.title = voicemodel.userInfo.nickName;
+                //                    chat.conversationData = conversationData;
+                //                    [self.navigationController pushViewController:chat animated:YES];
+                //            }else{
+                //                    //不是会员
+                //                    MJWeakSelf
+                //                    IMUpdateGrdateView *alertShowView = [[IMUpdateGrdateView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
+                //                           UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                //                           [alertShowView setIMUpdateGrdateViewUpgradeBlock:^{
+                //                               NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+                //                               BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
+                //                               BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
+                //                                      if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {                                    ZFMemberUpgrdeOtherController *zfothermembervc = [[ZFMemberUpgrdeOtherController alloc]init];
+                //                                          zfothermembervc.hidesBottomBarWhenPushed = YES;
+                //                                          [self.navigationController pushViewController:zfothermembervc animated:YES];
+                //                                      }else{
+                //                                          //H5支付功能
+                //                                          NSString *spare12th = userModel.appClient.spare12th;
+                //                                          NSLog(@"spare12th:%@",spare12th);
+                //                                          NSString *ipContent = userModel.userInfo.ipContent;
+                //                                          NSLog(@"ipContent:%@",ipContent);
+                //                                          NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
+                //                                          NSLog(@"ip:%@",dics[@"ip"]);
+                //                                          NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
+                //                                          NSLog(@"RealUrl:%@",RealUrl);
+                //
+                //                                          NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+                //                                          vc.webTitle = @"Upgrade";
+                //                                          vc.loadType = WKWebLoadTypeWebURLString;
+                //                                          vc.URLString = RealUrl;
+                //                                          [weakSelf.navigationController pushViewController:vc animated:YES];
+                //                               }
+                //                           }];
+                //                           [alertShowView setIMUpdateGrdateViewUpgradeDissmissBlock:^{
+                //
+                //                           }];
+                //                           NSCParameterAssert(window);
+                //                           [window addSubview:alertShowView];
+                //
+                //
+                //            }
                 NeighborsSimpleCuteMessageChatMainController *messageChatvc =  [[NeighborsSimpleCuteMessageChatMainController alloc]init];
                 messageChatvc.hidesBottomBarWhenPushed = YES;
                 NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
@@ -4905,11 +4917,11 @@
                 NSLog(@"IconStrIconStrIconStrIconStrIconStrIconStr:%@",messageChatvc.IconStr);
                 messageChatvc.NameStr = voicemodel.userInfo.nickName;
                 [self.navigationController pushViewController:messageChatvc animated:YES];
-    
+                
             }];
         }
     }failure:^(NSError *error) {
-            
+        
     }];
 }
 
@@ -5025,15 +5037,15 @@
 
 /*
  @property (nonatomic,strong)UIView *bgView;
-
+ 
  @property (nonatomic,strong)UIButton *callBtn;
-
+ 
  @property (nonatomic,strong)UIImageView *bgImg;
-
+ 
  @property (nonatomic,strong)UIImageView *apperaView;
-
+ 
  @property (nonatomic,strong)UIImageView *showImg;
-
+ 
  */
 @end
 
@@ -5185,11 +5197,11 @@
     }
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Send successful"];
-                [self.navigationController popViewControllerAnimated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Send successful"];
+            [self.navigationController popViewControllerAnimated:YES];
         });
     });
 }
@@ -5411,11 +5423,11 @@
                     NSCParameterAssert(window);
                     [window addSubview:callView];
                 });
-
+                
             } else {
             }
         }];
-       
+        
     }];
     [playView setNeighborsSimpleCuteVoicePlayViewReportBlock:^{
         NeighborsSimpleCuteSettingFeedBackController *reportShowVc = [[NeighborsSimpleCuteSettingFeedBackController alloc]init];
@@ -5433,54 +5445,54 @@
         messageChatVc.IconStr = [NSString stringWithFormat:@"%@%@",imageBaseUrl,model.userInfo.imgUrl];
         messageChatVc.NameStr = model.userInfo.nickName;
         [self.navigationController pushViewController:messageChatVc animated:YES];
-//        NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-//            NSLog(@"userModel.data.userInfo.memberLevel:%ld",(long)userModel.userInfo.memberLevel);
-//                if (userModel.userInfo.memberLevel == 1) {
-//                    //是会员
-//                    ChatViewController *chat = [[ChatViewController alloc] init];
-//                    chat.userId              = [NSString stringWithFormat:@"%ld",(long)model.userId];
-//                    TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
-//                    conversationData.userID = model.userInfo.tempStr20th;
-//                    conversationData.title = model.userInfo.nickName;
-//                    chat.conversationData = conversationData;
-//                    [self.navigationController pushViewController:chat animated:YES];
-//                }else{
-//                    //不是会员
-//                    MJWeakSelf
-//                    IMUpdateGrdateView *alertShowView = [[IMUpdateGrdateView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
-//                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//                    [alertShowView setIMUpdateGrdateViewUpgradeBlock:^{
-//                        NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-//                        BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
-//                        BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
-//                               if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
-//                                   ZFMemberUpgrdeOtherController *zfothermembervc = [[ZFMemberUpgrdeOtherController alloc]init];
-//                                    zfothermembervc.hidesBottomBarWhenPushed = YES;
-//                                    [self.navigationController pushViewController:zfothermembervc animated:YES];
-//                               }else{
-//                                   //H5支付功能
-//                                   NSString *spare12th = userModel.appClient.spare12th;
-//                                   NSLog(@"spare12th:%@",spare12th);
-//                                   NSString *ipContent = userModel.userInfo.ipContent;
-//                                   NSLog(@"ipContent:%@",ipContent);
-//                                   NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
-//                                   NSLog(@"ip:%@",dics[@"ip"]);
-//                                   NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
-//                                   NSLog(@"RealUrl:%@",RealUrl);
-//
-//                                   NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-//                                   vc.webTitle = @"Upgrade";
-//                                   vc.loadType = WKWebLoadTypeWebURLString;
-//                                   vc.URLString = RealUrl;
-//                                   [weakSelf.navigationController pushViewController:vc animated:YES];
-//                        }
-//                    }];
-//                    [alertShowView setIMUpdateGrdateViewUpgradeDissmissBlock:^{
-//
-//                    }];
-//                    NSCParameterAssert(window);
-//                    [window addSubview:alertShowView];
-//            }
+        //        NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+        //            NSLog(@"userModel.data.userInfo.memberLevel:%ld",(long)userModel.userInfo.memberLevel);
+        //                if (userModel.userInfo.memberLevel == 1) {
+        //                    //是会员
+        //                    ChatViewController *chat = [[ChatViewController alloc] init];
+        //                    chat.userId              = [NSString stringWithFormat:@"%ld",(long)model.userId];
+        //                    TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
+        //                    conversationData.userID = model.userInfo.tempStr20th;
+        //                    conversationData.title = model.userInfo.nickName;
+        //                    chat.conversationData = conversationData;
+        //                    [self.navigationController pushViewController:chat animated:YES];
+        //                }else{
+        //                    //不是会员
+        //                    MJWeakSelf
+        //                    IMUpdateGrdateView *alertShowView = [[IMUpdateGrdateView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
+        //                    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        //                    [alertShowView setIMUpdateGrdateViewUpgradeBlock:^{
+        //                        NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+        //                        BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
+        //                        BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
+        //                               if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
+        //                                   ZFMemberUpgrdeOtherController *zfothermembervc = [[ZFMemberUpgrdeOtherController alloc]init];
+        //                                    zfothermembervc.hidesBottomBarWhenPushed = YES;
+        //                                    [self.navigationController pushViewController:zfothermembervc animated:YES];
+        //                               }else{
+        //                                   //H5支付功能
+        //                                   NSString *spare12th = userModel.appClient.spare12th;
+        //                                   NSLog(@"spare12th:%@",spare12th);
+        //                                   NSString *ipContent = userModel.userInfo.ipContent;
+        //                                   NSLog(@"ipContent:%@",ipContent);
+        //                                   NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
+        //                                   NSLog(@"ip:%@",dics[@"ip"]);
+        //                                   NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
+        //                                   NSLog(@"RealUrl:%@",RealUrl);
+        //
+        //                                   NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+        //                                   vc.webTitle = @"Upgrade";
+        //                                   vc.loadType = WKWebLoadTypeWebURLString;
+        //                                   vc.URLString = RealUrl;
+        //                                   [weakSelf.navigationController pushViewController:vc animated:YES];
+        //                        }
+        //                    }];
+        //                    [alertShowView setIMUpdateGrdateViewUpgradeDissmissBlock:^{
+        //
+        //                    }];
+        //                    NSCParameterAssert(window);
+        //                    [window addSubview:alertShowView];
+        //            }
     }];
     [playView setNeighborsSimpleCuteVoicePlayViewDelBlock:^{
         [self.exploreListArr removeObject:model];
@@ -5598,16 +5610,16 @@
     }
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Send Successfully"];
-                [UIView animateWithDuration:0.3 animations:^{
-                    self.alpha = 0;
-                } completion:^(BOOL finished) {
-                    self.hidden = YES;
-                    [self removeFromSuperview];
-                }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Send Successfully"];
+            [UIView animateWithDuration:0.3 animations:^{
+                self.alpha = 0;
+            } completion:^(BOOL finished) {
+                self.hidden = YES;
+                [self removeFromSuperview];
+            }];
         });
     });
 }
@@ -5963,34 +5975,34 @@
 -(void)actionSecondBtn:(UIButton *)btn
 {
     NSLog(@"actionSecondBtn");
-//    [SVProgressHUD show];
-//    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [SVProgressHUD dismiss];
-//                [SVProgressHUD showInfoWithStatus:@"Block successfully"];
-//                self.alterView.hidden = YES;
-//                self.subBgView.hidden = YES;
-//        });
-//    });
+    //    [SVProgressHUD show];
+    //    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //            dispatch_async(dispatch_get_main_queue(), ^{
+    //                [SVProgressHUD dismiss];
+    //                [SVProgressHUD showInfoWithStatus:@"Block successfully"];
+    //                self.alterView.hidden = YES;
+    //                self.subBgView.hidden = YES;
+    //        });
+    //    });
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Blocked successfully"];
-                self.alterView.hidden = YES;
-                self.subBgView.hidden = YES;
-                if (self.NeighborsSimpleCuteVoicePlayViewDelBlock) {
-                    self.NeighborsSimpleCuteVoicePlayViewDelBlock();
-                }
-                if ([LZPlayerManager lzPlayerManager].isPlay) {
-                    [[LZPlayerManager lzPlayerManager]playAndPause];
-                    self.playImg.hidden = YES;
-                    [self.playImg stopAnimating];
-                    [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
-                }
-                [self removeFromSuperview];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Blocked successfully"];
+            self.alterView.hidden = YES;
+            self.subBgView.hidden = YES;
+            if (self.NeighborsSimpleCuteVoicePlayViewDelBlock) {
+                self.NeighborsSimpleCuteVoicePlayViewDelBlock();
+            }
+            if ([LZPlayerManager lzPlayerManager].isPlay) {
+                [[LZPlayerManager lzPlayerManager]playAndPause];
+                self.playImg.hidden = YES;
+                [self.playImg stopAnimating];
+                [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
+            }
+            [self removeFromSuperview];
         });
     });
 }
@@ -6012,22 +6024,22 @@
     NSLog(@"actionThirdBtn");
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Delete successfully"];
-                self.alterView.hidden = YES;
-                self.subBgView.hidden = YES;
-                if (self.NeighborsSimpleCuteVoicePlayViewDelBlock) {
-                    self.NeighborsSimpleCuteVoicePlayViewDelBlock();
-                }
-                if ([LZPlayerManager lzPlayerManager].isPlay) {
-                    [[LZPlayerManager lzPlayerManager]playAndPause];
-                    self.playImg.hidden = YES;
-                    [self.playImg stopAnimating];
-                    [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
-                }
-                [self removeFromSuperview];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Delete successfully"];
+            self.alterView.hidden = YES;
+            self.subBgView.hidden = YES;
+            if (self.NeighborsSimpleCuteVoicePlayViewDelBlock) {
+                self.NeighborsSimpleCuteVoicePlayViewDelBlock();
+            }
+            if ([LZPlayerManager lzPlayerManager].isPlay) {
+                [[LZPlayerManager lzPlayerManager]playAndPause];
+                self.playImg.hidden = YES;
+                [self.playImg stopAnimating];
+                [self.playBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play")] forState:UIControlStateNormal];
+            }
+            [self removeFromSuperview];
         });
     });
 }
@@ -6181,7 +6193,7 @@
         _closeBtn = [[UIButton alloc]init];
         [_closeBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_voice_play_close")] forState:UIControlStateNormal];
         [_closeBtn addTarget:self action:@selector(actionCloseBtn:) forControlEvents:UIControlEventTouchUpInside];
-
+        
     }
     return _closeBtn;
 }
@@ -6227,36 +6239,36 @@
     CGFloat height = (IPHONE_HEIGHT- 450)/2 + 50;
     [self addSubview:self.subBgView];
     [self.subBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.offset(height);
-            make.right.offset(-60);
-            make.width.offset(120);
-            make.height.offset(220);
+        make.top.offset(height);
+        make.right.offset(-60);
+        make.width.offset(120);
+        make.height.offset(220);
     }];
     CGFloat height2 = 220 / 4;
     [self.subBgView addSubview:self.firstBtn];
     [self.firstBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.right.offset(0);
-            make.height.offset(height2);
+        make.left.top.right.offset(0);
+        make.height.offset(height2);
     }];
     [self.subBgView addSubview:self.secondBtn];
     [self.secondBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.offset(0);
-            make.top.mas_equalTo(self.firstBtn.mas_bottom).offset(0);
-            make.height.offset(height2);
+        make.left.right.offset(0);
+        make.top.mas_equalTo(self.firstBtn.mas_bottom).offset(0);
+        make.height.offset(height2);
     }];
     [self.subBgView addSubview:self.thirdBtn];
     [self.thirdBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.offset(0);
-            make.top.mas_equalTo(self.secondBtn.mas_bottom).offset(0);
-            make.height.offset(height2);
+        make.left.right.offset(0);
+        make.top.mas_equalTo(self.secondBtn.mas_bottom).offset(0);
+        make.height.offset(height2);
     }];
     [self.subBgView addSubview:self.fourBtn];
     [self.fourBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.bottom.right.offset(0);
-            make.height.offset(height2);
+        make.left.bottom.right.offset(0);
+        make.height.offset(height2);
     }];
     
-
+    
 }
 
 - (UIButton *)callBtn
@@ -6480,7 +6492,7 @@
         make.right.offset(-30);
         make.height.offset(360);
     }];
-
+    
     [self.bg_view addSubview:self.topBtn];
     [self.topBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.offset(0);
@@ -6764,21 +6776,21 @@ static NeighborsSimpleCuteDBTool *instance = nil;
 -(void)insertNeighborsSimpleCuteProjectPlanModel:(NeighborsSimpleCuteHomeVoiceModel *)voicemodel
 {
     if ([self isEixistWithVoiceModel:voicemodel] == NO) {
-       // [self.NSCDB executeUpdate:@"INSERT INTO n_voice (n_name_str,n_avtor_str,n_url_str) VALUES (?,?,?);",voicemodel.nameStr,voicemodel.avtorStr,voicemodel.urlStr];
+        // [self.NSCDB executeUpdate:@"INSERT INTO n_voice (n_name_str,n_avtor_str,n_url_str) VALUES (?,?,?);",voicemodel.nameStr,voicemodel.avtorStr,voicemodel.urlStr];
     }
 }
 - (NSMutableArray *)queryAllNeighborsSimpleCuteProjectVoice
 {
     NSMutableArray *arry = [NSMutableArray array];
     FMResultSet *resultset = [self.NSCDB executeQuery:@"SELECT * FROM n_voice"];
-          while ([resultset next]) {
-              NeighborsSimpleCuteHomeVoiceModel *model = [[NeighborsSimpleCuteHomeVoiceModel alloc]init];
-//              model.index = [resultset intForColumn:@"id"];
-//              model.nameStr = [resultset stringForColumn:@"n_name_str"];
-//              model.avtorStr = [resultset stringForColumn:@"n_avtor_str"];
-//              model.urlStr      = [resultset stringForColumn:@"n_url_str"];
-              [arry addObject:model];
-        }
+    while ([resultset next]) {
+        NeighborsSimpleCuteHomeVoiceModel *model = [[NeighborsSimpleCuteHomeVoiceModel alloc]init];
+        //              model.index = [resultset intForColumn:@"id"];
+        //              model.nameStr = [resultset stringForColumn:@"n_name_str"];
+        //              model.avtorStr = [resultset stringForColumn:@"n_avtor_str"];
+        //              model.urlStr      = [resultset stringForColumn:@"n_url_str"];
+        [arry addObject:model];
+    }
     [resultset close];
     return arry;
 }
@@ -6788,10 +6800,10 @@ static NeighborsSimpleCuteDBTool *instance = nil;
     NSMutableArray *arry = [NSMutableArray array];
     arry = [self queryAllNeighborsSimpleCuteProjectVoice];
     for (NeighborsSimpleCuteHomeVoiceModel *voicemodel in arry) {
-//        if ([voicemodel.nameStr isEqualToString:model.nameStr]) {
-//            isHave = YES;
-//            break;
-//        }
+        //        if ([voicemodel.nameStr isEqualToString:model.nameStr]) {
+        //            isHave = YES;
+        //            break;
+        //        }
     }
     return isHave;
 }
@@ -6800,7 +6812,7 @@ static NeighborsSimpleCuteDBTool *instance = nil;
 -(void)deleteNeighborsSimpleCuteProjectVoiceModel:(NeighborsSimpleCuteHomeVoiceModel *)voicemodel
 {
     
-  //  [self.NSCDB executeUpdate:@"DELETE FROM n_voice WHERE id = ?;",@(voicemodel.index)];
+    //  [self.NSCDB executeUpdate:@"DELETE FROM n_voice WHERE id = ?;",@(voicemodel.index)];
 }
 
 // 聊天界面需要的功能
@@ -6816,17 +6828,17 @@ static NeighborsSimpleCuteDBTool *instance = nil;
 {
     NSMutableArray *arry = [NSMutableArray array];
     FMResultSet *resultset = [self.NSCDB executeQuery:@"SELECT * FROM s_message"];
-          while ([resultset next]) {
-              SocializeIntercourseMessageModel *model = [[SocializeIntercourseMessageModel alloc]init];
-              model.index  = [resultset intForColumn:@"id"];
-              model.storeNameStr = [resultset stringForColumn:@"storeNameStr"];
-              model.sendIconStr  = [resultset stringForColumn:@"sendIconStr"];
-              model.sendTimeStr  = [resultset stringForColumn:@"sendTimeStr"];
-              model.sendContentStr  = [resultset stringForColumn:@"sendContentStr"];
-              model.sendType  = [resultset stringForColumn:@"sendType"];
-              model.sendPicture = [resultset dataForColumn:@"sendPicture"];
-              [arry addObject:model];
-          }
+    while ([resultset next]) {
+        SocializeIntercourseMessageModel *model = [[SocializeIntercourseMessageModel alloc]init];
+        model.index  = [resultset intForColumn:@"id"];
+        model.storeNameStr = [resultset stringForColumn:@"storeNameStr"];
+        model.sendIconStr  = [resultset stringForColumn:@"sendIconStr"];
+        model.sendTimeStr  = [resultset stringForColumn:@"sendTimeStr"];
+        model.sendContentStr  = [resultset stringForColumn:@"sendContentStr"];
+        model.sendType  = [resultset stringForColumn:@"sendType"];
+        model.sendPicture = [resultset dataForColumn:@"sendPicture"];
+        [arry addObject:model];
+    }
     [resultset close];
     return arry;
 }
@@ -6861,15 +6873,15 @@ static NeighborsSimpleCuteDBTool *instance = nil;
 {
     NSMutableArray *arry = [NSMutableArray array];
     FMResultSet *resultset = [self.NSCDB executeQuery:@"SELECT * FROM s_messageStore"];
-          while ([resultset next]) {
-              SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
-              model.index  = [resultset intForColumn:@"id"];
-              model.storeNameStr = [resultset stringForColumn:@"storeNameStr"];
-              model.storeTimeStr  = [resultset stringForColumn:@"storeTimeStr"];
-              model.storeIconStr  = [resultset stringForColumn:@"storeIconStr"];
-              model.storeLastStr  = [resultset stringForColumn:@"storeLastStr"];
-              [arry addObject:model];
-          }
+    while ([resultset next]) {
+        SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
+        model.index  = [resultset intForColumn:@"id"];
+        model.storeNameStr = [resultset stringForColumn:@"storeNameStr"];
+        model.storeTimeStr  = [resultset stringForColumn:@"storeTimeStr"];
+        model.storeIconStr  = [resultset stringForColumn:@"storeIconStr"];
+        model.storeLastStr  = [resultset stringForColumn:@"storeLastStr"];
+        [arry addObject:model];
+    }
     [resultset close];
     return arry;
 }
@@ -6919,7 +6931,7 @@ static LZPlayerManager *_lzPlayerManager = nil;
 {
     [_player pause];
     _isPlay = NO;
-  
+    
 }
 //播放和暂停
 - (void)playAndPause
@@ -7007,51 +7019,51 @@ static NSString *UserModelKey = @"UserModelkey";
 
 + (NSString*)getCurentLocalIP{
     NSString *address = @"error";
-
-      struct ifaddrs *interfaces = NULL;
-
-      struct ifaddrs *temp_addr = NULL;
-
-      int success = 0;
-
-      // retrieve the current interfaces - returns 0 on success
-
-      success = getifaddrs(&interfaces);
-
-      if (success == 0) {
-
-          // Loop through linked list of interfaces
-
-          temp_addr = interfaces;
-
-          while(temp_addr != NULL) {
-
-              if(temp_addr->ifa_addr->sa_family == AF_INET) {
-
-                  // Check if interface is en0 which is the wifi connection on the iPhone
-
-                  if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
-
-                      // Get NSString from C String
-
-                      address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
-
-                  }
-
-              }
-
-              temp_addr = temp_addr->ifa_next;
-
-          }
-
-      }
-
-      // Free memory
-
-      freeifaddrs(interfaces);
-
-      return address;
-
+    
+    struct ifaddrs *interfaces = NULL;
+    
+    struct ifaddrs *temp_addr = NULL;
+    
+    int success = 0;
+    
+    // retrieve the current interfaces - returns 0 on success
+    
+    success = getifaddrs(&interfaces);
+    
+    if (success == 0) {
+        
+        // Loop through linked list of interfaces
+        
+        temp_addr = interfaces;
+        
+        while(temp_addr != NULL) {
+            
+            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                
+                // Check if interface is en0 which is the wifi connection on the iPhone
+                
+                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                    
+                    // Get NSString from C String
+                    
+                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                    
+                }
+                
+            }
+            
+            temp_addr = temp_addr->ifa_next;
+            
+        }
+        
+    }
+    
+    // Free memory
+    
+    freeifaddrs(interfaces);
+    
+    return address;
+    
 }
 
 //    int sockfd = socket(AF_INET,SOCK_DGRAM, 0);
@@ -7117,56 +7129,56 @@ static NSString *UserModelKey = @"UserModelkey";
 
 + (BOOL)isVPNOn
 {
-   BOOL flag = NO;
-   NSString *version = [UIDevice currentDevice].systemVersion;
-   // need two ways to judge this.
-   if (version.doubleValue >= 9.0)
-   {
-       NSDictionary *dict = CFBridgingRelease(CFNetworkCopySystemProxySettings());
-       NSArray *keys = [dict[@"__SCOPED__"] allKeys];
-       for (NSString *key in keys) {
-           if ([key rangeOfString:@"tap"].location != NSNotFound ||
-               [key rangeOfString:@"tun"].location != NSNotFound ||
-               [key rangeOfString:@"ipsec"].location != NSNotFound ||
-               [key rangeOfString:@"ppp"].location != NSNotFound){
-               flag = YES;
-               break;
-           }
-       }
-   }
-   else
-   {
-       struct ifaddrs *interfaces = NULL;
-       struct ifaddrs *temp_addr = NULL;
-       int success = 0;
-       
-       // retrieve the current interfaces - returns 0 on success
-       success = getifaddrs(&interfaces);
-       if (success == 0)
-       {
-           // Loop through linked list of interfaces
-           temp_addr = interfaces;
-           while (temp_addr != NULL)
-           {
-               NSString *string = [NSString stringWithFormat:@"%s" , temp_addr->ifa_name];
-               if ([string rangeOfString:@"tap"].location != NSNotFound ||
-                   [string rangeOfString:@"tun"].location != NSNotFound ||
-                   [string rangeOfString:@"ipsec"].location != NSNotFound ||
-                   [string rangeOfString:@"ppp"].location != NSNotFound)
-               {
-                   flag = YES;
-                   break;
-               }
-               temp_addr = temp_addr->ifa_next;
-           }
-       }
-       
-       // Free memory
-       freeifaddrs(interfaces);
-   }
-
-
-   return flag;
+    BOOL flag = NO;
+    NSString *version = [UIDevice currentDevice].systemVersion;
+    // need two ways to judge this.
+    if (version.doubleValue >= 9.0)
+    {
+        NSDictionary *dict = CFBridgingRelease(CFNetworkCopySystemProxySettings());
+        NSArray *keys = [dict[@"__SCOPED__"] allKeys];
+        for (NSString *key in keys) {
+            if ([key rangeOfString:@"tap"].location != NSNotFound ||
+                [key rangeOfString:@"tun"].location != NSNotFound ||
+                [key rangeOfString:@"ipsec"].location != NSNotFound ||
+                [key rangeOfString:@"ppp"].location != NSNotFound){
+                flag = YES;
+                break;
+            }
+        }
+    }
+    else
+    {
+        struct ifaddrs *interfaces = NULL;
+        struct ifaddrs *temp_addr = NULL;
+        int success = 0;
+        
+        // retrieve the current interfaces - returns 0 on success
+        success = getifaddrs(&interfaces);
+        if (success == 0)
+        {
+            // Loop through linked list of interfaces
+            temp_addr = interfaces;
+            while (temp_addr != NULL)
+            {
+                NSString *string = [NSString stringWithFormat:@"%s" , temp_addr->ifa_name];
+                if ([string rangeOfString:@"tap"].location != NSNotFound ||
+                    [string rangeOfString:@"tun"].location != NSNotFound ||
+                    [string rangeOfString:@"ipsec"].location != NSNotFound ||
+                    [string rangeOfString:@"ppp"].location != NSNotFound)
+                {
+                    flag = YES;
+                    break;
+                }
+                temp_addr = temp_addr->ifa_next;
+            }
+        }
+        
+        // Free memory
+        freeifaddrs(interfaces);
+    }
+    
+    
+    return flag;
 }
 
 
@@ -7196,9 +7208,9 @@ static AFHTTPSessionManager *_session;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         /*
-        NSURLSessionConfiguration *conf = [NSURLSessionConfiguration defaultSessionConfiguration];
-        conf.timeoutIntervalForRequest = 60;
-        _session = [[AFHTTPSessionManager alloc]initWithBaseURL:nil sessionConfiguration:conf];
+         NSURLSessionConfiguration *conf = [NSURLSessionConfiguration defaultSessionConfiguration];
+         conf.timeoutIntervalForRequest = 60;
+         _session = [[AFHTTPSessionManager alloc]initWithBaseURL:nil sessionConfiguration:conf];
          */
         _session = [AFHTTPSessionManager manager];
         [_session.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -7215,18 +7227,18 @@ static AFHTTPSessionManager *_session;
 -(void)GET:(NSString *)URLString parameters:(id)parameters success:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure
 {
     [_session GET:URLString parameters:parameters headers:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-       
+        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"responseObject.data:%@",responseObject);
-           // NeighborsSimpleCuteResposeModel *response = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:responseObject];
-            if (success) {
-                success(responseObject);
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            if (failure) {
-                failure(error);
-            }
-        }];
+        NSLog(@"responseObject.data:%@",responseObject);
+        // NeighborsSimpleCuteResposeModel *response = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:responseObject];
+        if (success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
 }
 
 -(void)GET2:(NSString *)URLString parameters:(id)parameters success:(void (^)(NeighborsSimpleCuteResposeModel *response))success failure:(void (^)(NSError * error))failure
@@ -7234,7 +7246,7 @@ static AFHTTPSessionManager *_session;
     [_session GET:URLString parameters:parameters headers:nil progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject.data:%@",responseObject);
-       NeighborsSimpleCuteResposeModel *response = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:responseObject];
+        NeighborsSimpleCuteResposeModel *response = [NeighborsSimpleCuteResposeModel mj_objectWithKeyValues:responseObject];
         if (success) {
             success(response);
         }
@@ -7454,7 +7466,7 @@ static AFHTTPSessionManager *_session;
                 upgrdevc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:upgrdevc animated:YES];
             }
-        
+            
         }];
         return rechagerCell;
     }else{
@@ -7492,13 +7504,13 @@ static AFHTTPSessionManager *_session;
                 NeighborsSimpleCuteDelAccountView *delView = [[NeighborsSimpleCuteDelAccountView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 [delView setNeighborsSimpleCuteDelAccountViewBlock:^{
-                     NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
-                     delaccountvc.hidesBottomBarWhenPushed = YES;
-                     [self.navigationController pushViewController:delaccountvc animated:YES];
+                    NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
+                    delaccountvc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:delaccountvc animated:YES];
                 }];
                 NSCParameterAssert(window);
                 [window addSubview:delView];
-
+                
             }
                 break;
             case 3:
@@ -7621,9 +7633,9 @@ static AFHTTPSessionManager *_session;
         NeighborsSimpleCuteDelAccountView *delView = [[NeighborsSimpleCuteDelAccountView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         [delView setNeighborsSimpleCuteDelAccountViewBlock:^{
-             NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
-             delaccountvc.hidesBottomBarWhenPushed = YES;
-             [self.navigationController pushViewController:delaccountvc animated:YES];
+            NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
+            delaccountvc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:delaccountvc animated:YES];
         }];
         NSCParameterAssert(window);
         [window addSubview:delView];
@@ -7638,17 +7650,17 @@ static AFHTTPSessionManager *_session;
         [outView setNeighborsSimpleCuteSignOutViewShowBlock:^{
             [SVProgressHUD show];
             dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                                   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
                 dispatch_async(dispatch_get_main_queue(), ^{
-                        [SVProgressHUD dismiss];
-                        [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
-                        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
-                        [[NSUserDefaults standardUserDefaults]synchronize];
-                        NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
-                        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-                                [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-                    });
-           });
+                    [SVProgressHUD dismiss];
+                    [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
+                    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
+                    [[NSUserDefaults standardUserDefaults]synchronize];
+                    NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
+                    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+                });
+            });
         }];
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         NSCParameterAssert(window);
@@ -7664,15 +7676,15 @@ static AFHTTPSessionManager *_session;
 @implementation EaseTextView
 
 - (void)setPlaceHolder:(NSString *)placeHolder {
-//    if([placeHolder isEqualToString:_placeHolder]) {
-//        return;
-//    }
-//
-//    NSUInteger maxChars = [EaseTextView maxCharactersPerLine];
-//    if([placeHolder length] > maxChars) {
-//        placeHolder = [placeHolder substringToIndex:maxChars - 8];
-//        placeHolder = [[placeHolder stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAppendingFormat:@"..."];
-//    }
+    //    if([placeHolder isEqualToString:_placeHolder]) {
+    //        return;
+    //    }
+    //
+    //    NSUInteger maxChars = [EaseTextView maxCharactersPerLine];
+    //    if([placeHolder length] > maxChars) {
+    //        placeHolder = [placeHolder substringToIndex:maxChars - 8];
+    //        placeHolder = [[placeHolder stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAppendingFormat:@"..."];
+    //    }
     
     _placeHolder = placeHolder;
     [self setNeedsDisplay];
@@ -7939,7 +7951,7 @@ static AFHTTPSessionManager *_session;
     paraStyle.headIndent = 0;
     paraStyle.tailIndent = 0;
     NSDictionary *dic = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paraStyle
-                          };
+    };
     CGSize size = [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
     return size.height;
 }
@@ -7974,7 +7986,7 @@ static AFHTTPSessionManager *_session;
     paraStyle.tailIndent = 0;
     //设置字间距 NSKernAttributeName:@1.5f
     NSDictionary *dic = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paraStyle, NSKernAttributeName:@(kernSpace)
-                          };
+    };
     
     NSAttributedString *attributeStr = [[NSAttributedString alloc] initWithString:str attributes:dic];
     label.attributedText = attributeStr;
@@ -8113,9 +8125,9 @@ static AFHTTPSessionManager *_session;
 + (NSInteger)numberOfDaysWithFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate{
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *comp = [calendar components:NSCalendarUnitDay
-                                             fromDate:fromDate
-                                               toDate:toDate
-                                              options:NSCalendarWrapComponents];
+                                         fromDate:fromDate
+                                           toDate:toDate
+                                          options:NSCalendarWrapComponents];
     return comp.day;
 }
 
@@ -8605,34 +8617,34 @@ static AFHTTPSessionManager *_session;
         return NO;
     }else{
         //直接判断位数算了
-//        return YES;
+        //        return YES;
         /**
          * 移动号段正则表达式
          * 135 136 137 138 139 147 148 150 151 152 157 158 159  165 172 178 182 183 184 187 188 198
          */
-//        NSString *CM_NUM = @"^((13[4-9])|(14[7-8])|(15[0-2,7-9])|(165)|(172)|(178)|(18[2-4,7-8])|(198))\\d{8}|(1705)\\d{7}$";
+        //        NSString *CM_NUM = @"^((13[4-9])|(14[7-8])|(15[0-2,7-9])|(165)|(172)|(178)|(18[2-4,7-8])|(198))\\d{8}|(1705)\\d{7}$";
         /**
          * 联通号段正则表达式
          * 130 131 132 145 146 155 156 166 171 175 176 185 186
          */
-//        NSString *CU_NUM = @"^((13[0-2])|(14[5-6])|(15[5-6])|(166)|(171)|(17[5-6])|(18[5,6]))\\d{8}|(1709)\\d{7}$";
+        //        NSString *CU_NUM = @"^((13[0-2])|(14[5-6])|(15[5-6])|(166)|(171)|(17[5-6])|(18[5,6]))\\d{8}|(1709)\\d{7}$";
         /**
          * 电信号段正则表达式
          * 133 149 153 173 174 177 180 181 189 199
          */
-//        NSString *CT_NUM = @"^((133)|(149)|(153)|(17[3-4])|(177)|(18[0,1,9])|(199))\\d{8}$";
-//        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM_NUM];
-//        BOOL isMatch1 = [pred1 evaluateWithObject:mobile];
-//        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU_NUM];
-//        BOOL isMatch2 = [pred2 evaluateWithObject:mobile];
-//        NSPredicate *pred3 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT_NUM];
-//        BOOL isMatch3 = [pred3 evaluateWithObject:mobile];
-//
-//        if (isMatch1 || isMatch2 || isMatch3) {
-//            return YES;
-//        }else{
-//            return NO;
-//        }
+        //        NSString *CT_NUM = @"^((133)|(149)|(153)|(17[3-4])|(177)|(18[0,1,9])|(199))\\d{8}$";
+        //        NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM_NUM];
+        //        BOOL isMatch1 = [pred1 evaluateWithObject:mobile];
+        //        NSPredicate *pred2 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU_NUM];
+        //        BOOL isMatch2 = [pred2 evaluateWithObject:mobile];
+        //        NSPredicate *pred3 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT_NUM];
+        //        BOOL isMatch3 = [pred3 evaluateWithObject:mobile];
+        //
+        //        if (isMatch1 || isMatch2 || isMatch3) {
+        //            return YES;
+        //        }else{
+        //            return NO;
+        //        }
         
         NSString *CM_NUM = @"^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\\d{8}$";
         NSPredicate *pred1 = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM_NUM];
@@ -9453,7 +9465,7 @@ static AFHTTPSessionManager *_session;
         backView.backgroundColor = HexString(@"#323232");
         
         UIButton *cancle = [ViewInstance defindButOnlyTileWithFrame:Setframe(0, 0, 27+46, 37) title:@"Cancel" titleColor:[UIColor colorWithPatternImage:[UIImage imageNamed:TUIKitResource(@"上下渐变all")]] titleFont:MyFont(Font_Regular, 15)];
-       // [cancle setTitleColor:HexString(@"#FACC48") forState:UIControlStateNormal] ;
+        // [cancle setTitleColor:HexString(@"#FACC48") forState:UIControlStateNormal] ;
         [backView addSubview:cancle];
         [cancle addTarget:self action:@selector(cancleAction) forControlEvents:1<<6];
         
@@ -9772,7 +9784,7 @@ static AFHTTPSessionManager *_session;
                 NeighborsSimpleCuteSettingAboutusController *aboutusvc = [[NeighborsSimpleCuteSettingAboutusController alloc]init];
                 aboutusvc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:aboutusvc animated:YES];
-
+                
             }
                 break;
             case 3:
@@ -9786,17 +9798,17 @@ static AFHTTPSessionManager *_session;
             case 4:
             {
                 //Delete account
-            
+                
                 NeighborsSimpleCuteDelAccountView *delView = [[NeighborsSimpleCuteDelAccountView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 [delView setNeighborsSimpleCuteDelAccountViewBlock:^{
-                     NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
-                     delaccountvc.hidesBottomBarWhenPushed = YES;
-                     [self.navigationController pushViewController:delaccountvc animated:YES];
+                    NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
+                    delaccountvc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:delaccountvc animated:YES];
                 }];
                 NSCParameterAssert(window);
                 [window addSubview:delView];
-        
+                
             }
                 break;
             case 5:
@@ -9806,39 +9818,39 @@ static AFHTTPSessionManager *_session;
                 [outView setNeighborsSimpleCuteSignOutViewShowBlock:^{
                     [SVProgressHUD show];
                     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                                           dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
                         dispatch_async(dispatch_get_main_queue(), ^{
-                                [SVProgressHUD dismiss];
-                                [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
-                                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
-                                [[NSUserDefaults standardUserDefaults]synchronize];
-                                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
-                                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-                                        [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-                            });
-                   });
+                            [SVProgressHUD dismiss];
+                            [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
+                            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
+                            [[NSUserDefaults standardUserDefaults]synchronize];
+                            NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
+                            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+                            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+                        });
+                    });
                 }];
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
                 NSCParameterAssert(window);
                 [window addSubview:outView];
                 
-//                NeighborsSimpleCuteSignOutView *signoutView = [NeighborsSimpleCuteSignOutView alertViewShow];
-//                [signoutView setNeighborsSimpleCuteSignOutViewShowBlock:^{
-//                    [SVProgressHUD show];
-//                    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                [SVProgressHUD dismiss];
-//                                [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
-//                                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
-//                                [[NSUserDefaults standardUserDefaults]synchronize];
-//                                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
-//                                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-//                                [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-//                        });
-//                    });
-//                }];
-//                [signoutView show];
+                //                NeighborsSimpleCuteSignOutView *signoutView = [NeighborsSimpleCuteSignOutView alertViewShow];
+                //                [signoutView setNeighborsSimpleCuteSignOutViewShowBlock:^{
+                //                    [SVProgressHUD show];
+                //                    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                //                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+                //                            dispatch_async(dispatch_get_main_queue(), ^{
+                //                                [SVProgressHUD dismiss];
+                //                                [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
+                //                                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:NeighborsSimple_LoginStatus];
+                //                                [[NSUserDefaults standardUserDefaults]synchronize];
+                //                                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
+                //                                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+                //                                [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+                //                        });
+                //                    });
+                //                }];
+                //                [signoutView show];
             }
                 break;
             default:
@@ -10174,40 +10186,40 @@ static AFHTTPSessionManager *_session;
         model.sendPicture    = UIImageJPEGRepresentation(self.pictureImage.image, 1);
         [SVProgressHUD show];
         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SVProgressHUD dismiss];
-                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageModel:model];
-                    BOOL isExist = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]isExistMessageStoreModel:self.NameStr];
-                    if (isExist == NO) {
-                        SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
-                        model.storeNameStr = self.NameStr;
-                        model.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
-                        model.storeLastStr  = self.sendInputView.text;
-                        model.storeIconStr = self.IconStr;
-                        [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageStoreModel:model];
-                    }else{
-                        NSMutableArray *array  = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageStoreModel];
-                        SocializeIntercourseMessageOtherModel *storeModel = array[0];
-                        storeModel.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
-                        storeModel.storeLastStr =  @"[Picture]";
-                        [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]updateMessageStoreModel:storeModel];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageModel:model];
+                BOOL isExist = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]isExistMessageStoreModel:self.NameStr];
+                if (isExist == NO) {
+                    SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
+                    model.storeNameStr = self.NameStr;
+                    model.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
+                    model.storeLastStr  = self.sendInputView.text;
+                    model.storeIconStr = self.IconStr;
+                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageStoreModel:model];
+                }else{
+                    NSMutableArray *array  = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageStoreModel];
+                    SocializeIntercourseMessageOtherModel *storeModel = array[0];
+                    storeModel.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
+                    storeModel.storeLastStr =  @"[Picture]";
+                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]updateMessageStoreModel:storeModel];
+                }
+                self.sendInputView.text = @"";
+                [self.sendInputView resignFirstResponder];
+                [self.detailAllListArr removeAllObjects];
+                [self.detailListArr removeAllObjects];
+                self.detailAllListArr = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageModel];
+                for (SocializeIntercourseMessageModel *model in self.detailAllListArr) {
+                    if ([model.storeNameStr isEqualToString:self.NameStr]) {
+                        [self.detailListArr addObject:model];
                     }
-                    self.sendInputView.text = @"";
-                    [self.sendInputView resignFirstResponder];
-                    [self.detailAllListArr removeAllObjects];
-                    [self.detailListArr removeAllObjects];
-                    self.detailAllListArr = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageModel];
-                    for (SocializeIntercourseMessageModel *model in self.detailAllListArr) {
-                        if ([model.storeNameStr isEqualToString:self.NameStr]) {
-                            [self.detailListArr addObject:model];
-                        }
-                    }
-                    [self.detailCollectionView reloadData];
-                    if ([self.detailListArr count]) {   //messageData是数据源
-                        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.detailListArr.count-1 inSection:0];
-                        [self.detailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
-                        }
+                }
+                [self.detailCollectionView reloadData];
+                if ([self.detailListArr count]) {   //messageData是数据源
+                    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.detailListArr.count-1 inSection:0];
+                    [self.detailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+                }
             });
         });
     }];
@@ -10249,40 +10261,40 @@ static AFHTTPSessionManager *_session;
     model.sendPicture    = @"";//UIImageJPEGRepresentation(self.pictureImage.image, 1);
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageModel:model];
-                BOOL isExist = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]isExistMessageStoreModel:self.NameStr];
-                if (isExist == NO) {
-                    SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
-                    model.storeNameStr = self.NameStr;
-                    model.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
-                    model.storeLastStr  = self.sendInputView.text;
-                    model.storeIconStr = self.IconStr;
-                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageStoreModel:model];
-                }else{
-                    NSMutableArray *array  = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageStoreModel];
-                    SocializeIntercourseMessageOtherModel *storeModel = array[0];
-                    storeModel.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
-                    storeModel.storeLastStr =  self.sendInputView.text;
-                    [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]updateMessageStoreModel:storeModel];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageModel:model];
+            BOOL isExist = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]isExistMessageStoreModel:self.NameStr];
+            if (isExist == NO) {
+                SocializeIntercourseMessageOtherModel *model = [[SocializeIntercourseMessageOtherModel alloc]init];
+                model.storeNameStr = self.NameStr;
+                model.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
+                model.storeLastStr  = self.sendInputView.text;
+                model.storeIconStr = self.IconStr;
+                [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]insertMessageStoreModel:model];
+            }else{
+                NSMutableArray *array  = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageStoreModel];
+                SocializeIntercourseMessageOtherModel *storeModel = array[0];
+                storeModel.storeTimeStr = [self SocializeIntercourseGetCurrentTime:@"yyyy-MM-dd HH:mm:ss"];
+                storeModel.storeLastStr =  self.sendInputView.text;
+                [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]updateMessageStoreModel:storeModel];
+            }
+            self.sendInputView.text = @"";
+            [self.sendInputView resignFirstResponder];
+            [self.detailAllListArr removeAllObjects];
+            [self.detailListArr removeAllObjects];
+            self.detailAllListArr = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageModel];
+            for (SocializeIntercourseMessageModel *model in self.detailAllListArr) {
+                if ([model.storeNameStr isEqualToString:self.NameStr]) {
+                    [self.detailListArr addObject:model];
                 }
-                self.sendInputView.text = @"";
-                [self.sendInputView resignFirstResponder];
-                [self.detailAllListArr removeAllObjects];
-                [self.detailListArr removeAllObjects];
-                self.detailAllListArr = [[NeighborsSimpleCuteDBTool NeighborsSimpleCuteProjectSharaDBTool]queryAllMessageModel];
-                for (SocializeIntercourseMessageModel *model in self.detailAllListArr) {
-                    if ([model.storeNameStr isEqualToString:self.NameStr]) {
-                        [self.detailListArr addObject:model];
-                    }
-                }
-                [self.detailCollectionView reloadData];
-                if ([self.detailListArr count]) {   //messageData是数据源
-                    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.detailListArr.count-1 inSection:0];
-                    [self.detailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
-                    }
+            }
+            [self.detailCollectionView reloadData];
+            if ([self.detailListArr count]) {   //messageData是数据源
+                NSIndexPath *indexPath=[NSIndexPath indexPathForRow:self.detailListArr.count-1 inSection:0];
+                [self.detailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+            }
         });
     });
 }
@@ -10383,13 +10395,13 @@ static AFHTTPSessionManager *_session;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SocializeIntercourseMessageModel *model = self.detailListArr[indexPath.row];
-  float textWidth =  [XSDKResourceUtil measureSinglelineStringWidth:model.sendContentStr andFont:[UIFont systemFontOfSize:15]];
+    float textWidth =  [XSDKResourceUtil measureSinglelineStringWidth:model.sendContentStr andFont:[UIFont systemFontOfSize:15]];
     if (textWidth >= 240) {
         textWidth = 240;
     }else{
         textWidth += 10;
     }
-   float hight = [XSDKResourceUtil measureMutilineStringHeight:model.sendContentStr andFont:[UIFont systemFontOfSize:15] andWidthSetup:textWidth];
+    float hight = [XSDKResourceUtil measureMutilineStringHeight:model.sendContentStr andFont:[UIFont systemFontOfSize:15] andWidthSetup:textWidth];
     if ([model.sendType isEqualToString:@"0"]) {
         //带文字
         return CGSizeMake(IPHONE_WIDTH, hight + 55);
@@ -10400,34 +10412,34 @@ static AFHTTPSessionManager *_session;
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-        SocializeIntercourseMessageModel *model = self.detailListArr[indexPath.row];
-        if ([model.sendType isEqualToString:@"0"]) {
-            //文字功能
-            NeighborsSimpleCuteMessageContentCell *messageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteMessageContentCell" forIndexPath:indexPath];
-            NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
-            NSString *picurl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
-            NSLog(@"picurl44323233:%@",picurl);
-            [messageCell.iconImage sd_setImageWithURL:[NSURL URLWithString:picurl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
-            messageCell.model = model;
-            return messageCell;
+    SocializeIntercourseMessageModel *model = self.detailListArr[indexPath.row];
+    if ([model.sendType isEqualToString:@"0"]) {
+        //文字功能
+        NeighborsSimpleCuteMessageContentCell *messageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteMessageContentCell" forIndexPath:indexPath];
+        NSString *imageBaseUrl = [NSString stringWithFormat:@"%@/",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
+        NSString *picurl = [NSString stringWithFormat:@"%@%@",imageBaseUrl,[NeighborsSimpleCuteUserModel getUserInfo].userInfo.tempStr7th];
+        NSLog(@"picurl44323233:%@",picurl);
+        [messageCell.iconImage sd_setImageWithURL:[NSURL URLWithString:picurl] placeholderImage:[UIImage imageNamed:TUIKitResource(@"n_default_bg")]];
+        messageCell.model = model;
+        return messageCell;
+    }else{
+        //图片功能
+        NeighborsSimpleCuteMessagePictureCell *messagePictureCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteMessagePictureCell" forIndexPath:indexPath];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+                              [NSString stringWithFormat:(@"n_add_sened_img.png")]];
+        // 保存文件的名称
+        UIImage *img = [UIImage imageWithContentsOfFile:filePath];
+        NSLog(@"img:%@",img);
+        if (img) {
+            messagePictureCell.iconImage.image = img;
         }else{
-            //图片功能
-            NeighborsSimpleCuteMessagePictureCell *messagePictureCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NeighborsSimpleCuteMessagePictureCell" forIndexPath:indexPath];
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-            NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-                                          [NSString stringWithFormat:(@"n_add_sened_img.png")]];
-            // 保存文件的名称
-            UIImage *img = [UIImage imageWithContentsOfFile:filePath];
-            NSLog(@"img:%@",img);
-            if (img) {
-                    messagePictureCell.iconImage.image = img;
-                }else{
-                    messagePictureCell.iconImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
-            }
-            messagePictureCell.timeLab.text = [NSString stringWithFormat:@"%@",model.sendTimeStr];
-            messagePictureCell.pictureImage.image = [UIImage imageWithData:model.sendPicture];
-            return messagePictureCell;
+            messagePictureCell.iconImage.image = [UIImage imageNamed:TUIKitResource(@"n_default_bg.png")];
         }
+        messagePictureCell.timeLab.text = [NSString stringWithFormat:@"%@",model.sendTimeStr];
+        messagePictureCell.pictureImage.image = [UIImage imageWithData:model.sendPicture];
+        return messagePictureCell;
+    }
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -12218,13 +12230,13 @@ static AFHTTPSessionManager *_session;
         make.left.mas_equalTo(self.ageLab.mas_right).offset(10);
         make.right.mas_equalTo(self.ageJt.mas_left).offset(-10);
     }];
-//    [self.ageView addSubview:self.ageLineView];
-//    [self.ageLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.offset(0);
-//        make.left.offset(10);
-//        make.right.offset(-10);
-//        make.height.offset(1);
-//    }];
+    //    [self.ageView addSubview:self.ageLineView];
+    //    [self.ageLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.bottom.offset(0);
+    //        make.left.offset(10);
+    //        make.right.offset(-10);
+    //        make.height.offset(1);
+    //    }];
 }
 @end
 
@@ -12437,26 +12449,26 @@ static AFHTTPSessionManager *_session;
 {
     NSLog(@"actionUploadBtnactionUploadBtn");
     if (self.cutDown <= 0) {
-         [SVProgressHUD showInfoWithStatus:@"Please record audio first"];
-         return;
-     }
-     if (!self.isRecorder) {
-         [SVProgressHUD showInfoWithStatus:@"Save the recording before you can send it"];
-     }
-     [SVProgressHUD show];
-     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [SVProgressHUD dismiss];
-                 [SVProgressHUD showInfoWithStatus:@"Send successfully"];
-                 self.cutDown = 0;
-                 self.timeLab.hidden = YES;
-                 self.closeBtn.hidden = YES;
-                 self.timer.fireDate=[NSDate distantFuture];
-                 [self.voiceBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_send_voice")] forState:UIControlStateNormal];
-                 [self.audioRecorder pause];
-         });
-     });
+        [SVProgressHUD showInfoWithStatus:@"Please record audio first"];
+        return;
+    }
+    if (!self.isRecorder) {
+        [SVProgressHUD showInfoWithStatus:@"Save the recording before you can send it"];
+    }
+    [SVProgressHUD show];
+    dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Send successfully"];
+            self.cutDown = 0;
+            self.timeLab.hidden = YES;
+            self.closeBtn.hidden = YES;
+            self.timer.fireDate=[NSDate distantFuture];
+            [self.voiceBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_send_voice")] forState:UIControlStateNormal];
+            [self.audioRecorder pause];
+        });
+    });
     
     
 }
@@ -12543,17 +12555,17 @@ static AFHTTPSessionManager *_session;
 
 - (UITableView *)profileTableView
 {   if (!_profileTableView) {
-        _profileTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _profileTableView.backgroundColor = [UIColor clearColor];
-        _profileTableView.showsVerticalScrollIndicator = NO;
-        _profileTableView.showsHorizontalScrollIndicator = NO;
-        _profileTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _profileTableView.delegate = self;
-        _profileTableView.dataSource = self;
-        [_profileTableView registerClass:[NeighborsSimpleCuteProfileHeaderViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileHeaderViewCell"];
-        [_profileTableView registerClass:[NeighborsSimpleCuteProfileContentViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileContentViewCell"];
-        [_profileTableView registerClass:[NeighborsSimpleCuteProfileVoiceViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileVoiceViewCell"];
-    }
+    _profileTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    _profileTableView.backgroundColor = [UIColor clearColor];
+    _profileTableView.showsVerticalScrollIndicator = NO;
+    _profileTableView.showsHorizontalScrollIndicator = NO;
+    _profileTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _profileTableView.delegate = self;
+    _profileTableView.dataSource = self;
+    [_profileTableView registerClass:[NeighborsSimpleCuteProfileHeaderViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileHeaderViewCell"];
+    [_profileTableView registerClass:[NeighborsSimpleCuteProfileContentViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileContentViewCell"];
+    [_profileTableView registerClass:[NeighborsSimpleCuteProfileVoiceViewCell class] forCellReuseIdentifier:@"NeighborsSimpleCuteProfileVoiceViewCell"];
+}
     return _profileTableView;
 }
 - (void)viewDidLoad
@@ -12632,54 +12644,54 @@ static AFHTTPSessionManager *_session;
 /// updatename
 -(void)actionUpdateName
 {
-
+    
     NeighborsSimpleCuteChnageNameView *nameView = [[NeighborsSimpleCuteChnageNameView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_HEIGHT)];
     [nameView setNeighborsSimpleCuteChnageNameViewBlcok:^(NSString * _Nonnull nameStr) {
         [SVProgressHUD show];
-                 dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                             [SVProgressHUD dismiss];
-                             self.contentCell.userNameConLab.text = nameStr;
-                             NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
-                             model.userInfo.nickName = nameStr;
-                             [NeighborsSimpleCuteUserModel save:model];
-                             //[[NSUserDefaults standardUserDefaults]setValue:nameStr forKey:NeighborsSimple_EmailUser];
-                             //[[NSUserDefaults standardUserDefaults]synchronize];
-                     });
+        dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                self.contentCell.userNameConLab.text = nameStr;
+                NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
+                model.userInfo.nickName = nameStr;
+                [NeighborsSimpleCuteUserModel save:model];
+                //[[NSUserDefaults standardUserDefaults]setValue:nameStr forKey:NeighborsSimple_EmailUser];
+                //[[NSUserDefaults standardUserDefaults]synchronize];
             });
+        });
     }];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     NSCParameterAssert(window);
     [window addSubview:nameView];
-//    NSString *nameStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailUser];
-//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Tip" message:@"please enter user name" preferredStyle:UIAlertControllerStyleAlert];
-//    //增加取消按钮；
-//    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
-//     //增加确定按钮；
-//     [alertController addAction:[UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-//       UITextField *userNameTextField = alertController.textFields.firstObject;
-//         if (IS_EMPTY(userNameTextField.text)) {
-//             [SVProgressHUD showInfoWithStatus:@"please enter user name"];
-//             return;
-//         }
-//         [SVProgressHUD show];
-//         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-//                 dispatch_async(dispatch_get_main_queue(), ^{
-//                     [SVProgressHUD dismiss];
-//                     self.contentCell.userNameConLab.text = userNameTextField.text;
-//                     [[NSUserDefaults standardUserDefaults]setValue:userNameTextField.text forKey:NeighborsSimple_EmailUser];
-//                     [[NSUserDefaults standardUserDefaults]synchronize];
-//             });
-//         });
-//     }]];
-//     //定义第一个输入框；
-//     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-//        textField.placeholder = @"please enter user name";
-//        textField.text = nameStr;
-//     }];
-//     [self presentViewController:alertController animated:true completion:nil];
+    //    NSString *nameStr = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_EmailUser];
+    //    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Tip" message:@"please enter user name" preferredStyle:UIAlertControllerStyleAlert];
+    //    //增加取消按钮；
+    //    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
+    //     //增加确定按钮；
+    //     [alertController addAction:[UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    //       UITextField *userNameTextField = alertController.textFields.firstObject;
+    //         if (IS_EMPTY(userNameTextField.text)) {
+    //             [SVProgressHUD showInfoWithStatus:@"please enter user name"];
+    //             return;
+    //         }
+    //         [SVProgressHUD show];
+    //         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+    //                 dispatch_async(dispatch_get_main_queue(), ^{
+    //                     [SVProgressHUD dismiss];
+    //                     self.contentCell.userNameConLab.text = userNameTextField.text;
+    //                     [[NSUserDefaults standardUserDefaults]setValue:userNameTextField.text forKey:NeighborsSimple_EmailUser];
+    //                     [[NSUserDefaults standardUserDefaults]synchronize];
+    //             });
+    //         });
+    //     }]];
+    //     //定义第一个输入框；
+    //     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    //        textField.placeholder = @"please enter user name";
+    //        textField.text = nameStr;
+    //     }];
+    //     [self presentViewController:alertController animated:true completion:nil];
 }
 
 /// select gender
@@ -12688,16 +12700,16 @@ static AFHTTPSessionManager *_session;
     [BRStringPickerView showStringPickerWithTitle:@"Gender" dataSource:self.genderListArr defaultSelValue:@"Female" isAutoSelect:NO resultBlock:^(id selectValue) {
         [SVProgressHUD show];
         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SVProgressHUD dismiss];
-                    NSString *genderStr = (NSString *)selectValue;
-                    self.contentCell.genderConLab.text = genderStr;
-                    [[NSUserDefaults standardUserDefaults]setValue:genderStr forKey:NeighborsSimple_EmailGender];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                NSString *genderStr = (NSString *)selectValue;
+                self.contentCell.genderConLab.text = genderStr;
+                [[NSUserDefaults standardUserDefaults]setValue:genderStr forKey:NeighborsSimple_EmailGender];
+                [[NSUserDefaults standardUserDefaults]synchronize];
             });
         });
-      }];
+    }];
 }
 /// select age
 -(void)actionSelectAge
@@ -12705,13 +12717,13 @@ static AFHTTPSessionManager *_session;
     [BRStringPickerView showStringPickerWithTitle:@"Age" dataSource:self.ageListArr defaultSelValue:@"18" isAutoSelect:NO resultBlock:^(id selectValue) {
         [SVProgressHUD show];
         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [SVProgressHUD dismiss];
-                    NSString *ageStr = (NSString *)selectValue;
-                    self.contentCell.ageConLab.text = ageStr;
-                    [[NSUserDefaults standardUserDefaults]setValue:ageStr forKey:NeighborsSimple_EmailAge];
-                    [[NSUserDefaults standardUserDefaults]synchronize];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+                NSString *ageStr = (NSString *)selectValue;
+                self.contentCell.ageConLab.text = ageStr;
+                [[NSUserDefaults standardUserDefaults]setValue:ageStr forKey:NeighborsSimple_EmailAge];
+                [[NSUserDefaults standardUserDefaults]synchronize];
             });
         });
     }];
@@ -12738,13 +12750,13 @@ static AFHTTPSessionManager *_session;
     }
 }
 - (void)saveImage:(UIImage *)image {
-   NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
-   NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
-                         [NSString stringWithFormat:@"n_add_sened_img.png"]];  // 保存文件的名称
-   BOOL result =[UIImagePNGRepresentation(image)writeToFile:filePath   atomically:YES]; // 保存成功会返回YES
-   if (result == YES) {
-       NSLog(@"Save Success");
-   }
+    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *filePath = [[paths objectAtIndex:0]stringByAppendingPathComponent:
+                          [NSString stringWithFormat:@"n_add_sened_img.png"]];  // 保存文件的名称
+    BOOL result =[UIImagePNGRepresentation(image)writeToFile:filePath   atomically:YES]; // 保存成功会返回YES
+    if (result == YES) {
+        NSLog(@"Save Success");
+    }
 }
 @end
 
@@ -12967,15 +12979,15 @@ static AFHTTPSessionManager *_session;
     }
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Submit successful"];
-                if (self.isisMute == YES) {
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }else{
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Submit successful"];
+            if (self.isisMute == YES) {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }else{
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         });
     });
 }
@@ -13084,7 +13096,7 @@ static AFHTTPSessionManager *_session;
 -(void)actionSubmitBtn
 {
     NSLog(@"actionSubmitBtnactionSubmitBtn");
-   
+    
 }
 -(void)actionFirstUplodaimage:(UIButton *)btn
 {
@@ -13244,7 +13256,7 @@ static AFHTTPSessionManager *_session;
         make.centerY.mas_equalTo(self.privacyView);
         make.right.offset(-20);
     }];
-        
+    
     [self.view addSubview:self.versionLab];
     [self.versionLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
@@ -13324,33 +13336,33 @@ static AFHTTPSessionManager *_session;
 /*
  + (NSDictionary *)mj_replacedKeyFromPropertyName
  {
-     return @{@"uuid": @"id"};
+ return @{@"uuid": @"id"};
  }
  + (void)save:(JYSUserModel *)model{
-     NSDictionary *user = model.mj_keyValues;
-     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-     [defaults setObject:user forKey:UserModelKey];
-     [defaults synchronize];
+ NSDictionary *user = model.mj_keyValues;
+ NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+ [defaults setObject:user forKey:UserModelKey];
+ [defaults synchronize];
  }
  + (JYSUserModel *)getInfo{
-     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
-     JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
-     return user;
+ NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
+ JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
+ return user;
  }
  + (BOOL)isOnline{
-     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
-     JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
-     if (user.token.length>0)
-         return YES;
-     return NO;
+ NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
+ JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
+ if (user.token.length>0)
+ return YES;
+ return NO;
  }
  + (void)logout{
-     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
-     JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
-     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-     [defaults removeObjectForKey:UserModelKey];
-     [defaults synchronize];
-     user = nil;
+ NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:UserModelKey];
+ JYSUserModel *user =[JYSUserModel mj_objectWithKeyValues:dict];
+ NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+ [defaults removeObjectForKey:UserModelKey];
+ [defaults synchronize];
+ user = nil;
  }
  */
 + (void)setMemberLevel:(NSInteger)memberLevel {
@@ -13755,7 +13767,7 @@ static AFHTTPSessionManager *_session;
         _contiue_btn.layer.cornerRadius = 25.0f;
         _contiue_btn.layer.masksToBounds = YES;
         [_contiue_btn addTarget:self action:@selector(actionContiueBtn:) forControlEvents:UIControlEventTouchUpInside];
-       [_contiue_btn gradientButtonWithSize:CGSizeMake((IPHONE_WIDTH-80), 50) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 63)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
+        [_contiue_btn gradientButtonWithSize:CGSizeMake((IPHONE_WIDTH-80), 50) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 63)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
     }
     return _contiue_btn;
 }
@@ -13808,7 +13820,7 @@ static AFHTTPSessionManager *_session;
         _contiue_btn.layer.cornerRadius = 10.0f;
         _contiue_btn.layer.masksToBounds = YES;
         [_contiue_btn addTarget:self action:@selector(actionContiueBtn:) forControlEvents:UIControlEventTouchUpInside];
-       [_contiue_btn gradientButtonWithSize:CGSizeMake((IPHONE_WIDTH-40), 50) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 63)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
+        [_contiue_btn gradientButtonWithSize:CGSizeMake((IPHONE_WIDTH-40), 50) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 63)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
     }
     return _contiue_btn;
 }
@@ -14133,53 +14145,53 @@ static AFHTTPSessionManager *_session;
 {
     NSLog(@"setCxshareldstaretlRightBtn");
     
-     NSLog(@"Restore btn");
-     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
-     [SVProgressHUD show];
-     [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
-         NSLog(@"payment.transactions.count:%lu", (unsigned long)payment.transactions.count);
-         if (!error && payment.transactions.count) {
-             if (![NeighborsSimpleCuteUserModel locaOrderInfo].allValues.count) {
-                 NSData *data = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
-                 [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret2 onCompletion:^(NSString *response, NSError *error) {
-                     NSDictionary *dics = [response getCxshareldstaretlToDictionary];
-                     NSLog(@"dics:%@",dics);
-                     if ([dics[@"status"] intValue] == 21007) {
-                         [IAPShare sharedHelper].iap.production = YES;
-                         [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret2 onCompletion:^(NSString *response, NSError *error) {
-                                 if (error) {
-                                    [SVProgressHUD dismiss];
-                                    [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
-                                 } else {
-                                     [SVProgressHUD dismiss];
-                                     [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                                     [self actionAddRecordWithResposeoneData:response];
-                                 }
-                         }];
-                     } else {
-                         if (error) {
+    NSLog(@"Restore btn");
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD show];
+    [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
+        NSLog(@"payment.transactions.count:%lu", (unsigned long)payment.transactions.count);
+        if (!error && payment.transactions.count) {
+            if (![NeighborsSimpleCuteUserModel locaOrderInfo].allValues.count) {
+                NSData *data = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
+                [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret2 onCompletion:^(NSString *response, NSError *error) {
+                    NSDictionary *dics = [response getCxshareldstaretlToDictionary];
+                    NSLog(@"dics:%@",dics);
+                    if ([dics[@"status"] intValue] == 21007) {
+                        [IAPShare sharedHelper].iap.production = YES;
+                        [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret2 onCompletion:^(NSString *response, NSError *error) {
+                            if (error) {
+                                [SVProgressHUD dismiss];
+                                [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
+                            } else {
+                                [SVProgressHUD dismiss];
+                                [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                                [self actionAddRecordWithResposeoneData:response];
+                            }
+                        }];
+                    } else {
+                        if (error) {
                             [SVProgressHUD dismiss];
                             [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
-                         } else {
-                             [SVProgressHUD dismiss];
-                             [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                             [self actionAddRecordWithResposeoneData:response];
-                         }
-                     }
-                 }];
-             } else {
-                 [SVProgressHUD dismiss];
-                 [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                 //update local data
-                 NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-                 userModel.userInfo.memberLevel = 1;
-                 [NeighborsSimpleCuteUserModel save:userModel];
-             }
-         } else {
-             [SVProgressHUD dismiss];
-             [SVProgressHUD showInfoWithStatus:@"Please select membership"];
-         }
-     }];
+                        } else {
+                            [SVProgressHUD dismiss];
+                            [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                            [self actionAddRecordWithResposeoneData:response];
+                        }
+                    }
+                }];
+            } else {
+                [SVProgressHUD dismiss];
+                [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                //update local data
+                NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+                userModel.userInfo.memberLevel = 1;
+                [NeighborsSimpleCuteUserModel save:userModel];
+            }
+        } else {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Please select membership"];
+        }
+    }];
 }
 
 - (void)viewDidLoad {
@@ -14211,7 +14223,7 @@ static AFHTTPSessionManager *_session;
     KJBannerView *banner = [[KJBannerView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,180)];
     banner.delegate = self;
     banner.dataSource = self;
-
+    
     [banner registerClass:[ZFBananerCollectionOtherViewCell class] forCellWithReuseIdentifier:@"ZFBananerCollectionOtherViewCell"];
     banner.itemSpace = 10;
     banner.delegate = self;
@@ -14325,7 +14337,7 @@ static AFHTTPSessionManager *_session;
         [self.view layoutIfNeeded];
     }
                      completion:^(BOOL finished) {
-                    
+        
     }];
 }
 #pragma mark -- ZFMemberUpgrdeController | UICollectionViewDelegate,UICollectionViewDataSource
@@ -14351,7 +14363,7 @@ static AFHTTPSessionManager *_session;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-     if(indexPath.section == 0){
+    if(indexPath.section == 0){
         return CGSizeMake((SCREEN_WIDTH-50)/2, 150);
     }else if(indexPath.section == 1){
         return CGSizeMake(SCREEN_WIDTH, 50);
@@ -14546,10 +14558,10 @@ static AFHTTPSessionManager *_session;
             ZFMemberUpgradeIAPModel *model = [ZFMemberUpgradeIAPModel mj_objectWithKeyValues:[NeighborsSimpleCuteUserModel locaOrderInfo]];
             model.reRequestInt -= 1;
             [NeighborsSimpleCuteUserModel setLocaOrderInfo:[model mj_JSONObject]];
-            }
-        } failure:^(NSError *error) {
-            [SVProgressHUD showErrorWithStatus:error.domain];
-            return;
+        }
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+        return;
     }];
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -14659,53 +14671,53 @@ static AFHTTPSessionManager *_session;
 {
     NSLog(@"setCxshareldstaretlRightBtn");
     
-     NSLog(@"Restore btn");
-     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
-     [SVProgressHUD show];
-     [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
-         NSLog(@"payment.transactions.count:%lu", (unsigned long)payment.transactions.count);
-         if (!error && payment.transactions.count) {
-             if (![NeighborsSimpleCuteUserModel locaOrderInfo].allValues.count) {
-                 NSData *data = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
-                 [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret onCompletion:^(NSString *response, NSError *error) {
-                     NSDictionary *dics = [response getCxshareldstaretlToDictionary];
-                     NSLog(@"dics:%@",dics);
-                     if ([dics[@"status"] intValue] == 21007) {
-                         [IAPShare sharedHelper].iap.production = YES;
-                         [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret onCompletion:^(NSString *response, NSError *error) {
-                                 if (error) {
-                                    [SVProgressHUD dismiss];
-                                    [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
-                                 } else {
-                                     [SVProgressHUD dismiss];
-                                     [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                                     [self actionAddRecordWithResposeoneData:response];
-                                }
-                         }];
-                     } else {
-                         if (error) {
+    NSLog(@"Restore btn");
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD show];
+    [[IAPShare sharedHelper].iap restoreProductsWithCompletion:^(SKPaymentQueue *payment, NSError *error) {
+        NSLog(@"payment.transactions.count:%lu", (unsigned long)payment.transactions.count);
+        if (!error && payment.transactions.count) {
+            if (![NeighborsSimpleCuteUserModel locaOrderInfo].allValues.count) {
+                NSData *data = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
+                [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret onCompletion:^(NSString *response, NSError *error) {
+                    NSDictionary *dics = [response getCxshareldstaretlToDictionary];
+                    NSLog(@"dics:%@",dics);
+                    if ([dics[@"status"] intValue] == 21007) {
+                        [IAPShare sharedHelper].iap.production = YES;
+                        [[IAPShare sharedHelper].iap checkReceipt:data AndSharedSecret:UpgradeSecret onCompletion:^(NSString *response, NSError *error) {
+                            if (error) {
+                                [SVProgressHUD dismiss];
+                                [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
+                            } else {
+                                [SVProgressHUD dismiss];
+                                [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                                [self actionAddRecordWithResposeoneData:response];
+                            }
+                        }];
+                    } else {
+                        if (error) {
                             [SVProgressHUD dismiss];
                             [SVProgressHUD showInfoWithStatus:@"Restore purchase failed."];
-                         } else {
-                             [SVProgressHUD dismiss];
-                             [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                             [self actionAddRecordWithResposeoneData:response];
-                         }
-                     }
-                 }];
-             } else {
-                 [SVProgressHUD dismiss];
-                 [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
-                 //update local data
-                 NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
-                 userModel.userInfo.memberLevel = 1;
-                 [NeighborsSimpleCuteUserModel save:userModel];
-             }
-         } else {
-             [SVProgressHUD dismiss];
-             [SVProgressHUD showInfoWithStatus:@"Please select membership"];
-         }
-     }];
+                        } else {
+                            [SVProgressHUD dismiss];
+                            [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                            [self actionAddRecordWithResposeoneData:response];
+                        }
+                    }
+                }];
+            } else {
+                [SVProgressHUD dismiss];
+                [SVProgressHUD showInfoWithStatus:@"Restore purchase successed."];
+                //update local data
+                NeighborsSimpleCuteUserModel *userModel = [NeighborsSimpleCuteUserModel getUserInfo];
+                userModel.userInfo.memberLevel = 1;
+                [NeighborsSimpleCuteUserModel save:userModel];
+            }
+        } else {
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Please select membership"];
+        }
+    }];
 }
 
 - (void)viewDidLoad {
@@ -14738,7 +14750,7 @@ static AFHTTPSessionManager *_session;
     KJBannerView *banner = [[KJBannerView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,180)];
     banner.delegate = self;
     banner.dataSource = self;
-
+    
     [banner registerClass:[ZFBananerCollectionViewCell class] forCellWithReuseIdentifier:@"ZFBananerCollectionViewCell"];
     banner.itemSpace = 10;
     banner.delegate = self;
@@ -14851,7 +14863,7 @@ static AFHTTPSessionManager *_session;
         [self.view layoutIfNeeded];
     }
                      completion:^(BOOL finished) {
-                    
+        
     }];
 }
 #pragma mark -- ZFMemberUpgrdeController | UICollectionViewDelegate,UICollectionViewDataSource
@@ -14877,7 +14889,7 @@ static AFHTTPSessionManager *_session;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-     if(indexPath.section == 0){
+    if(indexPath.section == 0){
         return CGSizeMake((SCREEN_WIDTH-50)/2, 130);
     }else if(indexPath.section == 1){
         return CGSizeMake(SCREEN_WIDTH, 50);
@@ -15070,10 +15082,10 @@ static AFHTTPSessionManager *_session;
             ZFMemberUpgradeIAPModel *model = [ZFMemberUpgradeIAPModel mj_objectWithKeyValues:[NeighborsSimpleCuteUserModel locaOrderInfo]];
             model.reRequestInt -= 1;
             [NeighborsSimpleCuteUserModel setLocaOrderInfo:[model mj_JSONObject]];
-            }
-        } failure:^(NSError *error) {
-            [SVProgressHUD showErrorWithStatus:error.domain];
-            return;
+        }
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+        return;
     }];
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -15117,7 +15129,7 @@ static AFHTTPSessionManager *_session;
     CGContextRef context = UIGraphicsGetCurrentContext();
     [self.textColor set];
     
-//    CGRect textRect;
+    //    CGRect textRect;
     
     if (self.textAlignment == NSTextAlignmentLeft) {
         textRect = CGRectMake(rect.origin.x, rect.origin.y + (rect.size.height - textSize.height)/2.0, textSize.width, textSize.height);
@@ -15157,7 +15169,7 @@ static AFHTTPSessionManager *_session;
     CGGradientRelease(gradient);
     CFRelease(alphaMask);
 }
-    
+
 //    CGContextRef context = UIGraphicsGetCurrentContext();
 //
 //    // 获取文字mask
@@ -15199,70 +15211,70 @@ static AFHTTPSessionManager *_session;
 @implementation XSDKResourceUtil
 
 +(float)measureMutilineStringHeight:(NSString*)str andFont:(UIFont*)wordFont andWidthSetup:(float)width{
-
+    
     if (str == nil || width <= 0) return 0;
-
+    
     CGSize measureSize;
-
+    
     if([[UIDevice currentDevice].systemVersion floatValue] < 7.0){
-
+        
         measureSize = [str sizeWithFont:wordFont constrainedToSize:CGSizeMake(width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-
+        
     }else{
-
+        
         measureSize = [str boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:wordFont, NSFontAttributeName, nil] context:nil].size;
-
+        
     }
-
+    
     return ceil(measureSize.height);
-
+    
 }
 
 // 传一个字符串和字体大小来返回一个字符串所占的宽度
 
 +(float)measureSinglelineStringWidth:(NSString*)str andFont:(UIFont*)wordFont{
-
+    
     if (str == nil) return 0;
-
+    
     CGSize measureSize;
-
+    
     if([[UIDevice currentDevice].systemVersion floatValue] < 7.0){
-
+        
         measureSize = [str sizeWithFont:wordFont constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-
+        
     }else{
-
+        
         measureSize = [str boundingRectWithSize:CGSizeMake(0, 0) options:NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:wordFont, NSFontAttributeName, nil] context:nil].size;
-
+        
     }
-
+    
     return ceil(measureSize.width);
-
+    
 }
 
 +(CGSize)measureSinglelineStringSize:(NSString*)str andFont:(UIFont*)wordFont
 
 {
-
+    
     if (str == nil) return CGSizeZero;
-
+    
     CGSize measureSize;
-
+    
     if([[UIDevice currentDevice].systemVersion floatValue] < 7.0){
-
+        
         measureSize = [str sizeWithFont:wordFont constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-
+        
     }else{
-
+        
         measureSize = [str boundingRectWithSize:CGSizeMake(0, 0) options:NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:wordFont, NSFontAttributeName, nil] context:nil].size;
-
+        
     }
-
+    
     return measureSize;
-
+    
 }
 
- 
+
 
 //+(UIImage*)imageAt:(NSString*)imgNamePath{
 
@@ -15276,62 +15288,62 @@ static AFHTTPSessionManager *_session;
 
 //}
 
- 
+
 
 +(BOOL)xsdkcheckName:(NSString*)name{
-
+    
     if([XSDKResourceUtil xsdkstringIsnilOrEmpty:name]){
-
+        
         return NO;
-
+        
     }else{
-
+        
         if(name.length < 5){
-
+            
             return NO;
-
+            
         }
-
         
-
+        
+        
         if(name.length > 20){
-
+            
             return NO;
-
+            
         }
-
         
-
+        
+        
         NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^[a-zA-Z][a-zA-Z0-9_]*$"];
-
+        
         if(![pred evaluateWithObject:name]){
-
+            
             return [XSDKResourceUtil xsdkcheckPhone:name];
-
+            
         }
-
+        
     }
-
+    
     return YES;
-
+    
 }
 
- 
+
 
 +(BOOL)xsdkcheckPhone:(NSString *)userphone
 
 {
-
+    
     NSPredicate * phone = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1\\d{10}"];
-
+    
     if (![phone evaluateWithObject:userphone]) {
-
+        
         return NO;
-
+        
     }
-
+    
     return YES;
-
+    
 }
 +(BOOL)xsdkstringIsnilOrEmpty:(NSString*)string{
     if (string == nil || [string isKindOfClass:[NSNull class]]  || [string isEqualToString:@""]) {
@@ -15345,67 +15357,67 @@ static AFHTTPSessionManager *_session;
     NSString *cString = [[color stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     // String should be 6 or 8 characters
     if ([cString length] < 6)
-
+        
     {
-
+        
         return [UIColor clearColor];
-
+        
     }
-
-    // strip 0X if it appears
-
-    //如果是0x开头的，那么截取字符串，字符串从索引为2的位置开始，一直到末尾
-
-    if ([cString hasPrefix:@"0X"])
-
-    {
-
-        cString = [cString substringFromIndex:2];
-
-    }
-
-    //如果是#开头的，那么截取字符串，字符串从索引为1的位置开始，一直到末尾
-
-    if ([cString hasPrefix:@"#"])
-
-    {
-
-        cString = [cString substringFromIndex:1];
-
-    }
-
-    if ([cString length] != 6)
-
-    {
-
-        return [UIColor clearColor];
-
-    }
-
     
-
+    // strip 0X if it appears
+    
+    //如果是0x开头的，那么截取字符串，字符串从索引为2的位置开始，一直到末尾
+    
+    if ([cString hasPrefix:@"0X"])
+        
+    {
+        
+        cString = [cString substringFromIndex:2];
+        
+    }
+    
+    //如果是#开头的，那么截取字符串，字符串从索引为1的位置开始，一直到末尾
+    
+    if ([cString hasPrefix:@"#"])
+        
+    {
+        
+        cString = [cString substringFromIndex:1];
+        
+    }
+    
+    if ([cString length] != 6)
+        
+    {
+        
+        return [UIColor clearColor];
+        
+    }
+    
+    
+    
     // Separate into r, g, b substrings
-
+    
     NSRange range;
-
+    
     range.location = 0;
-
+    
     range.length = 2;
-
+    
     //r
-
+    
     NSString *rString = [cString substringWithRange:range];
-
+    
     //g
-
+    
     range.location = 2;
-
+    
     NSString *gString = [cString substringWithRange:range];
-
+    
     //b
-
+    
     range.location = 4;
-
+    
     NSString *bString = [cString substringWithRange:range];
     // Scan values
     unsigned int r, g, b;
@@ -15531,10 +15543,10 @@ static AFHTTPSessionManager *_session;
 }
 
 - (BOOL)isExpired {
-//    time_t curTime = [[NSDate date] timeIntervalSince1970];
-//    if (curTime - self.tokenTime > 10 * 24 * 3600) {
-//        return YES;
-//    }
+    //    time_t curTime = [[NSDate date] timeIntervalSince1970];
+    //    if (curTime - self.tokenTime > 10 * 24 * 3600) {
+    //        return YES;
+    //    }
     return NO;
 }
 
@@ -15621,19 +15633,19 @@ static AFHTTPSessionManager *_session;
 {
     [SVProgressHUD show];
     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
-                [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
-                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_LoginUser];
-                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_LoginPWd];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-                [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_LoginStatus];
-                [[NSUserDefaults standardUserDefaults]synchronize];
-                NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
-                UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
-                [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-                [NeighborsSimpleCuteUserModel logout];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD dismiss];
+            [SVProgressHUD showInfoWithStatus:@"Sign out successful"];
+            [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_LoginUser];
+            [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_LoginPWd];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            [[NSUserDefaults standardUserDefaults]removeObjectForKey:NeighborsSimple_LoginStatus];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            NeighborsSimpleCuteRootMainController *rootMainvc = [[NeighborsSimpleCuteRootMainController alloc]init];
+            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rootMainvc];
+            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+            [NeighborsSimpleCuteUserModel logout];
         });
     });
 }
@@ -15682,12 +15694,12 @@ static AFHTTPSessionManager *_session;
     [V2TIMManager.sharedInstance getTotalUnreadMessageCount:^(UInt64 totalCount){
         NSNotification *notice = [NSNotification notificationWithName:TUIKitNotification_onTotalUnreadMessageCountChanged object:@(totalCount)];
         [weakSelf onTotalUnreadCountChanged:notice];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            NSString *totalStr = [NSString stringWithFormat:@"%llu",totalCount];
-//            NSLog(@"totalStr11111111111:%@",totalStr);
-//            NSDictionary * dicNumber = @{@"TotalCount":totalStr};
-//            [[NSNotificationCenter defaultCenter]postNotificationName:TUIKitNotification_onTotalUnreadMessageCountChanged object:nil userInfo:dicNumber];
-//        });
+        //        dispatch_async(dispatch_get_main_queue(), ^{
+        //            NSString *totalStr = [NSString stringWithFormat:@"%llu",totalCount];
+        //            NSLog(@"totalStr11111111111:%@",totalStr);
+        //            NSDictionary * dicNumber = @{@"TotalCount":totalStr};
+        //            [[NSNotificationCenter defaultCenter]postNotificationName:TUIKitNotification_onTotalUnreadMessageCountChanged object:nil userInfo:dicNumber];
+        //        });
     } fail:^(int code, NSString *desc) {
         
     }];
@@ -15755,7 +15767,7 @@ typedef enum : NSUInteger {
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         int cellWidth = [UIScreen mainScreen].bounds.size.width - 2*ASWindowPadding;
-
+        
         _lbName = [UILabel new];
         _lbName.backgroundColor = [UIColor clearColor];
         _lbName.font = [UIFont systemFontOfSize:13];
@@ -15763,7 +15775,7 @@ typedef enum : NSUInteger {
         _lbName.frame = CGRectMake(10, 30, cellWidth - 20, 15);
         _lbName.textColor = [UIColor blackColor];
         [self addSubview:_lbName];
-
+        
         UIView* line = [UIView new];
         line.backgroundColor = ASThemeColor;
         line.frame = CGRectMake(10, 47, cellWidth - 20, 1);
@@ -15791,7 +15803,7 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self prepareCtrl];
     [self loadPath:nil];
 }
@@ -15799,21 +15811,21 @@ typedef enum : NSUInteger {
 - (void)prepareCtrl
 {
     self.view.backgroundColor = [UIColor whiteColor];
-
+    
     _btnClose = [UIButton new];
     [self.view addSubview:_btnClose];
     _btnClose.backgroundColor = ASThemeColor;
     [_btnClose setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_btnClose setTitle:@"Close" forState:UIControlStateNormal];
     [_btnClose addTarget:self action:@selector(btnCloseClick) forControlEvents:UIControlEventTouchUpInside];
-
+    
     _tableView = [UITableView new];
     [self.view addSubview:_tableView];
     _tableView.backgroundColor = [UIColor whiteColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-
+    
     _items = @[];
     _rootPath = NSHomeDirectory();
 }
@@ -15821,13 +15833,13 @@ typedef enum : NSUInteger {
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-
+    
     int viewWidth = [UIScreen mainScreen].bounds.size.width - 2*ASWindowPadding;
     int closeWidth = 60;
     int closeHeight = 28;
-
+    
     _btnClose.frame = CGRectMake(viewWidth-closeWidth-4, 4, closeWidth, closeHeight);
-
+    
     CGRect tableFrame = self.view.frame;
     tableFrame.origin.y += (closeHeight+4);
     tableFrame.size.height -= (closeHeight+4);
@@ -15842,7 +15854,7 @@ typedef enum : NSUInteger {
 - (void)loadPath:(NSString*)filePath
 {
     NSMutableArray* files = @[].mutableCopy;
-
+    
     NSFileManager* fm = [NSFileManager defaultManager];
     NSArray *groupItems = [PAirSandbox sharedInstance].groupItems;
     for (ASFileItem *groupItem in groupItems) {
@@ -15852,7 +15864,7 @@ typedef enum : NSUInteger {
             break;
         }
     }
-
+    
     NSString* targetPath = filePath;
     if (targetPath.length == 0 || [targetPath isEqualToString:_rootPath]) {
         targetPath = _rootPath;
@@ -15866,19 +15878,19 @@ typedef enum : NSUInteger {
         file.path = filePath;
         [files addObject:file];
     }
-
+    
     NSError* err = nil;
     NSArray* paths = [fm contentsOfDirectoryAtPath:targetPath error:&err];
     for (NSString* path in paths) {
-
+        
         if ([[path lastPathComponent] hasPrefix:@"."]) {
             continue;
         }
-
+        
         BOOL isDir = false;
         NSString* fullPath = [targetPath stringByAppendingPathComponent:path];
         [fm fileExistsAtPath:fullPath isDirectory:&isDir];
-
+        
         ASFileItem* file = [ASFileItem new];
         file.path = fullPath;
         if (isDir) {
@@ -15891,7 +15903,7 @@ typedef enum : NSUInteger {
             file.name = [NSString stringWithFormat:@"%@ %@", @"📄", path];
         }
         [files addObject:file];
-
+        
     }
     _items = files.copy;
     [_tableView reloadData];
@@ -15908,16 +15920,16 @@ typedef enum : NSUInteger {
     if (indexPath.row > _items.count-1) {
         return [UITableViewCell new];
     }
-
+    
     ASFileItem* item = [_items objectAtIndex:indexPath.row];
-
+    
     static NSString* cellIdentifier = @"PAirSandboxCell";
     PAirSandboxCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
         cell = [[PAirSandboxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     [cell renderWithItem:item];
-
+    
     return cell;
 }
 
@@ -15932,9 +15944,9 @@ typedef enum : NSUInteger {
     if (indexPath.row > _items.count-1) {
         return;
     }
-
+    
     [tableView deselectRowAtIndexPath:indexPath animated:false];
-
+    
     ASFileItem* item = [_items objectAtIndex:indexPath.row];
     if (item.type == ASFileItemUp) {
         [self loadPath:[item.path stringByDeletingLastPathComponent]];
@@ -15951,7 +15963,7 @@ typedef enum : NSUInteger {
 {
     NSURL *url = [NSURL fileURLWithPath:path];
     NSArray *objectsToShare = @[url];
-
+    
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     NSArray *excludedActivities = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook,
                                     UIActivityTypePostToWeibo,
@@ -15961,7 +15973,7 @@ typedef enum : NSUInteger {
                                     UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
                                     UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
     controller.excludedActivityTypes = excludedActivities;
-
+    
     if ([(NSString *)[UIDevice currentDevice].model hasPrefix:@"iPad"]) {
         controller.popoverPresentationController.sourceView = self.view;
         controller.popoverPresentationController.sourceRect = CGRectMake([UIScreen mainScreen].bounds.size.width * 0.5, [UIScreen mainScreen].bounds.size.height, 10, 10);
@@ -15982,12 +15994,12 @@ typedef enum : NSUInteger {
 + (instancetype)sharedInstance
 {
     static PAirSandbox* instance = nil;
-
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [PAirSandbox new];
     });
-
+    
     return instance;
 }
 
@@ -16015,7 +16027,7 @@ typedef enum : NSUInteger {
         _window.layer.borderColor = ASThemeColor.CGColor;
         _window.layer.borderWidth = 2.0;
         _window.windowLevel = UIWindowLevelStatusBar;
-
+        
         _ctrl = [ASViewController new];
         _window.rootViewController = _ctrl;
     }
@@ -16026,10 +16038,10 @@ typedef enum : NSUInteger {
     if (_groupItems == nil) {
         _groupItems = @[].mutableCopy;
     }
-
+    
     NSURL *groupURL = [[NSFileManager defaultManager]
                        containerURLForSecurityApplicationGroupIdentifier:groupId];
-
+    
     ASFileItem* file = [ASFileItem new];
     file.path = groupURL.relativePath;
     file.type = ASFileItemDirectory;
@@ -16108,10 +16120,10 @@ typedef enum : NSUInteger {
     {
         return nil;
     }
-
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cacheDirectory = [paths objectAtIndex:0];
-
+    
     NSString *fileFullPath = [cacheDirectory stringByAppendingPathComponent:fileName];
     return fileFullPath;
 }
@@ -16133,19 +16145,19 @@ typedef enum : NSUInteger {
             length++;
         }
     }
-
+    
     return length;
 }
 + (NSString *)md5Hash:(NSData *)data {
     unsigned char result[CC_MD5_DIGEST_LENGTH];
     CC_MD5([data bytes], (CC_LONG)[data length], result);
-
+    
     return [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+                @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
             result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7],
             result[8], result[9], result[10], result[11], result[12], result[13], result[14],
             result[15]
-            ];
+    ];
 }
 
 + (void)asyncSendHttpRequest:(NSString*)command token:(NSString*)token params:(NSDictionary*)params handler:(void (^)(int resultCode, NSString* message, NSDictionary* resultDict))handler
@@ -16160,13 +16172,13 @@ typedef enum : NSUInteger {
             });
             return;
         }
-
+        
         NSString* urlString = [kHttpServerAddr stringByAppendingPathComponent:command];
         NSMutableString *strUrl = [[NSMutableString alloc] initWithString:urlString];
-
+        
         NSURL *URL = [NSURL URLWithString:strUrl];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-
+        
         if (data)
         {
             [request setValue:[NSString stringWithFormat:@"%ld",(long)[data length]] forHTTPHeaderField:@"Content-Length"];
@@ -16174,16 +16186,16 @@ typedef enum : NSUInteger {
             [request setValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
             [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
             if (token.length > 0) {
-
+                
                 NSString* sig = [[NSString stringWithFormat:@"%@%@", token, [self md5Hash:data]] md5];
                 [request setValue:sig forHTTPHeaderField:@"Liteav-Sig"];
             }
             [request setHTTPBody:data];
         }
-
+        
         [request setTimeoutInterval:kHttpTimeout];
-
-
+        
+        
         NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error != nil)
             {
@@ -16204,11 +16216,11 @@ typedef enum : NSUInteger {
                     if (resultDict[@"code"]) {
                         errCode = [resultDict[@"code"] intValue];
                     }
-
+                    
                     if (resultDict[@"message"]) {
                         message = resultDict[@"message"];
                     }
-
+                    
                     if (200 == errCode && resultDict[@"data"])
                     {
                         dataDict = resultDict[@"data"];
@@ -16219,7 +16231,7 @@ typedef enum : NSUInteger {
                 });
             }
         }];
-
+        
         [task resume];
     });
 }
@@ -16242,25 +16254,25 @@ typedef enum : NSUInteger {
             });
             return;
         }
-
+        
         NSMutableString *strUrl = [[NSMutableString alloc] initWithString:kHttpServerAddr];
-
+        
         NSURL *URL = [NSURL URLWithString:strUrl];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-
+        
         if (data)
         {
             [request setValue:[NSString stringWithFormat:@"%ld",(long)[data length]] forHTTPHeaderField:@"Content-Length"];
             [request setHTTPMethod:@"POST"];
             [request setValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
             [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-
+            
             [request setHTTPBody:data];
         }
-
+        
         [request setTimeoutInterval:kHttpTimeout];
-
-
+        
+        
         NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error != nil)
             {
@@ -16279,7 +16291,7 @@ typedef enum : NSUInteger {
                 {
                     if (resultDict[@"returnValue"])
                         errCode = [resultDict[@"returnValue"] intValue];
-
+                    
                     if (0 == errCode && resultDict[@"returnData"])
                     {
                         dataDict = resultDict[@"returnData"];
@@ -16290,7 +16302,7 @@ typedef enum : NSUInteger {
                 });
             }
         }];
-
+        
         [task resume];
     });
 }
@@ -16411,17 +16423,17 @@ static NSString *const AspectsMessagePrefix = @"aspects_";
 #pragma mark - Public Aspects API
 
 + (id<AspectToken>)aspect_hookSelector:(SEL)selector
-                      withOptions:(AspectOptions)options
-                       usingBlock:(id)block
-                            error:(NSError **)error {
+                           withOptions:(AspectOptions)options
+                            usingBlock:(id)block
+                                 error:(NSError **)error {
     return aspect_add((id)self, selector, options, block, error);
 }
 
 /// @return A token which allows to later deregister the aspect.
 - (id<AspectToken>)aspect_hookSelector:(SEL)selector
-                      withOptions:(AspectOptions)options
-                       usingBlock:(id)block
-                            error:(NSError **)error {
+                           withOptions:(AspectOptions)options
+                            usingBlock:(id)block
+                                 error:(NSError **)error {
     return aspect_add(self, selector, options, block, error);
 }
 
@@ -16432,7 +16444,7 @@ static id aspect_add(id self, SEL selector, AspectOptions options, id block, NSE
     NSCParameterAssert(self);
     NSCParameterAssert(selector);
     NSCParameterAssert(block);
-
+    
     __block AspectIdentifier *identifier = nil;
     aspect_performLocked(^{
         if (aspect_isSelectorAllowedAndTrack(self, selector, options, error)) {
@@ -16440,7 +16452,7 @@ static id aspect_add(id self, SEL selector, AspectOptions options, id block, NSE
             identifier = [AspectIdentifier identifierWithSelector:selector object:self options:options block:block error:error];
             if (identifier) {
                 [aspectContainer addAspect:identifier withOptions:options];
-
+                
                 // Modify the class to allow message interception.
                 aspect_prepareClassAndHookSelector(self, selector, error);
             }
@@ -16451,14 +16463,14 @@ static id aspect_add(id self, SEL selector, AspectOptions options, id block, NSE
 
 static BOOL aspect_remove(AspectIdentifier *aspect, NSError **error) {
     NSCAssert([aspect isKindOfClass:AspectIdentifier.class], @"Must have correct type.");
-
+    
     __block BOOL success = NO;
     aspect_performLocked(^{
         id self = aspect.object; // strongify
         if (self) {
             AspectsContainer *aspectContainer = aspect_getContainerForObject(self, aspect.selector);
             success = [aspectContainer removeAspect:aspect];
-
+            
             aspect_cleanupHookedClassAndSelector(self, aspect.selector);
             // destroy token
             aspect.object = nil;
@@ -16509,7 +16521,7 @@ static BOOL aspect_isCompatibleBlockSignature(NSMethodSignature *blockSignature,
     NSCParameterAssert(blockSignature);
     NSCParameterAssert(object);
     NSCParameterAssert(selector);
-
+    
     BOOL signaturesMatch = YES;
     NSMethodSignature *methodSignature = [[object class] instanceMethodSignatureForSelector:selector];
     if (blockSignature.numberOfArguments > methodSignature.numberOfArguments) {
@@ -16534,7 +16546,7 @@ static BOOL aspect_isCompatibleBlockSignature(NSMethodSignature *blockSignature,
             }
         }
     }
-
+    
     if (!signaturesMatch) {
         NSString *description = [NSString stringWithFormat:@"Block signature %@ doesn't match %@.", blockSignature, methodSignature];
         AspectError(AspectErrorIncompatibleBlockSignature, description);
@@ -16568,7 +16580,7 @@ static IMP aspect_getMsgForwardIMP(NSObject *self, SEL selector) {
         @try {
             NSUInteger valueSize = 0;
             NSGetSizeAndAlignment(encoding, &valueSize, NULL);
-
+            
             if (valueSize == 1 || valueSize == 2 || valueSize == 4 || valueSize == 8) {
                 methodReturnsStructValue = NO;
             }
@@ -16594,7 +16606,7 @@ static void aspect_prepareClassAndHookSelector(NSObject *self, SEL selector, NSE
             __unused BOOL addedAlias = class_addMethod(klass, aliasSelector, method_getImplementation(targetMethod), typeEncoding);
             NSCAssert(addedAlias, @"Original implementation for %@ is already copied to %@ on %@", NSStringFromSelector(selector), NSStringFromSelector(aliasSelector), klass);
         }
-
+        
         // We use forwardInvocation to hook in.
         class_replaceMethod(klass, selector, aspect_getMsgForwardIMP(self, selector), typeEncoding);
         AspectLog(@"Aspects: Installed hook for -[%@ %@].", klass, NSStringFromSelector(selector));
@@ -16605,13 +16617,13 @@ static void aspect_prepareClassAndHookSelector(NSObject *self, SEL selector, NSE
 static void aspect_cleanupHookedClassAndSelector(NSObject *self, SEL selector) {
     NSCParameterAssert(self);
     NSCParameterAssert(selector);
-
+    
     Class klass = object_getClass(self);
     BOOL isMetaClass = class_isMetaClass(klass);
     if (isMetaClass) {
         klass = (Class)self;
     }
-
+    
     // Check if the method is marked as forwarded and undo that.
     Method targetMethod = class_getInstanceMethod(klass, selector);
     IMP targetMethodIMP = method_getImplementation(targetMethod);
@@ -16622,20 +16634,20 @@ static void aspect_cleanupHookedClassAndSelector(NSObject *self, SEL selector) {
         Method originalMethod = class_getInstanceMethod(klass, aliasSelector);
         IMP originalIMP = method_getImplementation(originalMethod);
         NSCAssert(originalMethod, @"Original implementation for %@ not found %@ on %@", NSStringFromSelector(selector), NSStringFromSelector(aliasSelector), klass);
-
+        
         class_replaceMethod(klass, selector, originalIMP, typeEncoding);
         AspectLog(@"Aspects: Removed hook for -[%@ %@].", klass, NSStringFromSelector(selector));
     }
-
+    
     // Deregister global tracked selector
     aspect_deregisterTrackedSelector(self, selector);
-
+    
     // Get the aspect container and check if there are any hooks remaining. Clean up if there are not.
     AspectsContainer *container = aspect_getContainerForObject(self, selector);
     if (!container.hasAspects) {
         // Destroy the container
         aspect_destroyContainerForObject(self, selector);
-
+        
         // Figure out how the class was modified to undo the changes.
         NSString *className = NSStringFromClass(klass);
         if ([className hasSuffix:AspectsSubclassSuffix]) {
@@ -16643,7 +16655,7 @@ static void aspect_cleanupHookedClassAndSelector(NSObject *self, SEL selector) {
             NSCAssert(originalClass != nil, @"Original class must exist");
             object_setClass(self, originalClass);
             AspectLog(@"Aspects: %@ has been restored.", NSStringFromClass(originalClass));
-
+            
             // We can only dispose the class pair if we can ensure that no instances exist using our subclass.
             // Since we don't globally track this, we can't ensure this - but there's also not much overhead in keeping it around.
             //objc_disposeClassPair(object.class);
@@ -16666,11 +16678,11 @@ static Class aspect_hookClass(NSObject *self, NSError **error) {
     Class statedClass = self.class;
     Class baseClass = object_getClass(self);
     NSString *className = NSStringFromClass(baseClass);
-
+    
     // Already subclassed
     if ([className hasSuffix:AspectsSubclassSuffix]) {
         return baseClass;
-
+        
         // We swizzle a class object, not a single object.
     }else if (class_isMetaClass(baseClass)) {
         return aspect_swizzleClassInPlace((Class)self);
@@ -16678,11 +16690,11 @@ static Class aspect_hookClass(NSObject *self, NSError **error) {
     }else if (statedClass != baseClass) {
         return aspect_swizzleClassInPlace(baseClass);
     }
-
+    
     // Default case. Create dynamic subclass.
     const char *subclassName = [className stringByAppendingString:AspectsSubclassSuffix].UTF8String;
     Class subclass = objc_getClass(subclassName);
-
+    
     if (subclass == nil) {
         subclass = objc_allocateClassPair(baseClass, subclassName, 0);
         if (subclass == nil) {
@@ -16690,13 +16702,13 @@ static Class aspect_hookClass(NSObject *self, NSError **error) {
             AspectError(AspectErrorFailedToAllocateClassPair, errrorDesc);
             return nil;
         }
-
+        
         aspect_swizzleForwardInvocation(subclass);
         aspect_hookedGetClass(subclass, statedClass);
         aspect_hookedGetClass(object_getClass(subclass), statedClass);
         objc_registerClassPair(subclass);
     }
-
+    
     object_setClass(self, subclass);
     return subclass;
 }
@@ -16719,7 +16731,7 @@ static void aspect_undoSwizzleForwardInvocation(Class klass) {
     // There is no class_removeMethod, so the best we can do is to retore the original implementation, or use a dummy.
     IMP originalImplementation = method_getImplementation(originalMethod ?: objectMethod);
     class_replaceMethod(klass, @selector(forwardInvocation:), originalImplementation, "v@:@");
-
+    
     AspectLog(@"Aspects: %@ has been restored.", NSStringFromClass(klass));
 }
 
@@ -16750,7 +16762,7 @@ static void _aspect_modifySwizzledClasses(void (^block)(NSMutableSet *swizzledCl
 static Class aspect_swizzleClassInPlace(Class klass) {
     NSCParameterAssert(klass);
     NSString *className = NSStringFromClass(klass);
-
+    
     _aspect_modifySwizzledClasses(^(NSMutableSet *swizzledClasses) {
         if (![swizzledClasses containsObject:className]) {
             aspect_swizzleForwardInvocation(klass);
@@ -16763,7 +16775,7 @@ static Class aspect_swizzleClassInPlace(Class klass) {
 static void aspect_undoSwizzleClassInPlace(Class klass) {
     NSCParameterAssert(klass);
     NSString *className = NSStringFromClass(klass);
-
+    
     _aspect_modifySwizzledClasses(^(NSMutableSet *swizzledClasses) {
         if ([swizzledClasses containsObject:className]) {
             aspect_undoSwizzleForwardInvocation(klass);
@@ -16778,10 +16790,10 @@ static void aspect_undoSwizzleClassInPlace(Class klass) {
 // This is a macro so we get a cleaner stack trace.
 #define aspect_invoke(aspects, info) \
 for (AspectIdentifier *aspect in aspects) {\
-    [aspect invokeWithInfo:info];\
-    if (aspect.options & AspectOptionAutomaticRemoval) { \
-        aspectsToRemove = [aspectsToRemove?:@[] arrayByAddingObject:aspect]; \
-    } \
+[aspect invokeWithInfo:info];\
+if (aspect.options & AspectOptionAutomaticRemoval) { \
+aspectsToRemove = [aspectsToRemove?:@[] arrayByAddingObject:aspect]; \
+} \
 }
 
 // This is the swizzled forwardInvocation: method.
@@ -16795,11 +16807,11 @@ static void __ASPECTS_ARE_BEING_CALLED__(__unsafe_unretained NSObject *self, SEL
     AspectsContainer *classContainer = aspect_getContainerForClass(object_getClass(self), aliasSelector);
     AspectInfo *info = [[AspectInfo alloc] initWithInstance:self invocation:invocation];
     NSArray *aspectsToRemove = nil;
-
+    
     // Before hooks.
     aspect_invoke(classContainer.beforeAspects, info);
     aspect_invoke(objectContainer.beforeAspects, info);
-
+    
     // Instead hooks.
     BOOL respondsToAlias = YES;
     if (objectContainer.insteadAspects.count || classContainer.insteadAspects.count) {
@@ -16814,11 +16826,11 @@ static void __ASPECTS_ARE_BEING_CALLED__(__unsafe_unretained NSObject *self, SEL
             }
         }while (!respondsToAlias && (klass = class_getSuperclass(klass)));
     }
-
+    
     // After hooks.
     aspect_invoke(classContainer.afterAspects, info);
     aspect_invoke(objectContainer.afterAspects, info);
-
+    
     // If no hooks are installed, call original implementation (usually to throw an exception)
     if (!respondsToAlias) {
         invocation.selector = originalSelector;
@@ -16829,7 +16841,7 @@ static void __ASPECTS_ARE_BEING_CALLED__(__unsafe_unretained NSObject *self, SEL
             [self doesNotRecognizeSelector:invocation.selector];
         }
     }
-
+    
     // Remove any hooks that are queued for deregistration.
     [aspectsToRemove makeObjectsPerformSelector:@selector(remove)];
 }
@@ -16857,7 +16869,7 @@ static AspectsContainer *aspect_getContainerForClass(Class klass, SEL selector) 
         classContainer = objc_getAssociatedObject(klass, selector);
         if (classContainer.hasAspects) break;
     }while ((klass = class_getSuperclass(klass)));
-
+    
     return classContainer;
 }
 
@@ -16885,7 +16897,7 @@ static BOOL aspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector, Aspec
     dispatch_once(&pred, ^{
         disallowedSelectorList = [NSSet setWithObjects:@"retain", @"release", @"autorelease", @"forwardInvocation:", nil];
     });
-
+    
     // Check against the blacklist.
     NSString *selectorName = NSStringFromSelector(selector);
     if ([disallowedSelectorList containsObject:selectorName]) {
@@ -16893,7 +16905,7 @@ static BOOL aspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector, Aspec
         AspectError(AspectErrorSelectorBlacklisted, errorDescription);
         return NO;
     }
-
+    
     // Additional checks.
     AspectOptions position = options&AspectPositionFilter;
     if ([selectorName isEqualToString:@"dealloc"] && position != AspectPositionBefore) {
@@ -16901,19 +16913,19 @@ static BOOL aspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector, Aspec
         AspectError(AspectErrorSelectorDeallocPosition, errorDesc);
         return NO;
     }
-
+    
     if (![self respondsToSelector:selector] && ![self.class instancesRespondToSelector:selector]) {
         NSString *errorDesc = [NSString stringWithFormat:@"Unable to find selector -[%@ %@].", NSStringFromClass(self.class), selectorName];
         AspectError(AspectErrorDoesNotRespondToSelector, errorDesc);
         return NO;
     }
-
+    
     // Search for the current class and the class hierarchy IF we are modifying a class object
     if (class_isMetaClass(object_getClass(self))) {
         Class klass = [self class];
         NSMutableDictionary *swizzledClassesDict = aspect_getSwizzledClassesDict();
         Class currentClass = [self class];
-
+        
         AspectTracker *tracker = swizzledClassesDict[currentClass];
         if ([tracker subclassHasHookedSelectorName:selectorName]) {
             NSSet *subclassTracker = [tracker subclassTrackersHookingSelectorName:selectorName];
@@ -16922,7 +16934,7 @@ static BOOL aspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector, Aspec
             AspectError(AspectErrorSelectorAlreadyHookedInClassHierarchy, errorDescription);
             return NO;
         }
-
+        
         do {
             tracker = swizzledClassesDict[currentClass];
             if ([tracker.selectorNames containsObject:selectorName]) {
@@ -16935,7 +16947,7 @@ static BOOL aspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector, Aspec
                 return NO;
             }
         } while ((currentClass = class_getSuperclass(currentClass)));
-
+        
         // Add the selector as being modified.
         currentClass = klass;
         AspectTracker *subclassTracker = nil;
@@ -16950,20 +16962,20 @@ static BOOL aspect_isSelectorAllowedAndTrack(NSObject *self, SEL selector, Aspec
             } else {
                 [tracker.selectorNames addObject:selectorName];
             }
-
+            
             // All superclasses get marked as having a subclass that is modified.
             subclassTracker = tracker;
         }while ((currentClass = class_getSuperclass(currentClass)));
     } else {
         return YES;
     }
-
+    
     return YES;
 }
 
 static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     if (!class_isMetaClass(object_getClass(self))) return;
-
+    
     NSMutableDictionary *swizzledClassesDict = aspect_getSwizzledClassesDict();
     NSString *selectorName = NSStringFromSelector(selector);
     Class currentClass = [self class];
@@ -17044,7 +17056,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     const char *argType = [self.methodSignature getArgumentTypeAtIndex:index];
     // Skip const type qualifier.
     if (argType[0] == _C_CONST) argType++;
-
+    
 #define WRAP_AND_RETURN(type) do { type val = 0; [self getArgument:&val atIndex:(NSInteger)index]; return @(val); } while (0)
     if (strcmp(argType, @encode(id)) == 0 || strcmp(argType, @encode(Class)) == 0) {
         __autoreleasing id returnObj;
@@ -17096,10 +17108,10 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     } else {
         NSUInteger valueSize = 0;
         NSGetSizeAndAlignment(argType, &valueSize, NULL);
-
+        
         unsigned char valueBytes[valueSize];
         [self getArgument:valueBytes atIndex:(NSInteger)index];
-
+        
         return [NSValue valueWithBytes:valueBytes objCType:argType];
     }
     return nil;
@@ -17128,7 +17140,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     if (!aspect_isCompatibleBlockSignature(blockSignature, object, selector, error)) {
         return nil;
     }
-
+    
     AspectIdentifier *identifier = nil;
     if (blockSignature) {
         identifier = [AspectIdentifier new];
@@ -17145,35 +17157,35 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     NSInvocation *blockInvocation = [NSInvocation invocationWithMethodSignature:self.blockSignature];
     NSInvocation *originalInvocation = info.originalInvocation;
     NSUInteger numberOfArguments = self.blockSignature.numberOfArguments;
-
+    
     // Be extra paranoid. We already check that on hook registration.
     if (numberOfArguments > originalInvocation.methodSignature.numberOfArguments) {
         AspectLogError(@"Block has too many arguments. Not calling %@", info);
         return NO;
     }
-
+    
     // The `self` of the block will be the AspectInfo. Optional.
     if (numberOfArguments > 1) {
         [blockInvocation setArgument:&info atIndex:1];
     }
-
+    
     void *argBuf = NULL;
     for (NSUInteger idx = 2; idx < numberOfArguments; idx++) {
         const char *type = [originalInvocation.methodSignature getArgumentTypeAtIndex:idx];
         NSUInteger argSize;
         NSGetSizeAndAlignment(type, &argSize, NULL);
-
+        
         if (!(argBuf = reallocf(argBuf, argSize))) {
             AspectLogError(@"Failed to allocate memory for block invocation.");
             return NO;
         }
-
+        
         [originalInvocation getArgument:argBuf atIndex:idx];
         [blockInvocation setArgument:argBuf atIndex:idx];
     }
-
+    
     [blockInvocation invokeWithTarget:self.block];
-
+    
     if (argBuf != NULL) {
         free(argBuf);
     }
@@ -17271,17 +17283,17 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
 @interface MyCustomCellData ()
 
 @end
- 
+
 @implementation MyCustomCellData
 - (CGSize)contentSize
 {
     CGRect rect = [self.text boundingRectWithSize:CGSizeMake(300, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:15] } context:nil];
     CGSize size = CGSizeMake(ceilf(rect.size.width)+1, ceilf(rect.size.height));
-
+    
     // 加上气泡边距
     size.height += 60;
     size.width += 20;
-
+    
     return size;
 }
 @end
@@ -17304,13 +17316,13 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
         _myTextLabel.font = [UIFont systemFontOfSize:15];
         _myTextLabel.textColor = [UIColor d_colorWithColorLight:TText_Color dark:TText_Color_Dark];
         [self.container addSubview:_myTextLabel];
-
+        
         _myLinkLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _myLinkLabel.text = NSLocalizedString(@"MoreCustomViewDetails", nil); // @"查看详情>>";
         _myLinkLabel.font = [UIFont systemFontOfSize:15];
         _myLinkLabel.textColor = [UIColor d_systemBlueColor];
         [self.container addSubview:_myLinkLabel];
-
+        
         [self.container.layer setMasksToBounds:YES];
         [self.container.layer setBorderColor:[UIColor d_systemGrayColor].CGColor];
         [self.container.layer setBorderWidth:1];
@@ -17372,7 +17384,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     [placeholderLabel sizeToFit];
     [self.inputTextView addSubview:placeholderLabel];
     [self.inputTextView setValue:placeholderLabel forKey:@"_placeholderLabel"];
-
+    
     self.backgroundColor = [UIColor blackColor];
     
     [self.faceButton setImage:[UIImage imageNamed:TUIKitResource(@"im_send_all")] forState:UIControlStateNormal];
@@ -17459,7 +17471,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
         }
     }
     [vc setSourceIds:ids];
-
+    
     @weakify(self)
     [self.navigationController pushViewController:vc animated:YES];
     //删除成功后默认返回群组聊天界面
@@ -17655,17 +17667,17 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.title = NSLocalizedString(@"ProfileDetails", nil); // @"详细资料";
     self.clearsSelectionOnViewWillAppear = YES;
-
+    
     [self.tableView registerClass:[TCommonTextCell class] forCellReuseIdentifier:@"TextCell"];
     [self.tableView registerClass:[TUIProfileCardCell class] forCellReuseIdentifier:@"CardCell"];
     [self.tableView registerClass:[TUIButtonCell class] forCellReuseIdentifier:@"ButtonCell"];
-
+    
     //如果不加这一行代码，依然可以实现点击反馈，但反馈会有轻微延迟，体验不好。
     self.tableView.delaysContentTouches = NO;
-
+    
     [self loadData];
 }
 
@@ -17691,7 +17703,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
         })];
         inlist;
     })];
-
+    
     //当用户状态为请求添加好友/请求添加群组时，视图加载出验证消息模块
     if (self.pendency || self.groupPendency) {
         [list addObject:({
@@ -17710,10 +17722,10 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
             inlist;
         })];
     }
-
-
+    
+    
     self.dataList = list;
-
+    
     //当用户为陌生人时，在当前视图给出"加好友"按钮
     if (self.actionType == PCA_ADD_FRIEND) {
         [[V2TIMManager sharedInstance] checkFriend:@[self.userFullInfo.userID] checkType:V2TIM_FRIEND_TYPE_BOTH succ:^(NSArray<V2TIMFriendCheckResult *> *resultList) {
@@ -17739,12 +17751,12 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
             })];
             
             [self.tableView reloadData];
-                    
+            
         } fail:^(int code, NSString *desc) {
             NSLog(@"");
         }];
     }
-
+    
     //当用户请求添加使用者为好友时，在当前视图给出"同意"、"拒绝"，使当前用户进行选择
     if (self.actionType == PCA_PENDENDY_CONFIRM) {
         [self.dataList addObject:({
@@ -17768,7 +17780,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
             inlist;
         })];
     }
-
+    
     //当用户请求加入群组时，在当前视图给出"同意"、"拒绝"，使当前群组管理员进行选择
     if (self.actionType == PCA_GROUP_CONFIRM) {
         [self.dataList addObject:({
@@ -17792,7 +17804,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
             inlist;
         })];
     }
-
+    
     [self.tableView reloadData];
 }
 
@@ -17810,7 +17822,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     TCommonCellData *data = self.dataList[indexPath.section][indexPath.row];
     TCommonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:data.reuseId forIndexPath:indexPath];
     //如果是 profileCard 的话，添加委托。
@@ -17820,7 +17832,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
         cell = cardCell;
     }
     [cell fillWithData:data];
-
+    
     return cell;
 }
 
@@ -17853,9 +17865,9 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
  */
 - (void)onAddFriend
 {
-//    FriendRequestViewController *vc = [FriendRequestViewController new];
-//    vc.profile = self.userFullInfo;
-//    [self.navigationController pushViewController:vc animated:YES];
+    //    FriendRequestViewController *vc = [FriendRequestViewController new];
+    //    vc.profile = self.userFullInfo;
+    //    [self.navigationController pushViewController:vc animated:YES];
 }
 
 /**
@@ -17891,7 +17903,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     image.avatarData.avatarUrl = [NSURL URLWithString:self.userFullInfo.faceURL];
     NSArray *list = self.dataList;
     NSLog(@"%@",list);
-
+    
     [self.navigationController pushViewController:image animated:YES];
 }
 
@@ -18032,7 +18044,7 @@ UIDocumentPickerDelegate>
     _chat.inputController.moreView.backgroundColor =  [UIColor blackColor];
     _chat.inputController.moreView.moreCollectionView.backgroundColor = [UIColor blackColor];;
     _chat.inputController.moreView.lineView.backgroundColor = [UIColor blackColor];
-
+    
     NSMutableArray *array = [NSMutableArray arrayWithArray:_chat.moreMenus];
     [array removeLastObject]; // 删除最后一个菜单
     [array removeLastObject]; // 删除最后一个菜单
@@ -18042,14 +18054,14 @@ UIDocumentPickerDelegate>
     
     RAC(self, title) = [RACObserve(_conversationData, title) distinctUntilChanged];
     [self checkTitle:NO];
-
+    
     // 导航栏
     [self setupNavigator];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onRefreshNotification:)
                                                  name:TUIKitNotification_TIMRefreshListener_Changed
                                                object:nil];
-
+    
     //添加未读计数的监听
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onChangeUnReadCount:)
@@ -18096,26 +18108,26 @@ UIDocumentPickerDelegate>
     [self.upgrdateView setIMUpdateGrdateViewUpgradeBlock:^{
         BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
         BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
-               if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
-                   ZFMemberUpgrdeOtherController *zfothermembervc = [[ZFMemberUpgrdeOtherController alloc]init];
-                    zfothermembervc.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:zfothermembervc animated:YES];
-               }else{
-                   //H5支付功能
-                   NSString *spare12th = userModel.appClient.spare12th;
-                   NSLog(@"spare12th:%@",spare12th);
-                   NSString *ipContent = userModel.userInfo.ipContent;
-                   NSLog(@"ipContent:%@",ipContent);
-                   NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
-                   NSLog(@"ip:%@",dics[@"ip"]);
-                   NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
-                   NSLog(@"RealUrl:%@",RealUrl);
-                   
-                   NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-                   vc.webTitle = @"Upgrade";
-                   vc.loadType = WKWebLoadTypeWebURLString;
-                   vc.URLString = RealUrl;
-                   [weakSelf.navigationController pushViewController:vc animated:YES];
+        if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
+            ZFMemberUpgrdeOtherController *zfothermembervc = [[ZFMemberUpgrdeOtherController alloc]init];
+            zfothermembervc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:zfothermembervc animated:YES];
+        }else{
+            //H5支付功能
+            NSString *spare12th = userModel.appClient.spare12th;
+            NSLog(@"spare12th:%@",spare12th);
+            NSString *ipContent = userModel.userInfo.ipContent;
+            NSLog(@"ipContent:%@",ipContent);
+            NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
+            NSLog(@"ip:%@",dics[@"ip"]);
+            NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
+            NSLog(@"RealUrl:%@",RealUrl);
+            
+            NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+            vc.webTitle = @"Upgrade";
+            vc.loadType = WKWebLoadTypeWebURLString;
+            vc.URLString = RealUrl;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
         }
     }];
     [self.upgrdateView setIMUpdateGrdateViewUpgradeDissmissBlock:^{
@@ -18135,28 +18147,28 @@ UIDocumentPickerDelegate>
     [self.upgrdateView setIMUpdateGrdateViewUpgradeBlock:^{
         BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
         BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
-               if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
-                   ZFMemberUpgrdeOtherController *zfothermembervc = [[ZFMemberUpgrdeOtherController alloc]init];
-                        zfothermembervc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:zfothermembervc animated:YES];
-                   
-                   
-               }else{
-                   //H5支付功能
-                   NSString *spare12th = userModel.appClient.spare12th;
-                   NSLog(@"spare12th:%@",spare12th);
-                   NSString *ipContent = userModel.userInfo.ipContent;
-                   NSLog(@"ipContent:%@",ipContent);
-                   NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
-                   NSLog(@"ip:%@",dics[@"ip"]);
-                   NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
-                   NSLog(@"RealUrl:%@",RealUrl);
-                   
-                   NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-                   vc.webTitle = @"Upgrade";
-                   vc.loadType = WKWebLoadTypeWebURLString;
-                   vc.URLString = RealUrl;
-                   [weakSelf.navigationController pushViewController:vc animated:YES];
+        if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
+            ZFMemberUpgrdeOtherController *zfothermembervc = [[ZFMemberUpgrdeOtherController alloc]init];
+            zfothermembervc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:zfothermembervc animated:YES];
+            
+            
+        }else{
+            //H5支付功能
+            NSString *spare12th = userModel.appClient.spare12th;
+            NSLog(@"spare12th:%@",spare12th);
+            NSString *ipContent = userModel.userInfo.ipContent;
+            NSLog(@"ipContent:%@",ipContent);
+            NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
+            NSLog(@"ip:%@",dics[@"ip"]);
+            NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
+            NSLog(@"RealUrl:%@",RealUrl);
+            
+            NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+            vc.webTitle = @"Upgrade";
+            vc.loadType = WKWebLoadTypeWebURLString;
+            vc.URLString = RealUrl;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
         }
     }];
     [self.upgrdateView setIMUpdateGrdateViewUpgradeDissmissBlock:^{
@@ -18245,7 +18257,7 @@ UIDocumentPickerDelegate>
         feedbackvc.isisMute = YES;
         [self.navigationController pushViewController:feedbackvc animated:YES];
     }];
-     NSCParameterAssert(window);
+    NSCParameterAssert(window);
     [window addSubview:muteAlterView];
 }
 
@@ -18312,13 +18324,13 @@ UIDocumentPickerDelegate>
                 }else{
                     [SVProgressHUD show];
                     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                        weakSelf.isBlock = YES;
-                                        [SVProgressHUD dismiss];
-                                        [SVProgressHUD showInfoWithStatus:@"Blocked"];
-                                });
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            weakSelf.isBlock = YES;
+                            [SVProgressHUD dismiss];
+                            [SVProgressHUD showInfoWithStatus:@"Blocked"];
                         });
+                    });
                 }
             }else if(btnIndex == 1002){
                 NSLog(@"targetId:%@",self.userId);
@@ -18341,7 +18353,7 @@ UIDocumentPickerDelegate>
         MJWeakSelf;
         menuView.CXChatBlockAlertViewBtnsClickBlock = ^(NSInteger btnIndex) {
             if (btnIndex == 1000) {
-               // view podfile
+                // view podfile
                 NSCPersonMessageViewController *personMessageVC = [[NSCPersonMessageViewController alloc]init];
                 personMessageVC.personUserId = [self.userId intValue];
                 personMessageVC.tempStr20th = self.tempStr20th;
@@ -18354,13 +18366,13 @@ UIDocumentPickerDelegate>
                 }else{
                     [SVProgressHUD show];
                     dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                        weakSelf.isBlock = YES;
-                                        [SVProgressHUD dismiss];
-                                        [SVProgressHUD showInfoWithStatus:@"Blocked"];
-                                });
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            weakSelf.isBlock = YES;
+                            [SVProgressHUD dismiss];
+                            [SVProgressHUD showInfoWithStatus:@"Blocked"];
                         });
+                    });
                 }
             }else if(btnIndex == 1002){
                 NSLog(@"targetId:%@",self.userId);
@@ -18372,7 +18384,7 @@ UIDocumentPickerDelegate>
             }
         };
     }
-   
+    
 }
 -(void)leftBarButtonClick
 {
@@ -18427,7 +18439,7 @@ UIDocumentPickerDelegate>
     if (force || _conversationData.title.length == 0) {
         if (_conversationData.userID.length > 0) {
             _conversationData.title = _conversationData.userID;
-             @weakify(self)
+            @weakify(self)
             [[V2TIMManager sharedInstance] getFriendsInfo:@[_conversationData.userID] succ:^(NSArray<V2TIMFriendInfoResult *> *resultList) {
                 @strongify(self)
                 V2TIMFriendInfoResult *result = resultList.firstObject;
@@ -18445,7 +18457,7 @@ UIDocumentPickerDelegate>
         }
         if (_conversationData.groupID.length > 0) {
             _conversationData.title = _conversationData.groupID;
-             @weakify(self)
+            @weakify(self)
             [[V2TIMManager sharedInstance] getGroupsInfo:@[_conversationData.groupID] succ:^(NSArray<V2TIMGroupInfoResult *> *groupResultList) {
                 @strongify(self)
                 V2TIMGroupInfoResult *result = groupResultList.firstObject;
@@ -18616,7 +18628,7 @@ UIDocumentPickerDelegate>
     } failed:^(int code, NSString * _Nonnull errorMsg) {
         NSLog(@"----> 业务层创建群直播房间失败，%d, %@", code, errorMsg);
     }];
-
+    
 }
 
 - (void)onRoomDestroy:(TRTCLiveRoomInfo *)roomInfo {
@@ -18657,7 +18669,7 @@ UIDocumentPickerDelegate>
 @property (strong, nonatomic)  UIImageView *centerImage;
 @property (strong, nonatomic)  UILabel *detail_lab;
 @end
- 
+
 @implementation IMUpdateGrdateView
 
 - (UIImageView *)centerImage
@@ -18770,7 +18782,7 @@ UIDocumentPickerDelegate>
         make.right.offset(-30);
         make.height.offset(450);
     }];
-        
+    
     [self.bg_view addSubview:self.top_btn];
     [self.top_btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.offset(0);
@@ -18899,7 +18911,7 @@ UIDocumentPickerDelegate>
         make.right.offset(-30);
         make.height.offset(450);
     }];
-        
+    
     [self.bg_view addSubview:self.top_btn];
     [self.top_btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.offset(0);
@@ -19011,7 +19023,7 @@ UIDocumentPickerDelegate>
         make.right.offset(-30);
         make.height.offset(450);
     }];
-        
+    
     [self.bg_view addSubview:self.top_btn];
     [self.top_btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.offset(0);
@@ -19178,7 +19190,7 @@ UIDocumentPickerDelegate>
         make.right.offset(-30);
         make.height.offset(450);
     }];
-        
+    
     [self.bgView addSubview:self.top_btn];
     [self.top_btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.offset(0);
@@ -19196,7 +19208,7 @@ UIDocumentPickerDelegate>
         make.width.offset((IPHONE_WIDTH - 100)/2);
         make.height.offset(50);
     }];
-
+    
     [self.bgView addSubview:self.messageBtn];
     [self.messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.offset(-15);
@@ -19216,9 +19228,9 @@ UIDocumentPickerDelegate>
  CGFloat ContentHeigth = [aView GetLSwLabelHeightWithText:titleStr width:KscreenW-60 font:15];
  CGFloat totalHight =  ContentHeigth + 360;
  if (totalHight >KscreenH-50) {
-     totalHight = KscreenH-50;
+ totalHight = KscreenH-50;
  }else{
-     totalHight = totalHight;
+ totalHight = totalHight;
  }
  */
 @end
@@ -19239,7 +19251,7 @@ UIDocumentPickerDelegate>
         _bgView.clipsToBounds = YES;
         _bgView.layer.cornerRadius = 5;
         [self.contentView addSubview:_bgView];
-
+        
         
         _bgHeaderView = [[UIView alloc]init];
         _bgHeaderView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.08];
@@ -19254,40 +19266,40 @@ UIDocumentPickerDelegate>
         //_headImageView.layer.borderColor = RGBA(255, 255, 255, 0.3).CGColor;
         //_headImageView.layer.borderWidth = 2;
         [self.contentView addSubview:_headImageView];
-
+        
         _timeLabel = [[UILabel alloc] init];
         _timeLabel.font = [UIFont systemFontOfSize:12];
         _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.layer.masksToBounds = YES;
         [self.contentView addSubview:_timeLabel];
-
+        
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.font = [UIFont boldSystemFontOfSize:18];
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.layer.masksToBounds = YES;
         [self.contentView addSubview:_titleLabel];
-
+        
         _unReadView = [[TUnReadView alloc] init];
         _unReadView.backgroundColor = RGB(247, 76, 49);
         [self.contentView addSubview:_unReadView];
-
+        
         _subTitleLabel = [[UILabel alloc] init];
         _subTitleLabel.layer.masksToBounds = YES;
         _subTitleLabel.font = [UIFont systemFontOfSize:15];
         _subTitleLabel.textColor = RGB(255, 188, 62);
         [self.contentView addSubview:_subTitleLabel];
         
-//        _disturbImageView = [[UIImageView alloc] init];
-//        [self.contentView addSubview:_disturbImageView];
-
+        //        _disturbImageView = [[UIImageView alloc] init];
+        //        [self.contentView addSubview:_disturbImageView];
+        
         [self setSeparatorInset:UIEdgeInsetsMake(0, TConversationCell_Margin, 0, 0)];
-
+        
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         //[self setSelectionStyle:UITableViewCellSelectionStyleDefault];
         
         // selectedIcon
-//        _selectedIcon = [[UIImageView alloc] init];
-//        [self.contentView addSubview:_selectedIcon];
+        //        _selectedIcon = [[UIImageView alloc] init];
+        //        [self.contentView addSubview:_selectedIcon];
     }
     return self;
 }
@@ -19295,7 +19307,7 @@ UIDocumentPickerDelegate>
 {
     [super fillWithData:convData];
     self.convData = convData;
-
+    
     self.timeLabel.text = [convData.time tk_messageString];
     self.subTitleLabel.attributedText = convData.subTitle;
     
@@ -19352,45 +19364,45 @@ UIDocumentPickerDelegate>
         } else {//个人头像
             NSLog(@"个人头像");
             NSLog(@"x:%@",x);
-//            NSString *prefixStr = [NSString stringWithFormat:@"%@",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
-//            NSLog(@"prefixStr:%@",prefixStr);
-//            NSArray *array = [x componentsSeparatedByString:@"//"];
-//            NSLog(@"arrary[0]:%@",array[0]);
-//            NSLog(@"arrary[1]:%@",array[1]);
-//            NSArray *array2 = [array[1] componentsSeparatedByString:@"/"];
-//            NSLog(@"array2[0]:%@",array2[0]);
-//            NSLog(@"array2[1]:%@",array2[1]);
-//            NSString *baseurl = [NSString stringWithFormat:@"%@/%@",prefixStr,array2[1]];
-//            NSLog(@"baseurl:%@",baseurl);
-//            NSLog(@"x:%@",x);
+            //            NSString *prefixStr = [NSString stringWithFormat:@"%@",[NeighborsSimpleCuteUserModel getUserInfo].appClient.spare17th];
+            //            NSLog(@"prefixStr:%@",prefixStr);
+            //            NSArray *array = [x componentsSeparatedByString:@"//"];
+            //            NSLog(@"arrary[0]:%@",array[0]);
+            //            NSLog(@"arrary[1]:%@",array[1]);
+            //            NSArray *array2 = [array[1] componentsSeparatedByString:@"/"];
+            //            NSLog(@"array2[0]:%@",array2[0]);
+            //            NSLog(@"array2[1]:%@",array2[1]);
+            //            NSString *baseurl = [NSString stringWithFormat:@"%@/%@",prefixStr,array2[1]];
+            //            NSLog(@"baseurl:%@",baseurl);
+            //            NSLog(@"x:%@",x);
             [self.headImageView sd_setImageWithURL:[NSURL URLWithString:x]
                                   placeholderImage:[UIImage imageNamed:TUIKitResource(@"nsc_defautl")]];
         }
     }];
-//    NSString *imageName = (convData.showCheckBox && convData.selected) ? TUIKitResource(@"icon_contact_select_selected") : TUIKitResource(@"icon_contact_select_normal");
-//    self.selectedIcon.image = [UIImage imageNamed:imageName];
+    //    NSString *imageName = (convData.showCheckBox && convData.selected) ? TUIKitResource(@"icon_contact_select_selected") : TUIKitResource(@"icon_contact_select_normal");
+    //    self.selectedIcon.image = [UIImage imageNamed:imageName];
     self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-//    CGFloat height = [self.convData heightOfWidth:self.mm_w];
-//    self.mm_h = height;
-//    CGFloat imgHeight = height-2*(10);
-
+    //    CGFloat height = [self.convData heightOfWidth:self.mm_w];
+    //    self.mm_h = height;
+    //    CGFloat imgHeight = height-2*(10);
+    
     if (self.convData.showCheckBox) {
         _selectedIcon.mm_width(20).mm_height(20);
         _selectedIcon.mm_x = 10;
         _selectedIcon.mm_centerY = self.headImageView.mm_centerY;
         _selectedIcon.hidden = NO;
     } else {
-//        _selectedIcon.mm_width(20).mm_height(20);
-//        _selectedIcon.mm_x = 0;
-//        _selectedIcon.mm_y = 0;
-//        _selectedIcon.hidden = YES;
+        //        _selectedIcon.mm_width(20).mm_height(20);
+        //        _selectedIcon.mm_x = 0;
+        //        _selectedIcon.mm_y = 0;
+        //        _selectedIcon.hidden = YES;
     }
-
+    
     self.bgView.mm_width(Screen_Width - 20).mm_height(100).mm_left(10).mm_right(10).mm_top(5);
     self.bgHeaderView.mm_width(86).mm_height(86).mm_left(10 + 7).mm_top(12);
     self.headImageView.mm_width(80).mm_height(80).mm_left(10 + 10).mm_top(15);
@@ -19398,7 +19410,7 @@ UIDocumentPickerDelegate>
     self.timeLabel.mm_sizeToFit().mm_top(14).mm_right(14 + 4);
     self.titleLabel.mm_sizeToFitThan(120, 30).mm_top(27).mm_left(self.headImageView.mm_maxX+TConversationCell_Margin);
     self.unReadView.mm_right(14 + 4).mm_bottom(44 - 1);
-//    self.disturbImageView.mm_width(TConversationCell_Margin_Disturb).mm_height(TConversationCell_Margin_Disturb).mm_right(16).mm_bottom(15);
+    //    self.disturbImageView.mm_width(TConversationCell_Margin_Disturb).mm_height(TConversationCell_Margin_Disturb).mm_right(16).mm_bottom(15);
     self.subTitleLabel.mm_sizeToFit().mm_left(self.titleLabel.mm_x).mm_bottom(27).mm_flexToRight(self.mm_w-self.unReadView.mm_x);
     
     self.backgroundColor = [UIColor clearColor];
@@ -19583,7 +19595,7 @@ UIDocumentPickerDelegate>
     [self.chat_btn_3 addTarget:self action:@selector(BlokcbtnsClick:) forControlEvents:UIControlEventTouchUpInside];
     self.chat_btn_3.tag = 1003;
     [self addSubview:self.chat_btn_3];
-   
+    
     BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
     BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
     if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
@@ -19729,12 +19741,12 @@ UIDocumentPickerDelegate>
         make.bottom.mas_equalTo(self.chat_btn_2.mas_top).mas_offset(-15);
     }];
     
-//    [self.chat_btn_0 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_offset(15);
-//        make.right.mas_offset(-15);
-//        make.height.mas_offset(50);
-//        make.bottom.mas_equalTo(self.chat_btn_1.mas_top).mas_offset(-15);
-//    }];
+    //    [self.chat_btn_0 mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.left.mas_offset(15);
+    //        make.right.mas_offset(-15);
+    //        make.height.mas_offset(50);
+    //        make.bottom.mas_equalTo(self.chat_btn_1.mas_top).mas_offset(-15);
+    //    }];
 }
 @end
 
@@ -19884,7 +19896,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
                     NSLog(@"clear c2c history messages, error|code:%d|desc:%@", code, desc);
                 }];
             }
-
+            
         }];
         action.backgroundColor = [UIColor colorWithRed:32/255.0 green:124/255.0 blue:231/255.0 alpha:1.0];
         [rowActions addObject:action];
@@ -19910,9 +19922,9 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
              NeighborsSimpleCuteDelAccountView *delView = [[NeighborsSimpleCuteDelAccountView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_WIDTH, IPHONE_WIDTH)];
              UIWindow *window = [UIApplication sharedApplication].keyWindow;
              [delView setNeighborsSimpleCuteDelAccountViewBlock:^{
-                  NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
-                  delaccountvc.hidesBottomBarWhenPushed = YES;
-                  [self.navigationController pushViewController:delaccountvc animated:YES];
+             NeighborsSimpleCuteDelAccountController *delaccountvc = [[NeighborsSimpleCuteDelAccountController alloc]init];
+             delaccountvc.hidesBottomBarWhenPushed = YES;
+             [self.navigationController pushViewController:delaccountvc animated:YES];
              }];
              NSCParameterAssert(window);
              [window addSubview:delView];
@@ -19925,34 +19937,34 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
                 BOOL isVPN = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_VPN];
                 BOOL isCountry = [[NSUserDefaults standardUserDefaults]boolForKey:NeighborsSimple_COUNTRY];
                 ZFMemberUpgrdeOtherController *zfothermembervc = [[ZFMemberUpgrdeOtherController alloc]init];
-                            zfothermembervc.hidesBottomBarWhenPushed = YES;
-                            [self.navigationController pushViewController:zfothermembervc animated:YES];
-//                ZFMemberUpgrdeController *memberupgrdevc = [[ZFMemberUpgrdeController alloc]init];
-//                memberupgrdevc.hidesBottomBarWhenPushed = YES;
-//                [self.navigationController pushViewController:memberupgrdevc animated:YES];
-
-//                       if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
-//                           ZFMemberUpgrdeController *memberupgrdevc = [[ZFMemberUpgrdeController alloc]init];
-//                           memberupgrdevc.hidesBottomBarWhenPushed = YES;
-//                           [self.navigationController pushViewController:memberupgrdevc animated:YES];
-//
-//                       }else{
-//                           //H5支付功能
-//                           NSString *spare12th = userModel.appClient.spare12th;
-//                           NSLog(@"spare12th:%@",spare12th);
-//                           NSString *ipContent = userModel.userInfo.ipContent;
-//                           NSLog(@"ipContent:%@",ipContent);
-//                           NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
-//                           NSLog(@"ip:%@",dics[@"ip"]);
-//                           NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
-//                           NSLog(@"RealUrl:%@",RealUrl);
-//
-//                           NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
-//                           vc.webTitle = @"Upgrade";
-//                           vc.loadType = WKWebLoadTypeWebURLString;
-//                           vc.URLString = RealUrl;
-//                           [self.navigationController pushViewController:vc animated:YES];
-//                }
+                zfothermembervc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:zfothermembervc animated:YES];
+                //                ZFMemberUpgrdeController *memberupgrdevc = [[ZFMemberUpgrdeController alloc]init];
+                //                memberupgrdevc.hidesBottomBarWhenPushed = YES;
+                //                [self.navigationController pushViewController:memberupgrdevc animated:YES];
+                
+                //                       if (userModel.userInfo.spareNum6th == 1 || [userModel.appClient.spare10th isEqualToString:@"1"] || [userModel.appClient.spare13th isEqualToString:@"1"] || isVPN == YES  || isCountry == YES) {
+                //                           ZFMemberUpgrdeController *memberupgrdevc = [[ZFMemberUpgrdeController alloc]init];
+                //                           memberupgrdevc.hidesBottomBarWhenPushed = YES;
+                //                           [self.navigationController pushViewController:memberupgrdevc animated:YES];
+                //
+                //                       }else{
+                //                           //H5支付功能
+                //                           NSString *spare12th = userModel.appClient.spare12th;
+                //                           NSLog(@"spare12th:%@",spare12th);
+                //                           NSString *ipContent = userModel.userInfo.ipContent;
+                //                           NSLog(@"ipContent:%@",ipContent);
+                //                           NSDictionary *dics = [ipContent getCxshareldstaretlToDictionary];
+                //                           NSLog(@"ip:%@",dics[@"ip"]);
+                //                           NSString *RealUrl = [NSString stringWithFormat:@"%@ip=%@?userid=%ld?token=%@",spare12th,dics[@"ip"],(long)userModel.userInfo.userId,userModel.tokenDto.token];
+                //                           NSLog(@"RealUrl:%@",RealUrl);
+                //
+                //                           NeighborsSimpleCuteBaseWebController *vc = [[NeighborsSimpleCuteBaseWebController alloc]init];
+                //                           vc.webTitle = @"Upgrade";
+                //                           vc.loadType = WKWebLoadTypeWebURLString;
+                //                           vc.URLString = RealUrl;
+                //                           [self.navigationController pushViewController:vc animated:YES];
+                //                }
             }];
             [alertShowView setIMUpdateGrdateViewUpgradeDissmissBlock:^{
                 
@@ -20001,7 +20013,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-           [cell setSeparatorInset:UIEdgeInsetsMake(0, 75, 0, 0)];
+        [cell setSeparatorInset:UIEdgeInsetsMake(0, 75, 0, 0)];
         if (indexPath.row == (self.viewModel.dataList.count - 1)) {
             [cell setSeparatorInset:UIEdgeInsetsZero];
         }
@@ -20010,7 +20022,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
     if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
         [cell setPreservesSuperviewLayoutMargins:NO];
     }
-
+    
     // Explictly set your cell's layout margins
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsZero];
@@ -20038,10 +20050,10 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
     [super viewDidLoad];
     self.view.backgroundColor = NSC_BGThemColor;
     self.navigationItem.title = @"Message";
-//    UIButton *leftBtn = [[UIButton alloc]init];
-//    [leftBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_back")] forState:UIControlStateNormal];
-//    [leftBtn addTarget:self action:@selector(actionChatLeftBtn:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    //    UIButton *leftBtn = [[UIButton alloc]init];
+    //    [leftBtn setImage:[UIImage imageNamed:TUIKitResource(@"n_back")] forState:UIControlStateNormal];
+    //    [leftBtn addTarget:self action:@selector(actionChatLeftBtn:) forControlEvents:UIControlEventTouchUpInside];
+    //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     [[TUIKitListenerManager sharedInstance] addConversationListControllerListener:self];
     CXConversationListController *conv = [[CXConversationListController alloc] init];
@@ -20098,22 +20110,22 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
     TUINetStatus status = (TUINetStatus)[notification.object intValue];
     switch (status) {
         case TNet_Status_Succ:
-//            [_titleView setTitle:NSLocalizedString(@"AppMainTitle", nil)];
-//            [_titleView stopAnimating];
+            //            [_titleView setTitle:NSLocalizedString(@"AppMainTitle", nil)];
+            //            [_titleView stopAnimating];
             break;
         case TNet_Status_Connecting:
-//            [_titleView setTitle:NSLocalizedString(@"AppMainConnectingTitle", nil)];// 连接中...
-//            [_titleView startAnimating];
+            //            [_titleView setTitle:NSLocalizedString(@"AppMainConnectingTitle", nil)];// 连接中...
+            //            [_titleView startAnimating];
             break;
         case TNet_Status_Disconnect:
-//            [_titleView setTitle:NSLocalizedString(@"AppMainDisconnectTitle", nil)]; // 腾讯·云通信(未连接)
-//            [_titleView stopAnimating];
+            //            [_titleView setTitle:NSLocalizedString(@"AppMainDisconnectTitle", nil)]; // 腾讯·云通信(未连接)
+            //            [_titleView stopAnimating];
             break;
         case TNet_Status_ConnFailed:
-//            [_titleView setTitle:NSLocalizedString(@"AppMainDisconnectTitle", nil)]; // 腾讯·云通信(未连接)
-//            [_titleView stopAnimating];
+            //            [_titleView setTitle:NSLocalizedString(@"AppMainDisconnectTitle", nil)]; // 腾讯·云通信(未连接)
+            //            [_titleView stopAnimating];
             break;
-
+            
         default:
             break;
     }
@@ -20123,7 +20135,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
  *推送默认跳转
  */
 - (void)pushToChatViewController:(NSString *)groupID userID:(NSString *)userID {
-
+    
     UIViewController *topVc = self.navigationController.topViewController;
     BOOL isSameTarget = NO;
     BOOL isInChat = NO;
@@ -20139,7 +20151,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
     if (isInChat && !isSameTarget) {
         [self.navigationController popViewControllerAnimated:NO];
     }
-
+    
     ChatViewController *chat = [[ChatViewController alloc] init];
     TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
     conversationData.groupID = groupID;
@@ -20160,23 +20172,23 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
     friend.image = TUIKitResource(@"add_friend");
     friend.title = NSLocalizedString(@"ChatsNewChatText", nil);
     [menus addObject:friend];
-
+    
     TPopCellData *group3 = [[TPopCellData alloc] init];
     group3.image = TUIKitResource(@"create_group");
     group3.title = NSLocalizedString(@"ChatsNewPrivateGroupText", nil);
     [menus addObject:group3];
-
+    
     TPopCellData *group = [[TPopCellData alloc] init];
     group.image = TUIKitResource(@"create_group");
     group.title = NSLocalizedString(@"ChatsNewGroupText", nil);
     [menus addObject:group];
-
+    
     TPopCellData *room = [[TPopCellData alloc] init];
     room.image = TUIKitResource(@"create_group");
     room.title = NSLocalizedString(@"ChatsNewChatRoomText", nil);
     [menus addObject:room];
-
-
+    
+    
     CGFloat height = [TPopCell getHeight] * menus.count + TPopView_Arrow_Size.height;
     CGFloat orginY = StatusBar_Height + NavBar_Height;
     TPopView *popView = [[TPopView alloc] initWithFrame:CGRectMake(Screen_Width - 155, orginY, 145, height)];
@@ -20209,7 +20221,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
             NSArray *dataArr = [data.userID componentsSeparatedByString:@"_"];
             chat.userId = dataArr[1];
             [self.navigationController pushViewController:chat animated:YES];
-
+            
             NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
             [tempArray removeObjectAtIndex:tempArray.count-2];
             self.navigationController.viewControllers = tempArray;
@@ -20261,8 +20273,8 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
  *创建讨论组、群聊、聊天室的函数
  *groupType:创建的具体类型 Private--讨论组  Public--群聊 ChatRoom--聊天室
  *addOption:创建后加群时的选项          TIM_GROUP_ADD_FORBID       禁止任何人加群
-                                     TIM_GROUP_ADD_AUTH        加群需要管理员审批
-                                     TIM_GROUP_ADD_ANY         任何人可以加群
+ TIM_GROUP_ADD_AUTH        加群需要管理员审批
+ TIM_GROUP_ADD_ANY         任何人可以加群
  *withContacts:群成员的信息数组。数组内每一个元素分别包含了对应成员的头像、ID等信息。具体信息可参照 TCommonContactSelectCellData 定义
  */
 - (void)addGroup:(NSString *)groupType addOption:(V2TIMGroupAddOpt)addOption withContacts:(NSArray<TCommonContactSelectCellData *>  *)contacts
@@ -20283,19 +20295,19 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
             [groupName appendFormat:@"、%@", item.title];
             [members addObject:member];
         }
-
+        
         //群组名称默认长度不超过10，如有需求可在此更改，但可能会出现UI上的显示bug
         if ([groupName length] > 10) {
             groupName = [groupName substringToIndex:10].mutableCopy;
         }
-
+        
         V2TIMGroupInfo *info = [[V2TIMGroupInfo alloc] init];
         info.groupName = groupName;
         info.groupType = groupType;
         if(![info.groupType isEqualToString:GroupType_Work]){
             info.groupAddOpt = addOption;
         }
-
+        
         //发送创建请求后的回调函数
         @weakify(self)
         [[V2TIMManager sharedInstance] createGroup:info memberList:members succ:^(NSString *groupID) {
@@ -20315,7 +20327,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
             NSData *data= [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
             V2TIMMessage *msg = [[V2TIMManager sharedInstance] createCustomMessage:data];
             [[V2TIMManager sharedInstance] sendMessage:msg receiver:nil groupID:groupID priority:V2TIM_PRIORITY_DEFAULT onlineUserOnly:NO offlinePushInfo:nil progress:nil succ:nil fail:nil];
-
+            
             //创建成功后，默认跳转到群组对应的聊天界面
             TUIConversationCellData *cellData = [[TUIConversationCellData alloc] init];
             cellData.groupID = groupID;
@@ -20395,7 +20407,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
 
 @implementation CXSCommonTools
 {
-     dispatch_source_t _timer;
+    dispatch_source_t _timer;
 }
 
 + (instancetype)sharedNetworkTool
@@ -20409,36 +20421,36 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
 }
 
 -(NSString *)getNowTimeTimestamp{
-
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
-
+    
     [formatter setDateStyle:NSDateFormatterMediumStyle];
-
+    
     [formatter setTimeStyle:NSDateFormatterShortStyle];
-
+    
     [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"]; //
-//
-//    //设置时区,这个对于时间的处理有时很重要
-//
+    //
+    //    //设置时区,这个对于时间的处理有时很重要
+    //
     NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
-//
+    //
     [formatter setTimeZone:timeZone];
-//
+    //
     NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
     
     NSString *dayStr = [formatter stringFromDate:datenow];
-////
-////    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
-////
-////    return timeSp;
-//
-//    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
-//    NSDateFormatter *formatDay = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
-//    NSString *dayStr = [formatDay stringFromDate:now];
-//    return dayStr;
+    ////
+    ////    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
+    ////
+    ////    return timeSp;
+    //
+    //    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    //    NSDateFormatter *formatDay = [[NSDateFormatter alloc] init];
+    //    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    //    NSString *dayStr = [formatDay stringFromDate:now];
+    //    return dayStr;
     return dayStr;
-
+    
 }
 
 -(void)acitonTimeWithtransactiontime{
@@ -20473,7 +20485,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
                     int minute = (int)(timeout-days*24*3600-hours*3600)/60;
                     int second = timeout-days*24*3600-hours*3600-minute*60;
                     dispatch_async(dispatch_get_main_queue(), ^{
-                     
+                        
                         if (days==0) {
                             //self.dayLabel.text = @"0天";
                         }else{
@@ -20482,9 +20494,9 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
                         NSString *minStr = nil;
                         NSString *secondStr = nil;
                         if (minute<10) {
-                             minStr = [NSString stringWithFormat:@"0%d",minute];
+                            minStr = [NSString stringWithFormat:@"0%d",minute];
                         }else{
-                           minStr = [NSString stringWithFormat:@"%d",minute];
+                            minStr = [NSString stringWithFormat:@"%d",minute];
                         }
                         if (second<10) {
                             secondStr = [NSString stringWithFormat:@"0%d",second];
@@ -20600,16 +20612,16 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
 //}
 -(void)setupETRController
 {
-//    NeighborsSimpleCuteEmpteryController *emptyvc = [[NeighborsSimpleCuteEmpteryController alloc]init];
-//    [self SetupETRAddChildVC:emptyvc imageName:TUIKitResource(@"zf_tabbar1_nor") selectedImageName:TUIKitResource(@"zf_tabbar1_sel")];
+    //    NeighborsSimpleCuteEmpteryController *emptyvc = [[NeighborsSimpleCuteEmpteryController alloc]init];
+    //    [self SetupETRAddChildVC:emptyvc imageName:TUIKitResource(@"zf_tabbar1_nor") selectedImageName:TUIKitResource(@"zf_tabbar1_sel")];
     
     NeighborsSimpleCuteHomeAllWookaController *sortvc = [[NeighborsSimpleCuteHomeAllWookaController alloc]init];
     [self SetupETRAddChildVC:sortvc imageName:TUIKitResource(@"zf_tabbar2_nor") selectedImageName:TUIKitResource(@"zf_tabbar2_sel")];
     
     self.converlistionvc2 = [[CXMessageConverListtionController alloc]init];
     [self SetupETRAddChildVC:self.converlistionvc2 imageName:TUIKitResource(@"zf_tabbar3_nor") selectedImageName:TUIKitResource(@"zf_tabbar3_sel")];
-        
-   self.settingvc2 = [[NeighborsSimpleCuteSettingMainWookaController alloc]init];
+    
+    self.settingvc2 = [[NeighborsSimpleCuteSettingMainWookaController alloc]init];
     [self SetupETRAddChildVC:self.settingvc2 imageName:TUIKitResource(@"zf_tabbar4_nor") selectedImageName:TUIKitResource(@"zf_tabbar4_sel")];
     
     myTabBar = [[UITabBar alloc] init];
@@ -20620,7 +20632,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
     CGContextSetFillColorWithColor(context,[UIColor clearColor].CGColor);
     CGContextFillRect(context, rect);
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+    UIGraphicsEndImageContext();
     [myTabBar setShadowImage:img];
     [myTabBar setBackgroundImage:[[UIImage alloc]init]];
     
@@ -20732,21 +20744,21 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
 
 /*
  @property (nonatomic,strong)UIButton *vistorBtn;
-
+ 
  @property (nonatomic,strong)UILabel *vistorNumberLab;
-
+ 
  @property (nonatomic,strong)UILabel *vistorLab;
-
+ 
  @property (nonatomic,strong)UIButton *likeMeBtn;
-
+ 
  @property (nonatomic,strong)UILabel *likeMeNumberLab;
-
+ 
  @property (nonatomic,strong)UILabel *likeMeLab;
-
+ 
  @property (nonatomic,strong)UIButton *requestBtn;
-
+ 
  @property (nonatomic,strong)UILabel *requestNumberLab;
-
+ 
  @property (nonatomic,strong)UILabel *requestLab;
  */
 
@@ -20939,7 +20951,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
         make.top.mas_equalTo(self.requestBtn.mas_bottom).offset(6);
         make.centerX.mas_equalTo(self.requestBtn);
     }];
-
+    
     [self addSubview:self.likeMeBtn];
     [self.likeMeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.offset(15);
@@ -21059,7 +21071,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
         [_settingCollectionView registerClass:[NeighborsSimpleCuteSettingHeaderWookaViewCell class] forCellWithReuseIdentifier:@"NeighborsSimpleCuteSettingHeaderWookaViewCell"];
         [_settingCollectionView registerClass:[NeighborsSimpleCuteSettingMiddleWookaViewCell class] forCellWithReuseIdentifier:@"NeighborsSimpleCuteSettingMiddleWookaViewCell"];
         [_settingCollectionView registerClass:[NeighborsSimpleCuteSettingContentWookaViewCell class] forCellWithReuseIdentifier:@"NeighborsSimpleCuteSettingContentWookaViewCell"];
-
+        
     }
     return _settingCollectionView;
 }
@@ -21231,7 +21243,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
                 middleCell.vistorNumberLab.textAlignment = NSTextAlignmentLeft;
                 middleCell.vistorNumberLab.text = [NSString stringWithFormat:@" %d ",visitorSize];
             }
-         
+            
         }
         [middleCell setNeighborsSimpleCuteSettingMiddleWookaViewCellMiddleBlock:^(int tag) {
             if (tag == 0) {
@@ -21654,13 +21666,13 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
         self.layer.cornerRadius = 10.0f;
         self.layer.masksToBounds = YES;
         //self.backgroundColor = NSC_BGThemColor2;
-//        CAGradientLayer *gl = [CAGradientLayer layer];
-//        gl.frame = self.contentView.bounds;
-//        gl.startPoint = CGPointMake(0, 1);
-//        gl.endPoint = CGPointMake(1, 0);
-//        gl.colors = @[(__bridge id)[UIColor colorWithRed:250/255.0 green:204/255.0 blue:72/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:235/255.0 green:142/255.0 blue:63/255.0 alpha:1.0].CGColor];
-//        gl.locations = @[@(1.0),@(0.0)];
-//        [self.contentView.layer addSublayer:gl];
+        //        CAGradientLayer *gl = [CAGradientLayer layer];
+        //        gl.frame = self.contentView.bounds;
+        //        gl.startPoint = CGPointMake(0, 1);
+        //        gl.endPoint = CGPointMake(1, 0);
+        //        gl.colors = @[(__bridge id)[UIColor colorWithRed:250/255.0 green:204/255.0 blue:72/255.0 alpha:1.0].CGColor,(__bridge id)[UIColor colorWithRed:235/255.0 green:142/255.0 blue:63/255.0 alpha:1.0].CGColor];
+        //        gl.locations = @[@(1.0),@(0.0)];
+        //        [self.contentView.layer addSublayer:gl];
         [self setupUI];
     }
     return self;
@@ -21813,7 +21825,7 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
     NSString *baseurl = [NSString stringWithFormat:@"%@api/relation/visitor/list/%ld",NSC_Base_Url,(long)self.page];
     NSLog(@"param:%@",param);
     NSLog(@"baseurl:%@",baseurl);
-//    [SVProgressHUD show];
+    //    [SVProgressHUD show];
     [[NeighborsSimpleCuteNetworkTool sharedNetworkTool]POST:baseurl parameters:param success:^(NeighborsSimpleCuteResposeModel * _Nonnull response) {
         NSLog(@"response.data.list:%@",response.data);
         [SVProgressHUD dismiss];
@@ -21930,19 +21942,19 @@ static NSString *kConversationCell_ReuseId = @"TConversationCell";
 
 - (NSString *)ConvertStrToTime:(NSString *)timeStr
 {
-//long long time=[timeStr longLongValue];
-//    如果服务器返回的是13位字符串，需要除以1000，否则显示不正确(13位其实代表的是毫秒，需要除以1000)
-long long time=[timeStr longLongValue] / 1000;
-NSDate *date = [[NSDate alloc]initWithTimeIntervalSince1970:time];
-
-NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-
-[formatter setDateFormat:@"yyyy-MM-dd"];
-
-NSString*timeString=[formatter stringFromDate:date];
-
-return timeString;
-
+    //long long time=[timeStr longLongValue];
+    //    如果服务器返回的是13位字符串，需要除以1000，否则显示不正确(13位其实代表的是毫秒，需要除以1000)
+    long long time=[timeStr longLongValue] / 1000;
+    NSDate *date = [[NSDate alloc]initWithTimeIntervalSince1970:time];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSString*timeString=[formatter stringFromDate:date];
+    
+    return timeString;
+    
 }
 - (NSString *)distanceTimeWithBeforeTime:(double)beTime
 {
@@ -21951,16 +21963,16 @@ return timeString;
     NSLog(@"beTime:%f",beTime);
     double distanceTime = now - beTime;
     NSString * distanceStr;
-  
+    
     NSDate * beDate = [NSDate dateWithTimeIntervalSince1970:beTime];
     NSDateFormatter * df = [[NSDateFormatter alloc]init];
     [df setDateFormat:@"HH:mm"];
     NSString * timeStr = [df stringFromDate:beDate];
-  
+    
     [df setDateFormat:@"dd"];
     NSString * nowDay = [df stringFromDate:[NSDate date]];
     NSString * lastDay = [df stringFromDate:beDate];
-  
+    
     if (distanceTime < 60) {//小于一分钟
         NSLog(@"小于一分钟");
         [df setDateFormat:@"HH:mm"];
@@ -21973,24 +21985,24 @@ return timeString;
         distanceStr = [df stringFromDate:beDate];
         //distanceStr = [NSString stringWithFormat:@"%ld分钟前",(long)distanceTime/60];
     }
-        else if(distanceTime <24*60*60 && [nowDay integerValue] == [lastDay integerValue]){//时间小于一天
-            NSLog(@"时间小于一天");
-            [df setDateFormat:@"HH:mm"];
-            distanceStr = [df stringFromDate:beDate];
-            //distanceStr = [NSString stringWithFormat:@"今天 %@",timeStr];
+    else if(distanceTime <24*60*60 && [nowDay integerValue] == [lastDay integerValue]){//时间小于一天
+        NSLog(@"时间小于一天");
+        [df setDateFormat:@"HH:mm"];
+        distanceStr = [df stringFromDate:beDate];
+        //distanceStr = [NSString stringWithFormat:@"今天 %@",timeStr];
     }
     else if(distanceTime<24*60*60*2 && [nowDay integerValue] != [lastDay integerValue]){
-  
+        
         if ([nowDay integerValue] - [lastDay integerValue] ==1 || ([lastDay integerValue] - [nowDay integerValue] > 10 && [nowDay integerValue] == 1)) {
             NSLog(@"昨天");
             [df setDateFormat:@"yyyy-MM-dd"];
             distanceStr = [df stringFromDate:beDate];
             //distanceStr = [NSString stringWithFormat:@"昨天 %@",timeStr];
-    }
-    else{
-        [df setDateFormat:@"yyyy-MM-dd"];
-        distanceStr = [df stringFromDate:beDate];
-    }
+        }
+        else{
+            [df setDateFormat:@"yyyy-MM-dd"];
+            distanceStr = [df stringFromDate:beDate];
+        }
     }
     else if(distanceTime <24*60*60*365){
         [df setDateFormat:@"yyyy-MM-dd"];
@@ -22008,7 +22020,7 @@ return timeString;
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NeighborsSimpleCuteHomeVoiceWookaModel *userListModel = self.vierstorListArr[indexPath.row];
-        NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
+    NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
     if (model.userInfo.imgStatus != 3)
     {
         if (!((IsStrEmpty(model.userInfo.imgUrl) && IsStrEmpty(model.userInfo.tempStr7th))))
@@ -22049,13 +22061,13 @@ return timeString;
             }
         }
     }
-        self.myMessageView = [[NSCMyMessageView alloc]init];
-        self.myMessageView.index = indexPath.row;
-        self.myMessageView.delegate = self;
-        [[UIApplication sharedApplication].keyWindow addSubview:self.myMessageView];
-        [self.myMessageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo([UIApplication sharedApplication].keyWindow);
-        }];
+    self.myMessageView = [[NSCMyMessageView alloc]init];
+    self.myMessageView.index = indexPath.row;
+    self.myMessageView.delegate = self;
+    [[UIApplication sharedApplication].keyWindow addSubview:self.myMessageView];
+    [self.myMessageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo([UIApplication sharedApplication].keyWindow);
+    }];
 }
 -(void)myMessageIsAllReadyWithIndex:(NSInteger)index
 {
@@ -22169,7 +22181,7 @@ return timeString;
             self.tabBarController.selectedIndex = 0;
             [self.navigationController popViewControllerAnimated:YES];
         }
-    }];    
+    }];
     
 }
 -(void)actionNewLikeMeList
@@ -22218,7 +22230,7 @@ return timeString;
         [self.likeCollectionView.mj_footer endRefreshing];
         return;
     }
-
+    
     self.page++;
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"pageNum"] = @(self.page);
@@ -22298,16 +22310,16 @@ return timeString;
     NSLog(@"beTime:%f",beTime);
     double distanceTime = now - beTime;
     NSString * distanceStr;
-  
+    
     NSDate * beDate = [NSDate dateWithTimeIntervalSince1970:beTime];
     NSDateFormatter * df = [[NSDateFormatter alloc]init];
     [df setDateFormat:@"HH:mm"];
     NSString * timeStr = [df stringFromDate:beDate];
-  
+    
     [df setDateFormat:@"dd"];
     NSString * nowDay = [df stringFromDate:[NSDate date]];
     NSString * lastDay = [df stringFromDate:beDate];
-  
+    
     if (distanceTime < 60) {//小于一分钟
         NSLog(@"小于一分钟");
         [df setDateFormat:@"HH:mm"];
@@ -22320,24 +22332,24 @@ return timeString;
         distanceStr = [df stringFromDate:beDate];
         //distanceStr = [NSString stringWithFormat:@"%ld分钟前",(long)distanceTime/60];
     }
-        else if(distanceTime <24*60*60 && [nowDay integerValue] == [lastDay integerValue]){//时间小于一天
-            NSLog(@"时间小于一天");
-            [df setDateFormat:@"HH:mm"];
-            distanceStr = [df stringFromDate:beDate];
-            //distanceStr = [NSString stringWithFormat:@"今天 %@",timeStr];
+    else if(distanceTime <24*60*60 && [nowDay integerValue] == [lastDay integerValue]){//时间小于一天
+        NSLog(@"时间小于一天");
+        [df setDateFormat:@"HH:mm"];
+        distanceStr = [df stringFromDate:beDate];
+        //distanceStr = [NSString stringWithFormat:@"今天 %@",timeStr];
     }
     else if(distanceTime<24*60*60*2 && [nowDay integerValue] != [lastDay integerValue]){
-  
+        
         if ([nowDay integerValue] - [lastDay integerValue] ==1 || ([lastDay integerValue] - [nowDay integerValue] > 10 && [nowDay integerValue] == 1)) {
             NSLog(@"昨天");
             [df setDateFormat:@"yyyy-MM-dd"];
             distanceStr = [df stringFromDate:beDate];
             //distanceStr = [NSString stringWithFormat:@"昨天 %@",timeStr];
-    }
-    else{
-        [df setDateFormat:@"yyyy-MM-dd"];
-        distanceStr = [df stringFromDate:beDate];
-    }
+        }
+        else{
+            [df setDateFormat:@"yyyy-MM-dd"];
+            distanceStr = [df stringFromDate:beDate];
+        }
     }
     else if(distanceTime <24*60*60*365){
         [df setDateFormat:@"yyyy-MM-dd"];
@@ -22354,7 +22366,7 @@ return timeString;
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NeighborsSimpleCuteHomeVoiceWookaModel *userListModel = self.likeListArr[indexPath.row];
-        NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
+    NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
     if (model.userInfo.imgStatus != 3)
     {
         if (!((IsStrEmpty(model.userInfo.imgUrl) && IsStrEmpty(model.userInfo.tempStr7th))))
@@ -22395,13 +22407,13 @@ return timeString;
             }
         }
     }
-        self.myMessageView = [[NSCMyMessageView alloc]init];
-        self.myMessageView.index = indexPath.row;
-        self.myMessageView.delegate = self;
-        [[UIApplication sharedApplication].keyWindow addSubview:self.myMessageView];
-        [self.myMessageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo([UIApplication sharedApplication].keyWindow);
-        }];
+    self.myMessageView = [[NSCMyMessageView alloc]init];
+    self.myMessageView.index = indexPath.row;
+    self.myMessageView.delegate = self;
+    [[UIApplication sharedApplication].keyWindow addSubview:self.myMessageView];
+    [self.myMessageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo([UIApplication sharedApplication].keyWindow);
+    }];
 }
 
 -(void)myMessageIsAllReadyWithIndex:(NSInteger)index
@@ -22418,19 +22430,19 @@ return timeString;
 
 - (NSString *)ConvertStrToTime:(NSString *)timeStr
 {
-//long long time=[timeStr longLongValue];
-//    如果服务器返回的是13位字符串，需要除以1000，否则显示不正确(13位其实代表的是毫秒，需要除以1000)
-long long time=[timeStr longLongValue] / 1000;
-NSDate *date = [[NSDate alloc]initWithTimeIntervalSince1970:time];
-
-NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-
-[formatter setDateFormat:@"yyyy-MM-dd"];
-
-NSString*timeString=[formatter stringFromDate:date];
-
-return timeString;
-
+    //long long time=[timeStr longLongValue];
+    //    如果服务器返回的是13位字符串，需要除以1000，否则显示不正确(13位其实代表的是毫秒，需要除以1000)
+    long long time=[timeStr longLongValue] / 1000;
+    NSDate *date = [[NSDate alloc]initWithTimeIntervalSince1970:time];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSString*timeString=[formatter stringFromDate:date];
+    
+    return timeString;
+    
 }
 @end
 
@@ -22518,7 +22530,7 @@ return timeString;
         _bg_view.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.08];
         _bg_view.layer.cornerRadius = ((IPHONE_WIDTH -  30)/2-20)/2;
         _bg_view.layer.masksToBounds = YES;
-      
+        
     }
     return _bg_view;
 }
@@ -22591,7 +22603,7 @@ return timeString;
         make.height.mas_equalTo(self.icon_img.mas_width).multipliedBy(1);
     }];
     
-
+    
     
     [self addSubview:self.gh_img];
     [self.gh_img mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -22845,7 +22857,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
     self.topView.backgroundColor = [UIColor clearColor];
     self.navigationItem.titleView = self.topView;
     
-
+    
     self.leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0, 240/2, 50)];
     [self.leftBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.leftBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
@@ -22878,19 +22890,19 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
     [self.topView addSubview:self.SCAMMERLab];
     [self.topView addSubview:self.SCAMMERLab2];
     [self.topView addSubview:self.SCAMMERLineLab];
-
+    
     
     _BROWSELab = [[CusLabel alloc]initWithFrame:CGRectMake(120, 15, 120, 50)];
     _BROWSELab.text = @"Browse";
     _BROWSELab.font = [UIFont systemFontOfSize:17];
     _BROWSELab.textAlignment = NSTextAlignmentCenter;
-
+    
     _BROWSELab2 = [[UILabel alloc]initWithFrame:CGRectMake(120, 0, 120, 50)];
     _BROWSELab2.text = @"Browse";
     _BROWSELab2.font = [UIFont systemFontOfSize:17];
     _BROWSELab2.textColor = [UIColor whiteColor];
     _BROWSELab2.textAlignment = NSTextAlignmentCenter;
-
+    
     _BROWSELineLab = [[UILabel alloc]initWithFrame:CGRectMake(165, 40, 30, 1.5)];
     _BROWSELineLab.backgroundColor = RGB(255,188,62);
     _BROWSELineLab.hidden = YES;
@@ -22899,8 +22911,8 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
     [self.topView addSubview:self.BROWSELab];
     [self.topView addSubview:self.BROWSELab2];
     [self.topView addSubview:self.BROWSELineLab];
-
-
+    
+    
     [self.topView addSubview:self.leftBtn];
     [self.topView addSubview:self.rightBtn];
     
@@ -22977,15 +22989,15 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
     self.emptyImageView.hidden = YES;
     [self.view addSubview:self.emptyImageView];
     [self.emptyImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-         make.edges.mas_equalTo(self.view);
-     }];
-     [self.emptyImageView setNeighborsSimpleEmpteryViewSearchMatchBlock:^{
-         NeighborsSimpleCuteFiterController *filtervc = [[NeighborsSimpleCuteFiterController alloc]init];
-         filtervc.hidesBottomBarWhenPushed = YES;
-         [filtervc setNeighborsSimpleCuteHomeFiterControllerBlock:^(NSString *minStr, NSString *maxStr, NSString *genderStr, NeighborsSimpleCuteResetCountryModel *countryModel, NeighborsSimpleCuteResetCountryModel *stateModel, NeighborsSimpleCuteResetCountryModel *cityModel, BOOL anyWhere) {
-             [self actionNewFiterList2];
-         }];
-         [self.navigationController pushViewController:filtervc animated:YES];
+        make.edges.mas_equalTo(self.view);
+    }];
+    [self.emptyImageView setNeighborsSimpleEmpteryViewSearchMatchBlock:^{
+        NeighborsSimpleCuteFiterController *filtervc = [[NeighborsSimpleCuteFiterController alloc]init];
+        filtervc.hidesBottomBarWhenPushed = YES;
+        [filtervc setNeighborsSimpleCuteHomeFiterControllerBlock:^(NSString *minStr, NSString *maxStr, NSString *genderStr, NeighborsSimpleCuteResetCountryModel *countryModel, NeighborsSimpleCuteResetCountryModel *stateModel, NeighborsSimpleCuteResetCountryModel *cityModel, BOOL anyWhere) {
+            [self actionNewFiterList2];
+        }];
+        [self.navigationController pushViewController:filtervc animated:YES];
     }];
     self.homeUserCollectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(actionNewFiterList)];
     self.homeUserCollectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(actionMoreFiterList)];
@@ -23051,7 +23063,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
                 self.homeUserCollectionView.hidden = NO;
                 NSMutableArray *array = [NeighborsSimpleCuteHomeVoiceWookaModel mj_objectArrayWithKeyValuesArray:response.data];
                 [self.homeuserListArr addObjectsFromArray:array];
-
+                
             }
             [self reloadData];
         }else{
@@ -23126,7 +23138,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
                 self.homeUserCollectionView.hidden = NO;
                 NSMutableArray *array = [NeighborsSimpleCuteHomeVoiceWookaModel mj_objectArrayWithKeyValuesArray:response.data];
                 [self.homeuserListArr addObjectsFromArray:array];
-
+                
             }
             [self reloadData];
         }else{
@@ -23367,7 +23379,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
         make.centerX.mas_equalTo(self.bgView);
         make.top.offset(15);
     }];
-
+    
     [self.bgView addSubview:self.contentLab];
     [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(8);
@@ -24455,22 +24467,22 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
             updatedAttributes[index] = [self layoutAttributesForItemAtIndexPath:attributes.indexPath];
         }
     }
-
+    
     return updatedAttributes;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewLayoutAttributes* currentItemAttributes = [[super layoutAttributesForItemAtIndexPath:indexPath] copy];
     UIEdgeInsets sectionInset = [self evaluatedSectionInsetForItemAtIndex:indexPath.section];
-
+    
     BOOL isFirstItemInSection = indexPath.item == 0;
     CGFloat layoutWidth = CGRectGetWidth(self.collectionView.frame) - sectionInset.left - sectionInset.right;
-
+    
     if (isFirstItemInSection) {
         [currentItemAttributes leftAlignFrameWithSectionInset:sectionInset];
         return currentItemAttributes;
     }
-
+    
     NSIndexPath* previousIndexPath = [NSIndexPath indexPathForItem:indexPath.item-1 inSection:indexPath.section];
     CGRect previousFrame = [self layoutAttributesForItemAtIndexPath:previousIndexPath].frame;
     CGFloat previousFrameRightPoint = previousFrame.origin.x + previousFrame.size.width;
@@ -24482,13 +24494,13 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
     // if the current frame, once left aligned to the left and stretched to the full collection view
     // widht intersects the previous frame then they are on the same line
     BOOL isFirstItemInRow = !CGRectIntersectsRect(previousFrame, strecthedCurrentFrame);
-
+    
     if (isFirstItemInRow) {
         // make sure the first item on a line is left aligned
         [currentItemAttributes leftAlignFrameWithSectionInset:sectionInset];
         return currentItemAttributes;
     }
-
+    
     CGRect frame = currentItemAttributes.frame;
     frame.origin.x = previousFrameRightPoint + [self evaluatedMinimumInteritemSpacingForSectionAtIndex:indexPath.section];
     currentItemAttributes.frame = frame;
@@ -24499,7 +24511,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
 {
     if ([self.collectionView.delegate respondsToSelector:@selector(collectionView:layout:minimumInteritemSpacingForSectionAtIndex:)]) {
         id<UICollectionViewDelegateLeftAlignedLayout> delegate = (id<UICollectionViewDelegateLeftAlignedLayout>)self.collectionView.delegate;
-
+        
         return [delegate collectionView:self.collectionView layout:self minimumInteritemSpacingForSectionAtIndex:sectionIndex];
     } else {
         return self.minimumInteritemSpacing;
@@ -24510,7 +24522,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
 {
     if ([self.collectionView.delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
         id<UICollectionViewDelegateLeftAlignedLayout> delegate = (id<UICollectionViewDelegateLeftAlignedLayout>)self.collectionView.delegate;
-
+        
         return [delegate collectionView:self.collectionView layout:self insetForSectionAtIndex:index];
     } else {
         return self.sectionInset;
@@ -24685,7 +24697,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
         [countryCell.content_btn setTitle:model.name forState:UIControlStateNormal];
         return countryCell;
     }
-  
+    
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -24763,7 +24775,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
         headView.title_lab.textColor = [UIColor whiteColor];
         return headView;
     }
-   
+    
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
@@ -24894,12 +24906,12 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
     }
     //3.排序
     //3.1 按照将需要排序的对象放入到对应分区数组
-//    for (FriendMdoel *person in personArr) {
-//        NSInteger section = [collation sectionForObject:person collationStringSelector:@selector(name)];
-//        NSMutableArray *subArr = secionArray[section];
-//
-//        [subArr addObject:person];
-//    }
+    //    for (FriendMdoel *person in personArr) {
+    //        NSInteger section = [collation sectionForObject:person collationStringSelector:@selector(name)];
+    //        NSMutableArray *subArr = secionArray[section];
+    //
+    //        [subArr addObject:person];
+    //    }
     for (NSInteger i = 0; i <personArr.count; i++) {
         NeighborsSimpleCuteResetCountryModel *person = personArr[i];
         NSInteger section = [collation sectionForObject:person collationStringSelector:@selector(name)];
@@ -24909,7 +24921,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
             sectionTitle = titles[section];
         }
         person.sectionTitle = sectionTitle;
-
+        
         [subArr addObject:person];
     }
     //3.2 分别对分区进行排序
@@ -25527,7 +25539,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
     [self.minContentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.mas_equalTo(self.minView);
     }];
-
+    
     [self.maxView addSubview:self.maxContentLab];
     [self.maxContentLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.mas_equalTo(self.maxView);
@@ -25547,7 +25559,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
         make.right.mas_equalTo(self.maxView.mas_left).offset(-10);
         make.height.offset(2);
     }];
-
+    
     [self.view addSubview:self.minTitleLab];
     [self.minTitleLab mas_makeConstraints:^(MASConstraintMaker *make){
         make.centerX.mas_equalTo(self.minView);
@@ -25791,12 +25803,12 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
     gradientLayer1.mask = view.layer;
     view.frame = gradientLayer1.bounds;
 }
- 
+
 /*
  control 是要设置渐变字体的控件   bgVIew是control的父视图  colors是渐变的组成颜色  startPoint是渐变开始点 endPoint结束点
  */
 +(void)TextGradientControl:(UIControl *)control bgVIew:(UIView *)bgVIew gradientColors:(NSArray *)colors gradientStartPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint{
- 
+    
     CAGradientLayer* gradientLayer1 = [CAGradientLayer layer];
     gradientLayer1.frame = control.frame;
     gradientLayer1.colors = colors;
@@ -25805,7 +25817,7 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
     [bgVIew.layer addSublayer:gradientLayer1];
     gradientLayer1.mask = control.layer;
     control.frame = gradientLayer1.bounds;
-
+    
 }
 
 @end
@@ -25864,14 +25876,14 @@ static NSString *UserModelKey2 = @"FiterUserModelkey";
             break;
         case MCLayoutStatusImageTop://图上字下
             [self setImageEdgeInsets:UIEdgeInsetsMake(0,0, labHeight + margin, -labWidth)];
-
+            
             [self setTitleEdgeInsets:UIEdgeInsetsMake(imgHeight + margin, -imgWidth, 0, 0)];
             break;
         case MCLayoutStatusImageBottom://图下字上
             [self setImageEdgeInsets:UIEdgeInsetsMake(labHeight + margin,0, 0, -labWidth)];
             
             [self setTitleEdgeInsets:UIEdgeInsetsMake(0, -imgWidth, imgHeight + margin, 0)];
-
+            
             break;
         default:
             break;
@@ -26307,9 +26319,9 @@ static const void *zw_placeHolderKey;
     self.titleLab.text = incomStr;
     float textWidth =  [XSDKResourceUtil measureSinglelineStringWidth:incomStr andFont:[UIFont systemFontOfSize:14]];
     if (textWidth >=  Screen_Width - 30) {
-          textWidth = Screen_Width - 30;
-      }else{
-          textWidth += 20;
+        textWidth = Screen_Width - 30;
+    }else{
+        textWidth += 20;
     }
     NSLog(@"textWidthtextWidthtextWidthtextWidth:%f",textWidth);
     [self.titleLab mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -26611,12 +26623,12 @@ static const void *zw_placeHolderKey;
     if (_delegate && [_delegate respondsToSelector:@selector(tapTagItemWithTitle:index:)]) {
         [_delegate tapTagItemWithTitle:tagItem.normalTitle index:self.index];
     }
-//    if (_delegate && [_delegate respondsToSelector:@selector(tapTagItem:index:)]) {
-//        [_delegate tapTagItem:nil index:self.index];
-//    }
-//    NSCPersonMessageContaceHeightCell *cell = (NSCPersonMessageContaceHeightCell *)[self collectionView:collectionView cellForItemAtIndexPath: indexPath];//  即为要得到的cell
-//    cell.titleLab.textColor = [UIColor redColor];
-//    [self.heightCollectionview reloadData];
+    //    if (_delegate && [_delegate respondsToSelector:@selector(tapTagItem:index:)]) {
+    //        [_delegate tapTagItem:nil index:self.index];
+    //    }
+    //    NSCPersonMessageContaceHeightCell *cell = (NSCPersonMessageContaceHeightCell *)[self collectionView:collectionView cellForItemAtIndexPath: indexPath];//  即为要得到的cell
+    //    cell.titleLab.textColor = [UIColor redColor];
+    //    [self.heightCollectionview reloadData];
 }
 -(void)reloadUIWithData2:(NSArray *)data
 {
@@ -26707,7 +26719,7 @@ static const void *zw_placeHolderKey;
     
     self.backgroundColor = RGB(0, 0, 0);
     [self createMyHeadImageView];
-   // [self createSexView];
+    // [self createSexView];
     return self;
 }
 
@@ -26742,7 +26754,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.myHeadView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -26799,9 +26811,9 @@ static const void *zw_placeHolderKey;
     NSMutableString* getStr = [[NSMutableString alloc]initWithCapacity:5];
     changeString = [[NSMutableString alloc]initWithCapacity:6];//申请内存空间
     for(int i = 0; i < 6; i++) {
-    NSInteger index =arc4random()%([araay count]-1);//循环六次，得到一个随机数，作为下标值取数组里面的数放到一个可变字符串里，在存放到自身定义的可变字符串
-    getStr = araay[index];
-    changeString= (NSMutableString*)[changeString stringByAppendingString:getStr];
+        NSInteger index =arc4random()%([araay count]-1);//循环六次，得到一个随机数，作为下标值取数组里面的数放到一个可变字符串里，在存放到自身定义的可变字符串
+        getStr = araay[index];
+        changeString= (NSMutableString*)[changeString stringByAppendingString:getStr];
     }
     NSLog(@"%@",changeString);
     return changeString;
@@ -26813,36 +26825,36 @@ static const void *zw_placeHolderKey;
     [SVProgressHUD showWithStatus:@"uploading..."];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html", nil];
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        AFJSONResponseSerializer *response = [AFJSONResponseSerializer serializer];
-        response.removesKeysWithNullValues = YES;//去除空值
-        manager.responseSerializer = response;//申明返回的结果是json
-        //                                                               NeighborsSimpleCuteUserModel *usermodel = [NeighborsSimpleCuteUserModel getUserInfo];
-        NSString *token = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_Token];
-        NSLog(@"token:%@",token);
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
-        NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
-        formatter.dateFormat=@"yyyyMMddHHmmss";
-        NSString *str=[formatter stringFromDate:[NSDate date]];
-        NSString *fileName=[NSString stringWithFormat:@"%@%@.jpg",str,[self getRandWithLetters]];
-        NSMutableDictionary *param = [NSMutableDictionary dictionary];
-        param[@"fileName"] = fileName;
-        NSLog(@"param:%@",param);
-        [manager POST:urlStr parameters:param headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-            NSData *imageData = UIImageJPEGRepresentation(uploadImage, 0.5);
-            [formData appendPartWithFileData:imageData name:@"picFile" fileName:fileName mimeType:@"image/jpg"];
-        } progress:^(NSProgress * _Nonnull uploadProgress) {
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [SVProgressHUD dismiss];
-            NSLog(@"responseObject:%@",responseObject);
-            [self uploadHeadImage:responseObject[@"data"]];
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"error:%@",error);
-            [SVProgressHUD dismiss];
-            [SVProgressHUD showErrorWithStatus:@"Request failed"];
-            return;
-        }];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html", nil];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    AFJSONResponseSerializer *response = [AFJSONResponseSerializer serializer];
+    response.removesKeysWithNullValues = YES;//去除空值
+    manager.responseSerializer = response;//申明返回的结果是json
+    //                                                               NeighborsSimpleCuteUserModel *usermodel = [NeighborsSimpleCuteUserModel getUserInfo];
+    NSString *token = [[NSUserDefaults standardUserDefaults]valueForKey:NeighborsSimple_Token];
+    NSLog(@"token:%@",token);
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+    formatter.dateFormat=@"yyyyMMddHHmmss";
+    NSString *str=[formatter stringFromDate:[NSDate date]];
+    NSString *fileName=[NSString stringWithFormat:@"%@%@.jpg",str,[self getRandWithLetters]];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"fileName"] = fileName;
+    NSLog(@"param:%@",param);
+    [manager POST:urlStr parameters:param headers:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        NSData *imageData = UIImageJPEGRepresentation(uploadImage, 0.5);
+        [formData appendPartWithFileData:imageData name:@"picFile" fileName:fileName mimeType:@"image/jpg"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [SVProgressHUD dismiss];
+        NSLog(@"responseObject:%@",responseObject);
+        [self uploadHeadImage:responseObject[@"data"]];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error:%@",error);
+        [SVProgressHUD dismiss];
+        [SVProgressHUD showErrorWithStatus:@"Request failed"];
+        return;
+    }];
 }
 -(void)uploadHeadImage:(NSString *)pictureStr
 {
@@ -26920,7 +26932,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.myHeadView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27001,7 +27013,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.sexView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27097,7 +27109,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.addressView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27172,33 +27184,33 @@ static const void *zw_placeHolderKey;
     NSCParameterAssert(window);
     [window addSubview:locationShowView];
     
-//    NeighborsSimpleCuteLocationShowView *locationShowView = [NeighborsSimpleCuteLocationShowView alertViewShow];
-//    [locationShowView setNeighborsSimpleCuteLocationShowViewSelectBlock:^(NeighborsSimpleCuteResetCountryModel * _Nonnull countryModel, NeighborsSimpleCuteResetCountryModel * _Nonnull statemodel, NeighborsSimpleCuteResetCountryModel * _Nonnull cityModel) {
-//        self.countryModel = countryModel;
-//        self.stateModel = statemodel;
-//        self.cityModel  = cityModel;
-//        if (IS_EMPTY(self.cityModel.name)) {
-//            if (IS_EMPTY(self.stateModel.name)) {
-//                [self.loacationButton setTitle:[NSString stringWithFormat:@"%@",countryModel.name] forState:(UIControlStateNormal)];
-//            }else{
-//                [self.loacationButton setTitle:[NSString stringWithFormat:@"%@, %@",statemodel.name,countryModel.name] forState:(UIControlStateNormal)];
-//            }
-//        }else{
-//            [self.loacationButton setTitle:[NSString stringWithFormat:@"%@, %@,  %@",cityModel.name,statemodel.name,countryModel.name] forState:(UIControlStateNormal)];
-//        }
-//        NSMutableDictionary *param = [NSMutableDictionary dictionary];
-//        param[@"country"]    = self.countryModel.name;
-//        param[@"countryId"]  = @(self.countryModel.id);
-//        param[@"tempStr6th"] = self.countryModel.code;
-//        param[@"province"]   = self.stateModel.name;
-//        param[@"provinceId"] = @(self.stateModel.id);
-//        param[@"tempStr5th"] = self.stateModel.code;
-//        param[@"city"]       = self.cityModel.name;
-//        param[@"cityId"]     = @(self.cityModel.id);
-//        self.status = 3;
-//        [self uploadUserInfoWithInfo:param index:self.status];
-//    }];
-//    [locationShowView show];
+    //    NeighborsSimpleCuteLocationShowView *locationShowView = [NeighborsSimpleCuteLocationShowView alertViewShow];
+    //    [locationShowView setNeighborsSimpleCuteLocationShowViewSelectBlock:^(NeighborsSimpleCuteResetCountryModel * _Nonnull countryModel, NeighborsSimpleCuteResetCountryModel * _Nonnull statemodel, NeighborsSimpleCuteResetCountryModel * _Nonnull cityModel) {
+    //        self.countryModel = countryModel;
+    //        self.stateModel = statemodel;
+    //        self.cityModel  = cityModel;
+    //        if (IS_EMPTY(self.cityModel.name)) {
+    //            if (IS_EMPTY(self.stateModel.name)) {
+    //                [self.loacationButton setTitle:[NSString stringWithFormat:@"%@",countryModel.name] forState:(UIControlStateNormal)];
+    //            }else{
+    //                [self.loacationButton setTitle:[NSString stringWithFormat:@"%@, %@",statemodel.name,countryModel.name] forState:(UIControlStateNormal)];
+    //            }
+    //        }else{
+    //            [self.loacationButton setTitle:[NSString stringWithFormat:@"%@, %@,  %@",cityModel.name,statemodel.name,countryModel.name] forState:(UIControlStateNormal)];
+    //        }
+    //        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    //        param[@"country"]    = self.countryModel.name;
+    //        param[@"countryId"]  = @(self.countryModel.id);
+    //        param[@"tempStr6th"] = self.countryModel.code;
+    //        param[@"province"]   = self.stateModel.name;
+    //        param[@"provinceId"] = @(self.stateModel.id);
+    //        param[@"tempStr5th"] = self.stateModel.code;
+    //        param[@"city"]       = self.cityModel.name;
+    //        param[@"cityId"]     = @(self.cityModel.id);
+    //        self.status = 3;
+    //        [self uploadUserInfoWithInfo:param index:self.status];
+    //    }];
+    //    [locationShowView show];
 }
 
 -(void)createHeightView
@@ -27232,7 +27244,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.myHeightView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27297,7 +27309,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.educationalView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27310,7 +27322,7 @@ static const void *zw_placeHolderKey;
         messageLabel.textAlignment = 1;
         messageLabel.font = MyFont(Font_Bold, 17);
         messageLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:TUIKitResource(@"上下渐变all")]];
-    
+        
         self.educationalTableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
         [self.educationalView addSubview:self.educationalTableView];
         [self.educationalTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27361,7 +27373,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.professionView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27374,7 +27386,7 @@ static const void *zw_placeHolderKey;
         messageLabel.textAlignment = 1;
         messageLabel.font = MyFont(Font_Bold, 17);
         messageLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:TUIKitResource(@"上下渐变all")]];
-    
+        
         self.professionTableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
         [self.professionView addSubview:self.professionTableView];
         [self.professionTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27425,7 +27437,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.bodyTypeView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27438,7 +27450,7 @@ static const void *zw_placeHolderKey;
         messageLabel.textAlignment = 1;
         messageLabel.font = MyFont(Font_Bold, 17);
         messageLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:TUIKitResource(@"上下渐变all")]];
-    
+        
         self.bodyTypeTableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
         [self.bodyTypeView addSubview:self.bodyTypeTableView];
         [self.bodyTypeTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27489,7 +27501,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.incomeView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27502,7 +27514,7 @@ static const void *zw_placeHolderKey;
         messageLabel.textAlignment = 1;
         messageLabel.font = MyFont(Font_Bold, 17);
         messageLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:TUIKitResource(@"上下渐变all")]];
-    
+        
         self.incomeTableView = [[UITableView alloc]initWithFrame:CGRectZero style:(UITableViewStylePlain)];
         [self.incomeView addSubview:self.incomeTableView];
         [self.incomeTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27552,7 +27564,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.aboutMeView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27623,7 +27635,7 @@ static const void *zw_placeHolderKey;
             make.top.equalTo(self.abourMeTextView.mas_bottom).offset(kWSizeRatio(25));
             make.size.mas_equalTo(CGSizeMake(kWSizeRatio(226), kWSizeRatio(56)));
         }];
-//        aboutMeButton.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"udate-top-bg"]];
+        //        aboutMeButton.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"udate-top-bg"]];
         [aboutMeButton gradientButtonWithSize:CGSizeMake(kWSizeRatio(226), kWSizeRatio(56)) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 6)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
         aboutMeButton.layer.cornerRadius = kWSizeRatio(28);
         aboutMeButton.layer.masksToBounds = YES;
@@ -27683,7 +27695,7 @@ static const void *zw_placeHolderKey;
         topLabel.textColor = RGB(255, 255, 255);
         topLabel.textAlignment = 1;
         topLabel.font = MyFont(Font_Regular, 18);
-    
+        
         UILabel *messageLabel = [[UILabel alloc]init];
         [self.aboutMatchView addSubview:messageLabel];
         [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -27754,7 +27766,7 @@ static const void *zw_placeHolderKey;
             make.top.equalTo(self.abourMatchTextView.mas_bottom).offset(kWSizeRatio(25));
             make.size.mas_equalTo(CGSizeMake(kWSizeRatio(226), kWSizeRatio(56)));
         }];
-//        aboutMatchButton.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"udate-top-bg"]];
+        //        aboutMatchButton.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"udate-top-bg"]];
         [aboutMatchButton gradientButtonWithSize:CGSizeMake(kWSizeRatio(226), kWSizeRatio(56)) colorArray:@[(id)RGB(250, 204, 72),(id)RGB(235, 142, 6)] percentageArray:@[@(0.0),@(1)] gradientType:GradientFromLeftTopToRightBottom];
         aboutMatchButton.layer.cornerRadius = kWSizeRatio(28);
         aboutMatchButton.layer.masksToBounds = YES;
@@ -27836,7 +27848,7 @@ static const void *zw_placeHolderKey;
     cell.accessoryType = UITableViewCellAccessoryNone;
     if (tableView == self.heightTableView)
     {
-// zf todo
+        // zf todo
         NSArray *heightArr = @[@"4'5\"(135 cm)",@"4'6\"(137 cm)",@"4'7\"(140 cm)",@"4'8\"(142 cm)",@"4'9\"(145 cm)",@"4'10\"(147 cm)",@"4'11\"(150 cm)",@"5'0\"(152 cm)",@"5'1\"(155 cm)",@"5'2\"(157 cm)",@"5'3\"(160 cm)",@"5'4\"(163 cm)",@"5'5\"(165 cm)",@"5'6\"(168 cm)",@"5'7\"(170 cm)",@"5'8\"(173 cm)",@"5'9\"(175 cm)",@"5'10\"(178 cm)",@"5'11\"(180 cm)",@"6'1\"(183 cm)",@"6'2\"(185 cm)",@"6'3\"(188 cm)",@"6'4\"(190 cm)",@"6'5\"(193 cm)",@"6'6\"(196 cm)",@"6'7\"(198 cm)",@"6'8\"(201 cm)",@"6'9\"(203 cm)",@"6'10\"(206 cm)",@"6'11\"(211 cm)"];
         [cell reloadUIWithData2:[self createTagDataWithArr:heightArr]];
         cell.index = 0;
@@ -27954,12 +27966,12 @@ static const void *zw_placeHolderKey;
                 NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
                 model.userInfo.country = self.countryModel.name;
                 model.userInfo.countryId = self.countryModel.id;
-//                model.userInfo.tempStr6th = self.countryModel.code;
+                //                model.userInfo.tempStr6th = self.countryModel.code;
                 model.userInfo.province = self.stateModel.name;
-//                model.userInfo.provinceId = self.stateModel.id;
-//                model.userInfo.tempStr5th = self.stateModel.code;
+                //                model.userInfo.provinceId = self.stateModel.id;
+                //                model.userInfo.tempStr5th = self.stateModel.code;
                 model.userInfo.city = self.cityModel.name;
-//                model.userInfo.cityId =self.cityModel.id;
+                //                model.userInfo.cityId =self.cityModel.id;
                 [NeighborsSimpleCuteUserModel save:model];
                 [self.addressView removeFromSuperview];
                 [self createHeightView];
@@ -28030,7 +28042,7 @@ static const void *zw_placeHolderKey;
             [SVProgressHUD showInfoWithStatus:response.msg];
             return;
         }
-            
+        
     } failure:^(NSError * _Nonnull error) {
         [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         return;
@@ -28043,7 +28055,7 @@ static const void *zw_placeHolderKey;
     NSMutableArray * array1 = [NSMutableArray array];
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         LeeTagItemViewModel * tagModel = [[LeeTagItemViewModel alloc]init];
-
+        
         tagModel.normalTitle = obj;
         tagModel.normalColor = RGB(184, 184, 184);
         tagModel.normalBGColor = RGB(0, 0, 0);
@@ -28057,14 +28069,14 @@ static const void *zw_placeHolderKey;
         tagModel.selectedBorderColor = [UIColor clearColor];
         tagModel.selectedFontSize = 15.0f;
         tagModel.selectedCornerRadius = 5.0f;
-
+        
         tagModel.disableTitle = obj;
         tagModel.disableColor = RGB(184, 184, 184);
         tagModel.disableBGColor = RGB(0, 0, 0);
         tagModel.disableBorderColor = [UIColor clearColor];
         tagModel.disableFontSize = 15.0f;
         tagModel.disableCornerRadius = 5.0f;
-
+        
         tagModel.selectedDisableTitle = obj;
         tagModel.selectedDisableColor = RGB(184, 184, 184);
         tagModel.selectedDisableBGColor = RGB(0, 0, 0);
@@ -28078,7 +28090,7 @@ static const void *zw_placeHolderKey;
     }];
     NSArray *arr = [NSArray arrayWithArray:array1];
     return arr;
-
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -28321,9 +28333,9 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [SVProgressHUD dismiss];
-//        [SVProgressHUD showInfoWithStatus:@"Blocked"];
+        //        [SVProgressHUD showInfoWithStatus:@"Blocked"];
         [self.rightBlockButton setTitle:@"Blocked" forState:(UIControlStateNormal)];
-//        [self.rightView removeFromSuperview];
+        //        [self.rightView removeFromSuperview];
     });
 }
 
@@ -28337,7 +28349,7 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
     }
     else
     {
-//        [SVProgressHUD showInfoWithStatus:@"请等待聊天功能接入"];
+        //        [SVProgressHUD showInfoWithStatus:@"请等待聊天功能接入"];
         ChatViewController *chat = [[ChatViewController alloc] init];
         chat.userId = [NSString stringWithFormat:@"%ld",(long)self.personUserId];
         TUIConversationCellData *conversationData = [[TUIConversationCellData alloc] init];
@@ -28380,7 +28392,7 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
             [SVProgressHUD showInfoWithStatus:response.msg];
             return;
         }
-            
+        
     } failure:^(NSError * _Nonnull error) {
         [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         return;
@@ -28403,50 +28415,50 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
         if (response.code == 0) {
             self.mainModel = [NSCPersonMessageMainModel mj_objectWithKeyValues:response.data];
             UIView *bottomView = [[UIView alloc]init];
-                [self.view addSubview:bottomView];
-                [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.right.bottom.equalTo(self.view);
-                    make.top.equalTo(self.mas_bottomLayoutGuide).offset(kWSizeRatio(-63));
-                }];
-                
-                UIButton *messageButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-                [bottomView addSubview:messageButton];
-                [messageButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.top.equalTo(bottomView);
-                    make.right.equalTo(bottomView.mas_centerX).offset(-1);
-                    make.bottom.equalTo(self.mas_bottomLayoutGuide);
-                }];
-                [messageButton setTitle:@"Message" forState:(UIControlStateNormal)];
-                [messageButton setTitleColor:[UIColor colorWithPatternImage:[UIImage imageNamed:TUIKitResource(@"上下渐变all")]] forState:(UIControlStateNormal)];
-                messageButton.titleLabel.font = MyFont(Font_Regular, 18);
-                [messageButton setImage:[UIImage imageNamed:TUIKitResource(@"person_message_promess")] forState:(UIControlStateNormal)];
-                [messageButton addTarget:self action:@selector(clickMessageButton:) forControlEvents:(UIControlEventTouchUpInside)];
-                [messageButton layoutWithStatus:(MCLayoutStatusNormal) andMargin:5];
-                
-                self.likeButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-                [bottomView addSubview:self.likeButton];
-                [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.right.top.equalTo(bottomView);
-                    make.left.equalTo(bottomView.mas_centerX).offset(1);
-                    make.bottom.equalTo(self.mas_bottomLayoutGuide);
-                }];
-                [self.likeButton setTitle:@"Like" forState:(UIControlStateNormal)];
-                [self.likeButton setTitle:@"Liked" forState:(UIControlStateSelected)];
-                [self.likeButton setTitleColor:[UIColor colorWithPatternImage:[UIImage imageNamed:TUIKitResource(@"上下渐变all")]] forState:(UIControlStateNormal)];
-                self.likeButton.titleLabel.font = MyFont(Font_Regular, 18);
-                [self.likeButton setImage:[UIImage imageNamed:TUIKitResource(@"person_message_nolike")] forState:(UIControlStateNormal)];
-                [self.likeButton setImage:[UIImage imageNamed:TUIKitResource(@"person_message_liked")] forState:(UIControlStateSelected)];
-                [self.likeButton addTarget:self action:@selector(clickLikeButton:) forControlEvents:(UIControlEventTouchUpInside)];
-                [self.likeButton layoutWithStatus:(MCLayoutStatusNormal) andMargin:5];
-                
-                UILabel *shuLabel = [[UILabel alloc]init];
-                [bottomView addSubview:shuLabel];
-                [shuLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(bottomView.mas_top).offset(kWSizeRatio(14.5));
-                    make.centerX.equalTo(bottomView);
-                    make.size.mas_equalTo(CGSizeMake(2, kWSizeRatio(63 - 29)));
-                }];
-                shuLabel.backgroundColor = RGB(106, 106, 106);
+            [self.view addSubview:bottomView];
+            [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.bottom.equalTo(self.view);
+                make.top.equalTo(self.mas_bottomLayoutGuide).offset(kWSizeRatio(-63));
+            }];
+            
+            UIButton *messageButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+            [bottomView addSubview:messageButton];
+            [messageButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.top.equalTo(bottomView);
+                make.right.equalTo(bottomView.mas_centerX).offset(-1);
+                make.bottom.equalTo(self.mas_bottomLayoutGuide);
+            }];
+            [messageButton setTitle:@"Message" forState:(UIControlStateNormal)];
+            [messageButton setTitleColor:[UIColor colorWithPatternImage:[UIImage imageNamed:TUIKitResource(@"上下渐变all")]] forState:(UIControlStateNormal)];
+            messageButton.titleLabel.font = MyFont(Font_Regular, 18);
+            [messageButton setImage:[UIImage imageNamed:TUIKitResource(@"person_message_promess")] forState:(UIControlStateNormal)];
+            [messageButton addTarget:self action:@selector(clickMessageButton:) forControlEvents:(UIControlEventTouchUpInside)];
+            [messageButton layoutWithStatus:(MCLayoutStatusNormal) andMargin:5];
+            
+            self.likeButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+            [bottomView addSubview:self.likeButton];
+            [self.likeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.top.equalTo(bottomView);
+                make.left.equalTo(bottomView.mas_centerX).offset(1);
+                make.bottom.equalTo(self.mas_bottomLayoutGuide);
+            }];
+            [self.likeButton setTitle:@"Like" forState:(UIControlStateNormal)];
+            [self.likeButton setTitle:@"Liked" forState:(UIControlStateSelected)];
+            [self.likeButton setTitleColor:[UIColor colorWithPatternImage:[UIImage imageNamed:TUIKitResource(@"上下渐变all")]] forState:(UIControlStateNormal)];
+            self.likeButton.titleLabel.font = MyFont(Font_Regular, 18);
+            [self.likeButton setImage:[UIImage imageNamed:TUIKitResource(@"person_message_nolike")] forState:(UIControlStateNormal)];
+            [self.likeButton setImage:[UIImage imageNamed:TUIKitResource(@"person_message_liked")] forState:(UIControlStateSelected)];
+            [self.likeButton addTarget:self action:@selector(clickLikeButton:) forControlEvents:(UIControlEventTouchUpInside)];
+            [self.likeButton layoutWithStatus:(MCLayoutStatusNormal) andMargin:5];
+            
+            UILabel *shuLabel = [[UILabel alloc]init];
+            [bottomView addSubview:shuLabel];
+            [shuLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(bottomView.mas_top).offset(kWSizeRatio(14.5));
+                make.centerX.equalTo(bottomView);
+                make.size.mas_equalTo(CGSizeMake(2, kWSizeRatio(63 - 29)));
+            }];
+            shuLabel.backgroundColor = RGB(106, 106, 106);
             [self requestDataSuccess];
         }
         else
@@ -28454,7 +28466,7 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
             [SVProgressHUD showInfoWithStatus:response.msg];
             return;
         }
-            
+        
     } failure:^(NSError * _Nonnull error) {
         [SVProgressHUD showInfoWithStatus:error.localizedDescription];
         return;
@@ -28510,7 +28522,7 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
     browser.dataSourceArray = datas;
     browser.currentPage = index;
     // 只有一个保存操作的时候，可以直接右上角显示保存按钮
-//    browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
+    //    browser.defaultToolViewHandler.topView.operationType = YBIBTopViewOperationTypeSave;
     browser.defaultToolViewHandler.topView.operationButton.hidden = YES;
     [browser show];
 }
@@ -28528,20 +28540,20 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
         num += 1;
     }
     NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
-//    if([model.appClient.stateSet isEqualToString:@"1"])//判断登录返回的stateSet为1时显示connect（此处不作判断故注释）
-//    {
-        if (model.userInfo.memberLevel == 0)//判断当前登录用户的会员等级为时显示click to view
+    //    if([model.appClient.stateSet isEqualToString:@"1"])//判断登录返回的stateSet为1时显示connect（此处不作判断故注释）
+    //    {
+    if (model.userInfo.memberLevel == 0)//判断当前登录用户的会员等级为时显示click to view
+    {
+        num += 1;
+    }
+    else if(model.userInfo.memberLevel > 0)//当前登录用户等级大于1
+    {
+        if (!IsStrEmpty(self.mainModel.userInfo.introduce))//当前查看的用户的introduce不为空显示contact文本
         {
             num += 1;
         }
-        else if(model.userInfo.memberLevel > 0)//当前登录用户等级大于1
-        {
-            if (!IsStrEmpty(self.mainModel.userInfo.introduce))//当前查看的用户的introduce不为空显示contact文本
-            {
-                num += 1;
-            }
-        }
-//    }
+    }
+    //    }
     return num;
 }
 
@@ -28685,37 +28697,8 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
             else
             {
                 NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
-//                if([model.appClient.stateSet isEqualToString:@"1"])
-//                {
-                    if (model.userInfo.memberLevel == 0)
-                    {
-                        cell4.delegate = self;
-                        return cell4;
-                    }
-                    else if(model.userInfo.memberLevel > 0)
-                    {
-                        if (!IsStrEmpty(self.mainModel.userInfo.introduce))
-                        {
-                            [cell2 reloadUIWithStr:self.mainModel.userInfo.introduce];
-                            return cell2;
-                        }
-                    }
-//                }
-            }
-        }
-    }
-    else if (indexPath.row == 2)
-    {
-        if (!IsStrEmpty(self.mainModel.userInfo.tempStr9th))//about match
-        {
-            [cell1 reloadUIWithStr:self.mainModel.userInfo.tempStr9th];
-            return cell1;
-        }
-        else
-        {
-            NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
-//            if([model.appClient.stateSet isEqualToString:@"1"])
-//            {
+                //                if([model.appClient.stateSet isEqualToString:@"1"])
+                //                {
                 if (model.userInfo.memberLevel == 0)
                 {
                     cell4.delegate = self;
@@ -28729,15 +28712,22 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
                         return cell2;
                     }
                 }
-                    
-//            }
+                //                }
+            }
         }
     }
-    else
+    else if (indexPath.row == 2)
     {
-        NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
-//        if([model.appClient.stateSet isEqualToString:@"1"])
-//        {
+        if (!IsStrEmpty(self.mainModel.userInfo.tempStr9th))//about match
+        {
+            [cell1 reloadUIWithStr:self.mainModel.userInfo.tempStr9th];
+            return cell1;
+        }
+        else
+        {
+            NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
+            //            if([model.appClient.stateSet isEqualToString:@"1"])
+            //            {
             if (model.userInfo.memberLevel == 0)
             {
                 cell4.delegate = self;
@@ -28751,7 +28741,29 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
                     return cell2;
                 }
             }
-//        }
+            
+            //            }
+        }
+    }
+    else
+    {
+        NeighborsSimpleCuteUserModel *model = [NeighborsSimpleCuteUserModel getUserInfo];
+        //        if([model.appClient.stateSet isEqualToString:@"1"])
+        //        {
+        if (model.userInfo.memberLevel == 0)
+        {
+            cell4.delegate = self;
+            return cell4;
+        }
+        else if(model.userInfo.memberLevel > 0)
+        {
+            if (!IsStrEmpty(self.mainModel.userInfo.introduce))
+            {
+                [cell2 reloadUIWithStr:self.mainModel.userInfo.introduce];
+                return cell2;
+            }
+        }
+        //        }
     }
     return cell;
 }
@@ -28864,7 +28876,7 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
     NSMutableArray * array1 = [NSMutableArray array];
     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         LeeTagItemViewModel * tagModel = [[LeeTagItemViewModel alloc]init];
-
+        
         tagModel.normalTitle = obj;
         tagModel.normalColor = RGB(184, 184, 184);
         tagModel.normalBGColor = RGB(0, 0, 0);
@@ -28878,14 +28890,14 @@ static NSString *const cellID4 = @"NSCPersonMessageContactNoDataTableViewCell";
         tagModel.selectedBorderColor = [UIColor clearColor];
         tagModel.selectedFontSize = 15.0f;
         tagModel.selectedCornerRadius = 5.0f;
-
+        
         tagModel.disableTitle = obj;
         tagModel.disableColor = RGB(184, 184, 184);
         tagModel.disableBGColor = RGB(0, 0, 0);
         tagModel.disableBorderColor = [UIColor clearColor];
         tagModel.disableFontSize = 15.0f;
         tagModel.disableCornerRadius = 5.0f;
-
+        
         tagModel.selectedDisableTitle = obj;
         tagModel.selectedDisableColor = RGB(184, 184, 184);
         tagModel.selectedDisableBGColor = RGB(0, 0, 0);

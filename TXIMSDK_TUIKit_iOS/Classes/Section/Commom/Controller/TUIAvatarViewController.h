@@ -56,6 +56,8 @@ typedef enum{
 
 @interface NeighborsSimpleCuteLaunchMainController : UIViewController
 
+-(instancetype)initIsSinglePageVC:(BOOL)single NS_DESIGNATED_INITIALIZER;
+
 @end
 
 
