@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
   s.libraries = 'c++'
 
-  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.13" }
+  s.source       = { :git => "https://github.com/Miles-Matheson/TXIMSDK_TUIKit_iOS.git", :tag => "0.0.22" }
 
   s.requires_arc = true
 
