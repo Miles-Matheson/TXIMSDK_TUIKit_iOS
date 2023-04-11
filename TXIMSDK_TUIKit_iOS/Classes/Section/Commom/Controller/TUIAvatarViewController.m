@@ -12701,37 +12701,66 @@ static AFHTTPSessionManager *_session;
 /// select gender
 -(void)actionSelectGender
 {
-    [BRStringPickerView showStringPickerWithTitle:@"Gender" dataSource:self.genderListArr defaultSelValue:@"Female" isAutoSelect:NO resultBlock:^(id selectValue) {
+    
+    NSMutableArray *models = [NSMutableArray array];
+    for(int i = 0; i < self.genderListArr.count;i++){
+        
+        NSString *value = self.genderListArr[i];
+        BRResultModel *model = [[BRResultModel alloc]init];
+        model.key = value;
+        model.value = value;
+        [models addObject:model];
+    }
+    
+    [BRStringPickerView showPickerWithTitle:@"Gender" dataSourceArr:models selectIndex:0 isAutoSelect:NO resultBlock:^(BRResultModel * _Nullable resultModel) {
+        
         [SVProgressHUD show];
         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
-                NSString *genderStr = (NSString *)selectValue;
+                NSString *genderStr = resultModel.value;
                 self.contentCell.genderConLab.text = genderStr;
                 [[NSUserDefaults standardUserDefaults]setValue:genderStr forKey:NeighborsSimple_EmailGender];
                 [[NSUserDefaults standardUserDefaults]synchronize];
             });
         });
+        
     }];
+
 }
 /// select age
 -(void)actionSelectAge
 {
-    [BRStringPickerView showStringPickerWithTitle:@"Age" dataSource:self.ageListArr defaultSelValue:@"18" isAutoSelect:NO resultBlock:^(id selectValue) {
+    NSMutableArray *models = [NSMutableArray array];
+    for(int i = 0; i < self.ageListArr.count;i++){
+        
+        NSString *value = self.ageListArr[i];
+        BRResultModel *model = [[BRResultModel alloc]init];
+        model.key = value;
+        model.value = value;
+        [models addObject:model];
+    }
+    
+    
+    [BRStringPickerView showPickerWithTitle:@"Age" dataSourceArr:models selectIndex:0 isAutoSelect:NO resultBlock:^(BRResultModel * _Nullable resultModel) {
+        
         [SVProgressHUD show];
         dispatch_queue_t queue  = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), queue, ^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [SVProgressHUD dismiss];
-                NSString *ageStr = (NSString *)selectValue;
-                self.contentCell.ageConLab.text = ageStr;
-                [[NSUserDefaults standardUserDefaults]setValue:ageStr forKey:NeighborsSimple_EmailAge];
+                NSString *genderStr = resultModel.value;
+                self.contentCell.genderConLab.text = genderStr;
+                [[NSUserDefaults standardUserDefaults]setValue:genderStr forKey:NeighborsSimple_EmailGender];
                 [[NSUserDefaults standardUserDefaults]synchronize];
             });
         });
+        
     }];
+    
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -31,6 +31,8 @@ Pod::Spec.new do |s|
 
   s.default_subspec = "Core"
 
+s.vendored_libraries = 'TXIMSDK_TUIKit_iOS/**/*.a'
+
   s.subspec "Core" do |core|
     core.source_files   = "TXIMSDK_TUIKit_iOS/**/*.{h,m,mm,a}"
     core.resources      = "TXIMSDK_TUIKit_iOS/Resources/*.{png,bundle}"
