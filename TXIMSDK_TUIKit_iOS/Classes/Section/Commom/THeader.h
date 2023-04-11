@@ -7,6 +7,7 @@
 #define GroupCreate @"group_create"
 #define TextLink @"text_link"
 
+#define SCREEN_WIDTH Screen_Width
 /** 比例*/
 #define kWScale Screen_Width/375.0f
 #define kWSizeRatio(value) value * kWScale //全局宽度缩放比
