@@ -55,8 +55,6 @@ core.dependency 'MMLayout','~> 0.2.0'
 core.dependency 'BRPickerView'
 
 
-
-
   end
 
 
